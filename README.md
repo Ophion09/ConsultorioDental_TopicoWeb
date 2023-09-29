@@ -39,12 +39,12 @@ Cada desarrollador trabaja en su rama y realiza commits y pruebas en su propia r
 En esta sección, puedes listar enlaces a documentos relevantes y otros recursos relacionados con el proyecto. Puedes organizarlo de la siguiente manera:
 
 - **Documento Avance 1:** [Enlace](https://docs.google.com/document/d/1BxA2ydjdqZ6WTvj2p2-z-Osduue6TlheEVA0XyoJoag/edit?usp=sharing).
-- **Diagrama de Clases:** [Enlace](https://drive.google.com/file/d/1_6HHH1N3XQegaN45530uoMX61dIDSI-z/view?usp=sharingURL).
+- **Diagrama de Entidad:** [Enlace](https://drive.google.com/file/d/1_6HHH1N3XQegaN45530uoMX61dIDSI-z/view?usp=sharingURL).
 - **Otros recursos relevantes:** [Carpeta](https://drive.google.com/drive/folders/1Bw5zHaf6gFIq6gZXAPOCSj3ivhO-Vc4q?usp=sharing)
 
 ## Motivación
 
-Explica la motivación detrás del proyecto, por qué se inició y qué problemas busca resolver. Esto puede incluir un contexto más amplio sobre la industria o el campo al que pertenece el proyecto.
+Nuestra motivación para la elaboración del software en cuestión, van de la mano con múltiples desafíos que enfrentamos en los consultorios hoy en día, como lo son la gestión manual de muchos de los procesos de estos centros de salud, como lo son el manejo de la citas en cuadernos, las facturaciones o el seguimiento de tratamientos.
 
 
 ## Contacto
