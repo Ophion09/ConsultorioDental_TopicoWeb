@@ -1,13 +1,14 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../utils/database');
+const sequelize = require('../utils/db');
 
 //Medica Records Model 
 
-const medicalRecords = sequelize.define('pacientes', {
+const medicalRecords = sequelize.define('historiales_clinicos', {
     id_historial: {
         type: Sequelize.INTEGER,
         allowNull: false, 
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     alergias: {
         type: Sequelize.STRING,
@@ -29,6 +30,6 @@ const medicalRecords = sequelize.define('pacientes', {
             key: 'id_paciente' 
         }
     }
-})
+}, { timestamps: false });
 
 module.exports = medicalRecords; 

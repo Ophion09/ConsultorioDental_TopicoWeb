@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../utils/database');
+const sequelize = require('../utils/db');
 
 //Patients Model 
 
@@ -7,7 +7,8 @@ const Patients = sequelize.define('pacientes', {
     id_paciente: {
         type: Sequelize.INTEGER,
         allowNull: false, 
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     nombre: {
         type: Sequelize.STRING,
@@ -22,7 +23,7 @@ const Patients = sequelize.define('pacientes', {
         allowNull: false
     },
     celular: {
-        type: Sequelize.INTEGER,
+        type: Sequelize.STRING,
         allowNull: true
     },
     direccion: {
@@ -41,6 +42,8 @@ const Patients = sequelize.define('pacientes', {
         type: Sequelize.ENUM('Masculino', 'Femenino', 'Otro'),
         allowNull: false
     }
-})
+},{
+    timestamps: false
+  });
 
 module.exports = Patients; 

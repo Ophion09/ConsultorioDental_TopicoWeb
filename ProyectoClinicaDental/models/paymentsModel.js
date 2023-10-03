@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const sequelize = require('../utils/database');
+const sequelize = require('../utils/db');
 
 //Payments Model 
 
@@ -7,7 +7,8 @@ const Payments = sequelize.define('pagos', {
     id_pago: {
         type: Sequelize.INTEGER,
         allowNull: false, 
-        primaryKey: true
+        primaryKey: true,
+        autoIncrement: true
     },
     id_paciente: {
         type: Sequelize.INTEGER,
@@ -25,6 +26,6 @@ const Payments = sequelize.define('pagos', {
         type: Sequelize.DATE,
         allowNull: false
     },
-})
+}, { timestamps: false });
 
 module.exports = Payments; 
