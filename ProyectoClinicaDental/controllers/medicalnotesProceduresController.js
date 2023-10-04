@@ -104,7 +104,7 @@ exports.getMedicalrecordsProcedures = async () => {
 }
 
 //actualizar notas medicas y procedimientos relacionados
-exports.updateMedicalRecord = async (id, newValues) => {
+exports.updateMedicalrecordsProcedures = async (id, newValues) => {
     try {
         const  medicalrecordsProceduresUpdapted = await MedicalrecordsProcedures.update(newValues, {
             where: {

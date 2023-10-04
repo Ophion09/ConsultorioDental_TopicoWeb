@@ -1,7 +1,13 @@
 const sequelize = require('./utils/db');
 const User = require('./controllers/userController');
 const Procedures = require('./controllers/proceduresController')
-const patients = require('./controllers/patientsController')
+const Patients = require('./controllers/patientsController')
+const Payments = require('./controllers/paymentsController')
+const MedicalRecords = require('./controllers/medicalrecordsController')
+const MedicalrecordsProcedures = require('./controllers/medicalnotesProceduresController')
+const MedicalNotes = require('./controllers/medicalnotesController')
+const Account = require('./controllers/accountController')
+
 
 /*
 sequelize.sync()
