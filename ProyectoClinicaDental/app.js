@@ -1,12 +1,16 @@
+// App.js
 const sequelize = require('./utils/db');
 const User = require('./controllers/user');
-const Procedures = require('./controllers/procedures')
-const Patients = require('./controllers/patients')
-const Payments = require('./controllers/payments')
-const MedicalRecords = require('./controllers/medicalRecords')
-const MedicalrecordsProcedures = require('./controllers/medicalNotesProcedures')
-const MedicalNotes = require('./controllers/medicalNotes')
-const Account = require('./controllers/account')
+const Procedures = require('./controllers/procedures');
+const Patients = require('./controllers/patients');
+const Payments = require('./controllers/payments');
+const MedicalRecords = require('./controllers/medicalRecords');
+const MedicalrecordsProcedures = require('./controllers/medicalNotesProcedures');
+const MedicalNotes = require('./controllers/medicalNotes');
+const Account = require('./controllers/account');
+const userRole = require('./controllers/rol');
+const userSpecialty = require('./controllers/especialidad');
+const employee = require('./controllers/employee');
 
 console.log("para acceder a las funcionalidades se requiere primeramente la agregacion de un usuario")
 //Patients.addPatients("Jose", "Rodriguez", 22, "3445566772", "calle perenganito 421", 4, 1 );
@@ -149,4 +153,40 @@ Procedures.updateProcedure(2, nuevosValores)
 patients.addPatients("Esjany", "Hernandez", 22, "3445566772", "calle perenganito 421", 4, 2 );
 */
 //por probar
+// // Llamada para actualizar un empleado con ID 1 y nuevos datos
+// const updatedData = {
+//     name: 'PEPE2',
+//     licenseNumber: '789',
+//     age: 30,
+//     // ... otros campos que deseas actualizar
+// };
+
+// employee.updateEmployee(1, updatedData);
+
+//empleado.addEmpleado('HolaMundo', 123, 24, 2, 1);
+// rol.getRol(1);
+ // empleado.getUserRoleEmployee(3);
+
+
+ // Eliminar empleado por id
+//  employee.deleteEmployee(3);
+
+//userRole.getRol(3);
+
+
+// userSpecialty.getSpecialty(3);
+// const data = {
+//     name: 'cambio'
+// };
+// userSpecialty.updateSpecialty(3, Data);
+// userSpecialty.deleteSpecialty(3);
+
+// employee.addEmployee('Prueba', 544, 60, 1, 2); // id = 15
+// const data = {
+//     name: 'Oscar',
+//     age: 29
+// };
+// employee.updateEmployee(15, data);
+// employee.getEmployee(15);
+employee.getUserRoleEmployee(15);
 
