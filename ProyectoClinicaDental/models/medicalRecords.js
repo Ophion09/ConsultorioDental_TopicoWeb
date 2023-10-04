@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
+const patients = require('./patients');
 
-//Medica Records Model 
+//Medica Records 
 
 const medicalRecords = sequelize.define('historiales_clinicos', {
     id_historial: {
@@ -30,6 +31,9 @@ const medicalRecords = sequelize.define('historiales_clinicos', {
             key: 'id_paciente' 
         }
     }
-}, { timestamps: false });
+}, {tableName: 'historiales_clinicos',
+    timestamps: false });
+
+medicalRecords.belongsTo(patients, { foreignKey: 'id_paciente', as: 'patient'});
 
 module.exports = medicalRecords; 

@@ -1,14 +1,15 @@
 const Sequelize = require('sequelize').Sequelize;
-const MedicalNotes = require('../models/medicalnotesModel')
+const MedicalNotes = require('../models/medicalNotes')
 
 //agregar notas medicas
-exports.addMedicalNotes = async (note, id_procedures, id_appointment, id_patient) =>{
+exports.addMedicalNotes = async (note, id_procedures, id_appointment, id_patient, id_employee) =>{
     try {
        const result = await MedicalrecordsProcedures.create({
            nota: note,
            id_procedimiento: id_procedures,
            id_cita: id_appointment,
-           id_paciente: id_patient
+           id_paciente: id_patient,
+           id_empleado: id_employee
         })
     }catch(err){
        throw err; 
@@ -76,6 +77,20 @@ exports.getMedicalNotesById= async (id) => {
         throw err; 
     }
  }
+
+    //obtener notas medicas por empleado
+    exports.getMedicalNotesByIdEmployee= async (id) => {
+        try {
+            const medicalNotes = await MedicalNotes.findAll({
+                where: {
+                    id_empleado: id
+                }
+            });
+            return medicalNotes;
+        } catch (err) {
+            throw err; 
+        }
+     }
 
  //eliminar notas medicas
  exports.deleteMedicalNotes= async (id) => {

@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
 
-//User Model 
+//User
 
-const User = sequelize.define('usuarios', {
+const user = sequelize.define('usuarios', {
     id_usuario: {
         type: Sequelize.INTEGER,
         allowNull: false, 
@@ -12,12 +12,14 @@ const User = sequelize.define('usuarios', {
     },
     correo: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     contrasena: {
         type: Sequelize.STRING,
         allowNull: false
     },
-}, { timestamps: false });
+}, {tableName: 'usuarios', 
+    timestamps: false });
 
-module.exports = User; 
+module.exports = user; 

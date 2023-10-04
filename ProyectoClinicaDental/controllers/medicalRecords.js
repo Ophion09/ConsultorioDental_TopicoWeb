@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize').Sequelize;
-const MedicalRecords = require('../models/medicalrecordsModel')
+const MedicalRecords = require('../models/medicalRecords')
 
 //agregar historial clinico
 exports.addMedicalRecord = async (allergies, procedures, others, id_patient) =>{

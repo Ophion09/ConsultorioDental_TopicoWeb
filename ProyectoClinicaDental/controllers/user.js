@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize').Sequelize;
-const User = require('../models/userModel')
+const User = require('../models/user')
 
 //agregar usuario
 exports.addUser = async (email, Password) =>{

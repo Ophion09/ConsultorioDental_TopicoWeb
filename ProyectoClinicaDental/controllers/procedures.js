@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize').Sequelize;
-const Procedures = require('../models/proceduresModel')
+const Procedures = require('../models/procedures')
 
 //agregar procedimientos
 exports.addProcedures = async (nombre, precio) =>{

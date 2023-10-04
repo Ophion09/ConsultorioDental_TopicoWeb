@@ -1,9 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
 
-//Procedures Model 
+//Procedures 
 
-const Procedures = sequelize.define('procedimientos', {
+const procedures = sequelize.define('procedimientos', {
     id_procedimiento: {
         type: Sequelize.INTEGER,
         allowNull: false, 
@@ -12,7 +12,8 @@ const Procedures = sequelize.define('procedimientos', {
     },
     nombre: {
         type: Sequelize.STRING,
-        allowNull: false
+        allowNull: false,
+        unique: true
     },
     precio: {
         type: Sequelize.FLOAT,
@@ -22,6 +23,7 @@ const Procedures = sequelize.define('procedimientos', {
         type: Sequelize.INTEGER,
         allowNull: true
     },
-}, { timestamps: false });
+}, {tableName: 'procedimientos',
+    timestamps: false });
 
-module.exports = Procedures; 
+module.exports = procedures; 

@@ -1,7 +1,8 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
+const patient = require('./patients');
 
-//cuentas modelo
+//account 
 
 const account = sequelize.define('cuentas', {
     id_cuenta: {
@@ -22,6 +23,9 @@ const account = sequelize.define('cuentas', {
         type: Sequelize.DECIMAL(10.2),
         allowNull: false
     }
-}, { timestamps: false });
+}, {tableName: 'cuentas',
+    timestamps: false });
+
+account.belongsTo(patient, { foreignKey: 'id_paciente', as: 'patient'});    
 
 module.exports = account; 

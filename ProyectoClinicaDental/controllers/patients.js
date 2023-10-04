@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize').Sequelize;
-const Patients = require('../models/patientsModel')
+const Patients = require('../models/patients')
 
 //agregar paciente
 exports.addPatients = async (name, lastname, age, cellphone, address, id_user, sexo) =>{

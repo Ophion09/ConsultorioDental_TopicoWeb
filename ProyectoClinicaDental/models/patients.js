@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
+const user = require('./user');
 
-//Patients Model 
+//Patients 
 
-const Patients = sequelize.define('pacientes', {
+const patients = sequelize.define('pacientes', {
     id_paciente: {
         type: Sequelize.INTEGER,
         allowNull: false, 
@@ -33,6 +34,7 @@ const Patients = sequelize.define('pacientes', {
     id_usuario: {
         type: Sequelize.INTEGER,
         allowNull: false,
+        unique: true,
         references: {
             model: 'usuarios', 
             key: 'id_usuario' 
@@ -42,8 +44,10 @@ const Patients = sequelize.define('pacientes', {
         type: Sequelize.ENUM('Masculino', 'Femenino', 'Otro'),
         allowNull: false
     }
-},{
+},{ tableName: 'pacientes',
     timestamps: false
   });
 
-module.exports = Patients; 
+patients.belongsTo(user, { foreignKey: 'id_usuario', as: 'usuario'});
+
+module.exports = patients; 

@@ -1,7 +1,9 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
+const notes = require('./medicalNotes');
+const procedures = require('./procedures');
 
-//notas medicas y procedimientos modelo 
+//medical notes and procedures
 
 const medicalnotesProcedures = sequelize.define('notas_medicas_procedimientos', {
     id_nota_procedimiento: {
@@ -26,6 +28,10 @@ const medicalnotesProcedures = sequelize.define('notas_medicas_procedimientos', 
             key: 'id_procedimiento' 
         }
     }
-}, { timestamps: false });
+}, {tableName: 'notas_medicas_procedimientos',
+    timestamps: false });
+
+medicalnotesProcedures.belongsTo(notes, { foreignKey: 'id_nota', as: 'notes'});
+medicalnotesProcedures.belongsTo(procedures, { foreignKey: 'id_procedimiento', as: 'procedures'});
 
 module.exports = medicalnotesProcedures; 

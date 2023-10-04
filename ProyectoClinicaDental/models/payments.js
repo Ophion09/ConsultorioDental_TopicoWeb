@@ -1,9 +1,10 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
+const patients = require('./patients');
 
-//Payments Model 
+//Payments
 
-const Payments = sequelize.define('pagos', {
+const payments = sequelize.define('pagos', {
     id_pago: {
         type: Sequelize.INTEGER,
         allowNull: false, 
@@ -26,6 +27,9 @@ const Payments = sequelize.define('pagos', {
         type: Sequelize.DATE,
         allowNull: false
     },
-}, { timestamps: false });
+}, {tableName:'pagos',
+    timestamps: false });
 
-module.exports = Payments; 
+payments.belongsTo(patients, { foreignKey: 'id_paciente', as: 'patient'});
+
+module.exports = payments; 

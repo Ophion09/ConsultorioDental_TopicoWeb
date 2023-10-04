@@ -1,14 +1,15 @@
 const sequelize = require('./utils/db');
-const User = require('./controllers/userController');
-const Procedures = require('./controllers/proceduresController')
-const Patients = require('./controllers/patientsController')
-const Payments = require('./controllers/paymentsController')
-const MedicalRecords = require('./controllers/medicalrecordsController')
-const MedicalrecordsProcedures = require('./controllers/medicalnotesProceduresController')
-const MedicalNotes = require('./controllers/medicalnotesController')
-const Account = require('./controllers/accountController')
+const User = require('./controllers/user');
+const Procedures = require('./controllers/procedures')
+const Patients = require('./controllers/patients')
+const Payments = require('./controllers/payments')
+const MedicalRecords = require('./controllers/medicalRecords')
+const MedicalrecordsProcedures = require('./controllers/medicalNotesProcedures')
+const MedicalNotes = require('./controllers/medicalNotes')
+const Account = require('./controllers/account')
 
-
+console.log("para acceder a las funcionalidades se requiere primeramente la agregacion de un usuario")
+//Patients.addPatients("Jose", "Rodriguez", 22, "3445566772", "calle perenganito 421", 4, 1 );
 /*
 sequelize.sync()
 .then((resultado) => {

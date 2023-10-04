@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize').Sequelize;
-const MedicalrecordsProcedures = require('../models/medicalnotesProceduresModel')
+const MedicalrecordsProcedures = require('../models/medicalNotesProcedures')
 
 //agregar relacion entre notas medicas y procedimientos
 exports.addMedicalnotesProcedures = async (id_notes, id_procedures) =>{

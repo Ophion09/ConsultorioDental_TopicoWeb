@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize').Sequelize;
-const Payments = require('../models/paymentsModel')
+const Payments = require('../models/payments')
 
 //agregar pago
 exports.addPayment = async ( id_payment , id_patient, payment_amount, payment_date) =>{
