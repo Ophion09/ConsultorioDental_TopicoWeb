@@ -29,12 +29,11 @@ const employee = sequelize.define('employee', {
       id_userRole: {
         type: DataTypes.INTEGER,
         allowNull: false,
-        unique: 'id_rol_UNIQUE',
+        
       },
       id_userSpecialty: {
         type: DataTypes.INTEGER,
-        allowNull: false,
-        unique: 'id_especialidad_UNIQUE',
+        allowNull: true,
       },
     }, {
       tableName: 'employees', // Nombre de la tabla

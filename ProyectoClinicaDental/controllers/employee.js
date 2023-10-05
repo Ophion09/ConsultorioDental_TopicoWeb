@@ -1,24 +1,13 @@
 // EmpleadoController
 const Sequelize = require("sequelize").Sequelize;
+const employee = require("../models/employee");
 const employeeModel = require("../models/employee");
 const roleController = require("./rol");
 
 // Add employee
-exports.addEmployee = async (
-  name,
-  licenseNumber,
-  age,
-  id_userRole,
-  id_userSpecialty
-) => {
+exports.addEmployee = async (employeeData) => {
   try {
-    const answer = await employeeModel.create({
-      name: name,
-      licenseNumber: licenseNumber,
-      age: age,
-      id_userRole: id_userRole,
-      id_userSpecialty: id_userSpecialty,
-    });
+    const answer = await employeeModel.create(employeeData);
   } catch (err) {
     console.log(err);
   }
@@ -33,6 +22,16 @@ exports.getEmployee = async (id) => {
     console.log(employee.name);
   }
 };
+
+// Trea todos los empleados
+exports.getEmployees = async () => {
+  try {
+     const result = await employeeModel.findAll();
+     console.log(JSON.stringify(result, null, 2))
+  } catch (error) {
+     console.log(error);
+  }
+}
 
 // Funcion para obtener el nombre del rol en base su id
 exports.getUserRoleEmployee = async (id) => {
@@ -79,3 +78,20 @@ exports.deleteEmployee = async (id) => {
     console.log(error);
   }
 };
+
+exports.updateEmployeeIdSpecialty = async (id, updatedData) => {
+  try {
+      // Utiliza el método 'update' para actualizar los datos del empleado
+      const [rowsUpdated] = await employeeModel.update(updatedData, {
+          where: { id_employee: id },
+      });
+
+      if (rowsUpdated === 0) {
+          console.log('No se encontró el empleado para actualizar.');
+      } else {
+          console.log(`Empleado con ID ${id} actualizado exitosamente.`);
+      }
+  } catch (error) {
+      console.log('Error al actualizar el empleado:', error);
+  }
+}

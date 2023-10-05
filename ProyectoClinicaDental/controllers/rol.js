@@ -7,9 +7,7 @@ const roleModel = require('../models/rol');
 // Método para agregar un rol de forma asíncrona
 exports.addRol = async (name) => {
     try {
-      const answer = await roleModel.create({
-        name: name,
-      });
+      const answer = await roleModel.create({name});
     } catch (err) {
       console.log(err);
     }
