@@ -31,13 +31,13 @@ const patients = sequelize.define('pacientes', {
         type: Sequelize.STRING,
         allowNull: false
     },
-    id_usuario: {
+    id_user: {
         type: Sequelize.INTEGER,
         allowNull: false,
         unique: true,
         references: {
-            model: 'usuarios', 
-            key: 'id_usuario' 
+            model: 'users', 
+            key: 'id_user' 
         }
     },
     sexo: {
@@ -48,6 +48,6 @@ const patients = sequelize.define('pacientes', {
     timestamps: false
   });
 
-patients.belongsTo(user, { foreignKey: 'id_usuario', as: 'usuario'});
+patients.belongsTo(user, { foreignKey: 'id_user', as: 'users'});
 
 module.exports = patients; 

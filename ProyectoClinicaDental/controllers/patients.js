@@ -2,17 +2,9 @@ const Sequelize = require('sequelize').Sequelize;
 const Patients = require('../models/patients')
 
 //agregar paciente
-exports.addPatients = async (name, lastname, age, cellphone, address, id_user, sexo) =>{
+exports.addPatients = async (patientData) =>{
     try {
-       const result = await Patients.create({
-           nombre: name,
-           apellido: lastname,
-           edad: age,
-           celular: cellphone,
-           direccion: address,
-           id_usuario: id_user,
-           sexo: sexo
-        })
+        const answer = await Patients.create(patientData);
     }catch(err){
        throw err; 
     }
@@ -22,6 +14,7 @@ exports.addPatients = async (name, lastname, age, cellphone, address, id_user, s
 exports.getPatients = async () => {
     try {
         const patients = await Patients.findAll(); 
+        console.log(JSON.stringify(patients, null, 2))
         return patients;
     } catch (err) {
         throw err; 
@@ -32,6 +25,7 @@ exports.getPatients = async () => {
 exports.getPatientById = async (id) => {
     try {
         const patient = await Patients.findByPk(id); 
+        console.log(JSON.stringify(patient, null, 2))
         return patient;
     } catch (err) {
         throw err; 
@@ -57,7 +51,7 @@ exports.getPatientByName = async (name) => {
     try {
         const patient = await Patients.findOne({
             where: {
-              id_usuario: id
+                id_user: id
             }
         });
         return patient;
@@ -98,7 +92,7 @@ exports.deletePatientByIdUser = async (id) => {
     try{
       const deleted =  await Patients.destroy({
           where: {
-             id_usuario:id
+            id_user:id
           }
        })
        return deleted;
@@ -112,7 +106,7 @@ exports.updatePatient = async (id, newValues) => {
     try {
         const  patientUpdapted = await Patients.update(newValues, {
             where: {
-                id_usuario:id
+                id_user:id
             }
         });
         return patientUpdapted;
