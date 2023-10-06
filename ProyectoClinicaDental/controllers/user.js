@@ -1,13 +1,10 @@
 const Sequelize = require('sequelize').Sequelize;
-const User = require('../models/user')
+const user = require('../models/user')
 
 //agregar usuario
-exports.addUser = async (email, Password) =>{
+exports.addUser = async (userData) =>{
     try {
-       const result = await User.create({
-           correo: email,
-           contrasena: Password,
-        })
+       const answer = await user.create(userData);
     }catch(err){
        throw err; 
     }
@@ -16,7 +13,7 @@ exports.addUser = async (email, Password) =>{
 //obtener todos los usuarios
 exports.getUsers = async () => {
     try {
-        const users = await User.findAll(); 
+        const users = await user.findAll(); 
         return users;
     } catch (error) {
         throw error; 
@@ -26,8 +23,9 @@ exports.getUsers = async () => {
  //obtener usario por id
 exports.getUserById = async (id) => {
     try {
-        const user = await User.findByPk(id); 
-        return user;
+        const users = await user.findByPk(id); 
+        console.log(JSON.stringify(users, null, 2))
+        return users;
     } catch (error) {
         throw error; 
     }
@@ -36,7 +34,7 @@ exports.getUserById = async (id) => {
 //obtener usario por correo electronico
 exports.getUserByEmail = async (email) => {
     try {
-        const user = await User.findOne({
+        const users = await user.findOne({
             where: {
                 correo: email
             }
@@ -50,9 +48,9 @@ exports.getUserByEmail = async (email) => {
 //eliminar usuario
 exports.deleteUser = async (id) => {
     try{
-      const deleted =  await User.destroy({
+      const deleted =  await user.destroy({
           where: {
-             id_usuario:id
+            id_user:id
           }
        })
        return deleted;
@@ -64,9 +62,9 @@ exports.deleteUser = async (id) => {
 // eliminar usario por email
 exports.deleteUserByEmail = async (email) => {
     try{
-      const deleted =  await User.destroy({
+      const deleted =  await user.destroy({
           where: {
-             correo:email
+             email:email
           }
        })
        return deleted;
@@ -78,9 +76,9 @@ exports.deleteUserByEmail = async (email) => {
 //actualizar usuario
 exports.updateUser = async (id, newValues) => {
     try {
-        const userUpdapted = await User.update(newValues, {
+        const userUpdapted = await user.update(newValues, {
             where: {
-                id_usuario:id
+                id_user:id
             }
         });
         return userUpdapted;

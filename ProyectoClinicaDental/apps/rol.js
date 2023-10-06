@@ -3,7 +3,7 @@ const sequelize = require("../utils/db");
 const roleController = require("../controllers/rol");
 
 // Creacion de un rol nuevo
-//roleController.addRol('HOla'); // Inserte el nombre que desee como prueba
+roleController.addRol('HOla'); // Inserte el nombre que desee como prueba
 
 // Ver nombre de rol por id:
 //roleController.getRol(6); // Segun la db, deberia traer a secretario/a

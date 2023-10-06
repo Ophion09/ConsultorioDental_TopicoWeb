@@ -3,23 +3,23 @@ const sequelize = require('../utils/db');
 
 //User
 
-const user = sequelize.define('usuarios', {
-    id_usuario: {
+const user = sequelize.define('users', {
+    id_user: {
         type: Sequelize.INTEGER,
         allowNull: false, 
         primaryKey: true,
         autoIncrement: true
     },
-    correo: {
+    email: {
         type: Sequelize.STRING,
         allowNull: false,
         unique: true
     },
-    contrasena: {
+    password: {
         type: Sequelize.STRING,
         allowNull: false
     },
-}, {tableName: 'usuarios', 
+}, {tableName: 'users', 
     timestamps: false });
 
 module.exports = user; 
