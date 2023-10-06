@@ -16,29 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cuentas`
+-- Table structure for table `employees`
 --
 
-DROP TABLE IF EXISTS `cuentas`;
+DROP TABLE IF EXISTS `employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cuentas` (
-  `id_cuenta` int NOT NULL AUTO_INCREMENT,
-  `id_paciente` int NOT NULL,
-  `adeudo` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id_cuenta`),
-  KEY `fk_id_paciente_cuentas` (`id_paciente`),
-  CONSTRAINT `fk_id_paciente_cuentas` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `employees` (
+  `id_employee` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `licenseNumber` int NOT NULL,
+  `age` int NOT NULL,
+  `id_userRole` int NOT NULL,
+  `id_userSpecialty` int DEFAULT NULL,
+  PRIMARY KEY (`id_employee`),
+  KEY `fk_id_rol_idx` (`id_userRole`),
+  KEY `fk_id_especialidad_idx` (`id_userSpecialty`),
+  CONSTRAINT `fk_id_userRole` FOREIGN KEY (`id_userRole`) REFERENCES `userroles` (`id_userRole`),
+  CONSTRAINT `fk_id_userSpecialty` FOREIGN KEY (`id_userSpecialty`) REFERENCES `userspecialtys` (`id_userSpecialty`)
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cuentas`
+-- Dumping data for table `employees`
 --
 
-LOCK TABLES `cuentas` WRITE;
-/*!40000 ALTER TABLE `cuentas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cuentas` ENABLE KEYS */;
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (16,'Fernando',23432,32,5,5),(17,'Miguel2',321,5,5,5);
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-05  2:35:04
+-- Dump completed on 2023-10-05 23:48:03

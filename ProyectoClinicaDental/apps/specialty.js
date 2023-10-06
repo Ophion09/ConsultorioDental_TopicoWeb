@@ -2,7 +2,7 @@
 const sequelize = require("../utils/db");
 const specialtyController = require("../controllers/especialidad");
 
-//specialtyController.addSpecialty('NombrePrueba'); // Nombre de la especialidad nuevo a crear
+specialtyController.addSpecialty('Odontologo'); // Nombre de la especialidad nuevo a crear
 
 //specialtyController.getSpecialty(4); // Obtener la especialidad de id 4
 
