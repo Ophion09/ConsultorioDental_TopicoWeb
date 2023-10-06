@@ -1,6 +1,6 @@
 // Clase prueba para pacientes
 const sequelize = require("../utils/db");
-const patientController = require("../controllers/patients");
+const appointmentController = require("../controllers/appointment");
 const readline = require("readline");
 
 // Empieza proceso para probar funcionalildades de CRUD
@@ -55,27 +55,21 @@ async function ask(question) {
 // Función para crear un nuevo paciente
 async function create() {
   try {
-    const nombre = await ask("Nombre: ");
-    const apellido = await ask("Apellido: ");
-    const edad = await ask("Edad: ");
-    const celular = await ask("Celular: ");
-    const direccion = await ask("Direccion: ");
-    const id_user = await ask("Id del usuario: ");
-    const sexo = await ask("Sexo (Coloque el numero correspondiente: Masculino (1), Femenino(2), Otro(3)): ");
+    const date = await ask("Fecha YYYY-MM-DD: ");
+    const time = await ask("Hora HH:MM:SS : ");
+    const id_user = await ask("id del usuario: ");
+    const id_employee = await ask("id del empleado: ");
 
     // Asignando las respuestas obtenidad al objeto data
-    const dataPatient = {
-      nombre,
-      apellido,
-      edad,
-      celular,
-      direccion,
+    const dataAppointment = {
+      date,
+      time,
       id_user,
-      sexo
+      id_employee
     };
 
     // Pasando de argumento al metodo el objeto previamente construido
-    patientController.addPatients(dataPatient);
+    appointmentController.addAppointment(dataAppointment)
   } catch (error) {
     console.log(error);
   }
@@ -84,7 +78,7 @@ async function create() {
 // Leer todas las tablas
 async function read() {
   try {
-    patientController.getPatients();
+    appointmentController.getAppointments();
   } catch (err) {
     console.log(err);
   }
@@ -94,7 +88,7 @@ async function read() {
 async function remove() {
   try {
     const id = await ask("ID a eliminar: ");
-    patientController.deletePatient(id);
+    appointmentController.deleteAppointments(id);
   } catch (err) {
     console.log(err);
   }
@@ -103,24 +97,20 @@ async function remove() {
 //actualizar paciente
 async function update() {
   try {
-    const id = await ask("ID del paciente a actualizar: ");
-    const nombre = await ask("Nombre a actualizar: ");
-    const apellido = await ask("Apellido a actualizar: ");
-    const edad = await ask("Edad a actualizar: ");
-    const celular = await ask("Celular a actualizar: ");
-    const direccion = await ask("Direccion a actualizar: ");
-    const sexo = await ask("Sexo a actualizar (Coloque el numero correspondiente: Masculino (1), Femenino(2), Otro(3)): ");
+    const id = await ask("ID de la cita a actualizar: ");
+    const date = await ask("Fecha YYYY-MM-DD: ");
+    const time = await ask("Hora HH:MM:SS : ");
+    const id_user = await ask("id del usuario: ");
+    const id_employee = await ask("id del empleado: ");
 
-    const dataUpdatePatient = {
-      nombre,
-      apellido,
-      edad,
-      celular,
-      direccion,
-      sexo
-    };
+    const dataAppointment = {
+        date,
+        time,
+        id_user,
+        id_employee
+      };
 
-    patientController.updatePatient(id, dataUpdatePatient);
+    appointmentController.updateAppointment(id, appointmentController);
   } catch (err) {
     console.log(err);
   }

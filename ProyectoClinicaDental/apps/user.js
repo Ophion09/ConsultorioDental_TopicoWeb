@@ -3,7 +3,7 @@ const sequelize = require("../utils/db");
 const userController = require("../controllers/user");
 
 //creacion de usuario
-//userController.addUser({email: 'sandres@losss', password: 'sanders' }); // Nombre del usuario nuevo a crear
+userController.addUser({email: 'josefer@hotmail', password: 'admin' }); // Nombre del usuario nuevo a crear
 
 //obtener usuario por id 
 //userController.getUserById(7); // Obtener la especialidad de id 7

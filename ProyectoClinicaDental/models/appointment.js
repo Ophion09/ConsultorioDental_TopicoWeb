@@ -1,53 +1,49 @@
 const Sequelize = require('sequelize');
 const sequelize = require('../utils/db');
 const user = require('./user');
+const employee = require('./employee');
 
 //Patients 
 
-const patients = sequelize.define('pacientes', {
-    id_paciente: {
+const appointment = sequelize.define('appointments', {
+    id_appointment: {
         type: Sequelize.INTEGER,
         allowNull: false, 
         primaryKey: true,
         autoIncrement: true
     },
-    nombre: {
+    date: {
         type: Sequelize.STRING,
         allowNull: false
     },
-    apellido: {
-        type: Sequelize.STRING,
-        allowNull: false
-    },
-    edad: {
-        type: Sequelize.INTEGER,
-        allowNull: false
-    },
-    celular: {
-        type: Sequelize.STRING,
-        allowNull: true
-    },
-    direccion: {
+    time: {
         type: Sequelize.STRING,
         allowNull: false
     },
     id_user: {
         type: Sequelize.INTEGER,
         allowNull: false,
-        unique: true,
+        unique: false,
         references: {
             model: 'user', 
             key: 'id_user' 
         }
     },
-    sexo: {
-        type: Sequelize.ENUM('Masculino', 'Femenino', 'Otro'),
-        allowNull: false
-    }
-},{ tableName: 'pacientes',
+    id_employee: {
+        type: Sequelize.INTEGER,
+        allowNull: false,
+        unique: false,
+        references: {
+            model: 'user', 
+            key: 'id_user' 
+        }
+    },
+},{ tableName: 'appointments',
     timestamps: false
   });
 
-patients.belongsTo(user, { foreignKey: 'id_user', as: 'users'});
+appointment.belongsTo(user, { foreignKey: 'id_user', as: 'users'});
+appointment.belongsTo(employee, { foreignKey: 'id_employee', as: 'employees'});
 
-module.exports = patients; 
+
+module.exports = appointment; 
