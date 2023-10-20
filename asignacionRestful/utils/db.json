@@ -1,0 +1,10 @@
+{
+    "procedures": [
+      {
+        "id_procedimiento": 1,
+        "nombre": "Limpieza",
+        "precio": 250,
+        "descuento": 0
+      }
+    ]
+  }
