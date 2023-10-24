@@ -1,5 +1,18 @@
+// procedures.js controller
 const Sequelize = require('sequelize').Sequelize;
+const proceduresModel = require('../models/procedures');
 const Procedures = require('../models/procedures')
+
+//agregar procedimientos
+exports.getAllProcedures = async (req, res) =>{
+    try{
+        const procedures = await proceduresModel.findAll();
+        res.send(procedures);
+     }catch(err){
+       res.send(err);
+     }
+   }
+
 
 //agregar procedimientos
 exports.addProcedures = async (nombre, precio) =>{
