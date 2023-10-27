@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 const patient = require('./patients');
 
@@ -6,13 +6,13 @@ const patient = require('./patients');
 
 const account = sequelize.define('cuentas', {
     id_cuenta: {
-        type: Sequelize.INTEGER,
-        allowNull: false, 
+        type: DataTypes.INTEGER,
+        allowNull: true, 
         primaryKey: true,
         autoIncrement: true
     },
     id_paciente: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'pacientes', 
@@ -20,7 +20,7 @@ const account = sequelize.define('cuentas', {
         }
     },
     adeudo: {
-        type: Sequelize.DECIMAL(10.2),
+        type: DataTypes.DECIMAL(10.2),
         allowNull: false
     }
 }, {tableName: 'cuentas',

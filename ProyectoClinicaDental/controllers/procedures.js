@@ -3,149 +3,114 @@ const Sequelize = require('sequelize').Sequelize;
 const proceduresModel = require('../models/procedures');
 const Procedures = require('../models/procedures')
 
-//agregar procedimientos
-exports.getAllProcedures = async (req, res) =>{
-    try{
+//obetener procedimientos
+exports.getAllProcedures = async (req, res) => {
+    try {
         const procedures = await proceduresModel.findAll();
         res.send(procedures);
-     }catch(err){
-       res.send(err);
-     }
-   }
-
+    } catch (err) {
+        res.send(err);
+    }
+}
 
 //agregar procedimientos
-exports.addProcedures = async (nombre, precio) =>{
+exports.addProcedures = async (req, res) => {
     try {
-       const result = await Procedures.create({
-           nombre: nombre,
-           precio: precio
+        const result = await Procedures.create(req.body)
+        res.status(201).json({
+            status: 'succes'
         })
-    }catch(err){
-       throw err; 
-    }
-}
-
-//agregar procedimientos con descuentos
-exports.addProceduresWithDiscounts = async (nombre, precio, descuento) =>{
-    try {
-       const result = await Procedures.create({
-           nombre: nombre,
-           precio: precio,
-           descuento: descuento
-        })
-    }catch(err){
-       throw err; 
-    }
-}
-
-//agregar descuentos
-exports.addDiscounts = async (id, discount) =>{
-    const newValues = {
-        descuento: discount
-    };
-    try {
-        const desicountAdded = await Procedures.update(newValues, {
-            where: {
-                id_procedimiento:id
-            }
-        });
-        return desicountAdded;
-    }catch(err){
-       throw err; 
-    }
-}
-
-//obtener procedimientos
-exports.getProcedures = async () => {
-    try {
-        const procedures = await Procedures.findAll(); 
-        return procedures;
     } catch (err) {
-        throw err; 
+        res.status(400).json({
+            status: 'fail',
+            message: err
+        });
     }
- }
+}
 
 //obtener procedimiento por id
-exports.getProcedureById = async (id) => {
+exports.getProcedureById = async (req, res) => {
+    const { id } = req.params;
     try {
-        const procedures = await Procedures.findByPk(id); 
-        return procedures;
+        const procedures = await Procedures.findByPk(id);
+        res.send(procedures);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
 }
 
 //obtener procedimiento por nombre
-exports.getProcedureByName = async (name) => {
+exports.getProcedureByName = async (req, res) => {
+    const { name } = req.params;
     try {
         const procedure = await Procedures.findOne({
             where: {
-              nombre: name
+                nombre: name
             }
         });
+        res.send(procedure);
         return procedure;
     } catch (err) {
-        throw err; 
-    }
- }
-
- //eliminar procedimiento
-exports.deleteProcedure = async (id) => {
-    try{
-      const deleted =  await Procedures.destroy({
-          where: {
-             id_procedimiento:id
-          }
-       })
-       return deleted;
-    }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
- //eliminar procedimiento por nombre
-exports.deleteProcedureByName = async (name) => {
-    try{
-      const deleted =  await Procedures.destroy({
-          where: {
-             nombre:name
-          }
-       })
-       return deleted;
-    }catch(err){
-       throw err;
-    }
-}
-
- //eliminar solo la promocion
- exports.deleteDiscuount = async (id) => {
-    const newValues = {
-        descuento: null
-    };
-    try{
-        const  deleted = await Procedures.update(newValues, {
+//eliminar procedimiento
+exports.deleteProcedure = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const deleted = await Procedures.destroy({
             where: {
-                id_procedimiento:id
-            }
+                id_procedimiento: id
+        }});
+        res.status(201).json({
+            status: 'succes'
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err
         });
-       return deleted;
-    }catch(err){
-       throw err;
+    }
+}
+
+//eliminar procedimiento por nombre
+exports.deleteProcedureByName = async (req, res) => {
+    const { name } = req.params;
+    try {
+        const deleted = await Procedures.destroy({
+            where: {
+                nombre: name
+            }
+        })
+        res.status(201).json({
+            status: 'succes'
+        })
+    } catch (err) {
+        res.status(400).json({
+            status: 'fail',
+            message: err
+        });
     }
 }
 
 //actualizar procedimiento
-exports.updateProcedure = async (id, newValues) => {
+exports.updateProcedure = async (req, res) => {
+    const { id } = req.params;
     try {
-        const  procedureUpdapted = await Procedures.update(newValues, {
+        const procedureUpdapted = await Procedures.update(req.body, {
             where: {
-                id_procedimiento:id
+                id_procedimiento: id
             }
         });
-        return procedureUpdapted;
+        res.status(201).json({
+            status: 'succes'
+        })
     } catch (err) {
-        throw err;
+        res.status(400).json({
+            status: 'fail',
+            message: err
+        });
     }
 }
 

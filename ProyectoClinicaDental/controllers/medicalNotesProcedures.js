@@ -2,117 +2,132 @@ const Sequelize = require('sequelize').Sequelize;
 const MedicalrecordsProcedures = require('../models/medicalNotesProcedures')
 
 //agregar relacion entre notas medicas y procedimientos
-exports.addMedicalnotesProcedures = async (id_notes, id_procedures) =>{
+exports.addMedicalnotesProcedures = async (req, res) =>{
     try {
-       const result = await MedicalrecordsProcedures.create({
-           id_notas: id_notes,
-           id_procedimiento: id_procedures
-        })
+       const result = await MedicalrecordsProcedures.create(req.body)
+        res.status(201).json({
+            status: 'succes'
+           });
     }catch(err){
-       throw err; 
+        res.send(err); 
     }
 }
 
 //obtener notas medicas y procedimientos relacionados
-exports.getMedicalrecordsProcedures = async () => {
+exports.getMedicalrecordsProcedures = async (req, res) => {
     try {
         const medicalrecordsProcedures = await MedicalrecordsProcedures.findAll(); 
-        return medicalrecordsProcedures;
+        res.send(medicalrecordsProcedures);
     } catch (err) {
-        throw err; 
+        res.send(err); 
     }
  }
 
  //obtener notas medicas y procedimientos relacionados por id
- exports.getMedicalrecordsProceduresById = async (id) => {
+ exports.getMedicalrecordsProceduresById = async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalrecordsProcedures = await MedicalrecordsProcedures.findByPk(id); 
-        return medicalrecordsProcedures;
+        res.send(medicalrecordsProcedures);
     } catch (err) {
-        throw err; 
+        res.send(err); 
     }
  }
 
   //obtener notas medicas y procedimientos relacionados por id de las notas
- exports.getMedicalrecordsProceduresByIdNotes = async (id) => {
+ exports.getMedicalrecordsProceduresByIdNotes = async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalrecordsProcedures = await MedicalrecordsProcedures.findAll({
             where: {
                 id_notas: id
             }
         }); 
-        return medicalrecordsProcedures;
+        res.send(medicalrecordsProcedures);
     } catch (err) {
-        throw err; 
+        res.send(err); 
     }
  }
 
    //obtener notas medicas y procedimientos relacionados por id de los procedimientos
-   exports.getMedicalrecordsProceduresByIdProcedures = async (id) => {
+   exports.getMedicalrecordsProceduresByIdProcedures = async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalrecordsProcedures = await MedicalrecordsProcedures.findAll({
             where: {
                 id_procedimiento: id
             }
         }); 
-        return medicalrecordsProcedures;
+        res.send(medicalrecordsProcedures);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //eliminar notas medicas y procedimientos relacionados
- exports.deleteMedicalrecordsProcedures = async (id) => {
+ exports.deleteMedicalrecordsProcedures = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await MedicalrecordsProcedures.destroy({
           where: {
             id_nota_procedimiento:id
           }
        })
-       return deleted;
+       res.status(201).json({
+        status: 'succes'
+       });
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
  //eliminar notas medicas y procedimientos relacionados por id de las notas
- exports.deleteMedicalrecordsProceduresByIdNotes = async (id) => {
+ exports.deleteMedicalrecordsProceduresByIdNotes = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await MedicalrecordsProcedures.destroy({
           where: {
             id_notas: id
           }
        })
-       return deleted;
+       res.status(201).json({
+        status: 'succes'
+       });
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
  //eliminar notas medicas y procedimientos relacionados por id de los procedimientos
- exports.deleteMedicalrecordsProceduresByIdProcedures = async (id) => {
+ exports.deleteMedicalrecordsProceduresByIdProcedures = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await MedicalrecordsProcedures.destroy({
           where: {
             id_procedimiento: id
           }
        })
-       return deleted;
+       res.status(201).json({
+        status: 'succes'
+       });
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
 //actualizar notas medicas y procedimientos relacionados
-exports.updateMedicalrecordsProcedures = async (id, newValues) => {
+exports.updateMedicalrecordsProcedures = async (req, res) => {
+    const { id } = req.params;
     try {
-        const  medicalrecordsProceduresUpdapted = await MedicalrecordsProcedures.update(newValues, {
+        const  medicalrecordsProceduresUpdapted = await MedicalrecordsProcedures.update(req.body, {
             where: {
                 id_nota_procedimiento:id
             }
         });
-        return medicalrecordsProceduresUpdapted;
+        res.status(201).json({
+            status: 'succes'
+        });
     } catch (err) {
-        throw err;
+        res.send(err);
     }
 }

@@ -6,7 +6,7 @@ const sequelize = require('../utils/db');
 const procedures = sequelize.define('procedimientos', {
     id_procedimiento: {
         type: DataTypes.INTEGER, // Cambia a DataTypes.INTEGER
-        allowNull: false, 
+        allowNull: true, 
         primaryKey: true,
         autoIncrement: true
     },
@@ -27,3 +27,4 @@ const procedures = sequelize.define('procedimientos', {
     timestamps: false });
 
 module.exports = procedures;
+5

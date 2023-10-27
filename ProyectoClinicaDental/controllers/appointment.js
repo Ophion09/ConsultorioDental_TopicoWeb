@@ -4,11 +4,14 @@ const appointmentModel = require("../models/appointment");
 const userController = require('./user');
 
 // Add appointment
-exports.addAppointment = async (appointmentData) => {
+exports.addAppointment = async (req, res) => {
   try {
-    const answer = await appointmentModel.create(appointmentData);
+    const answer = await appointmentModel.create(req.body);
+    res.status(201).json({
+      status: 'succes'
+     });
   } catch (err) {
-    console.log(err);
+    res.send(err);
   }
 };
 

@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 const notes = require('./medicalNotes');
 const procedures = require('./procedures');
@@ -7,13 +7,13 @@ const procedures = require('./procedures');
 
 const medicalnotesProcedures = sequelize.define('notas_medicas_procedimientos', {
     id_nota_procedimiento: {
-        type: Sequelize.INTEGER,
-        allowNull: false, 
+        type: DataTypes.INTEGER,
+        allowNull: true, 
         primaryKey: true,
         autoIncrement: true
     },
     id_notas: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'notas_medicas', 
@@ -21,7 +21,7 @@ const medicalnotesProcedures = sequelize.define('notas_medicas_procedimientos', 
         }
     },
     id_procedimiento: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'procedimientos', 

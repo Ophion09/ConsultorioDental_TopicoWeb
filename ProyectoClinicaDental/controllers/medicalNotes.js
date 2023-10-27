@@ -2,162 +2,179 @@ const Sequelize = require('sequelize').Sequelize;
 const MedicalNotes = require('../models/medicalNotes')
 
 //agregar notas medicas
-exports.addMedicalNotes = async (note, id_procedures, id_appointment, id_patient, id_employee) =>{
+exports.addMedicalNotes = async (req, res) =>{
     try {
-       const result = await MedicalrecordsProcedures.create({
-           nota: note,
-           id_procedimiento: id_procedures,
-           id_cita: id_appointment,
-           id_paciente: id_patient,
-           id_empleado: id_employee
-        })
+       const result = await MedicalNotes.create(req.body);
+       res.status(201).json({
+        status: 'succes'
+    });
     }catch(err){
-       throw err; 
+       res.send(err);
     }
 }
 
 //obtener notas medicas
-exports.getMedicalNotes= async () => {
+exports.getMedicalNotes= async (req, res) => {
     try {
         const medicalNotes = await MedicalNotes.findAll(); 
-        return medicalNotes;
+        res.send(medicalNotes);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obtener notas medicas por id
-exports.getMedicalNotesById= async (id) => {
+exports.getMedicalNotesById= async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalNotes = await MedicalNotes.findByPk(id); 
-        return medicalNotes;
+        res.send(medicalNotes);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obtener notas medicas por el procedimiento
- exports.getMedicalNotesByIdProcedure= async (id) => {
+ exports.getMedicalNotesByIdProcedure= async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalNotes = await MedicalNotes.findAll({
             where: {
                 id_procedimiento: id
             }
         });
-        return medicalNotes;
+        res.send(medicalNotes);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
   //obtener notas medicas por la cita
-  exports.getMedicalNotesByIdAppointment= async (id) => {
+  exports.getMedicalNotesByIdAppointment= async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalNotes = await MedicalNotes.findAll({
             where: {
                 id_cita: id
             }
         });
-        return medicalNotes;
+        res.send(medicalNotes);
     } catch (err) {
-        throw err; 
+        res.send(err); 
     }
  }
  
    //obtener notas medicas por paciente
-   exports.getMedicalNotesByIdPatient= async (id) => {
+   exports.getMedicalNotesByIdPatient= async (req, res) => {
+    const { id } = req.params;
     try {
         const medicalNotes = await MedicalNotes.findAll({
             where: {
                 id_paciente: id
             }
         });
-        return medicalNotes;
+        res.send(medicalNotes);
     } catch (err) {
-        throw err; 
+        res.send(err); 
     }
  }
 
     //obtener notas medicas por empleado
-    exports.getMedicalNotesByIdEmployee= async (id) => {
+    exports.getMedicalNotesByIdEmployee= async (req, res) => {
+        const { id } = req.params;
         try {
             const medicalNotes = await MedicalNotes.findAll({
                 where: {
                     id_empleado: id
                 }
             });
-            return medicalNotes;
+            res.send(medicalNotes);
         } catch (err) {
-            throw err; 
+            res.send(err);  
         }
      }
 
  //eliminar notas medicas
- exports.deleteMedicalNotes= async (id) => {
+ exports.deleteMedicalNotes= async (req, res) => {
+    const { id } = req.params;
     try {
         const deleted = await MedicalNotes.destroy({
             where: {
                 id_nota: id
             }
         });
-        return deleted;
+        res.status(201).json({
+            status: 'succes'
+           });
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //eliminar notas medicas por procedimiento
- exports.deleteMedicalNotesByIdProcedure= async (id) => {
+ exports.deleteMedicalNotesByIdProcedure= async (req, res) => {
+    const { id } = req.params;
     try {
         const deleted = await MedicalNotes.destroy({
             where: {
                 id_procedimiento: id
             }
         });
-        return deleted;
+        res.status(201).json({
+            status: 'succes'
+           });
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
   //eliminar notas medicas por la cita
-  exports.deleteMedicalNotesByIdAppointment= async (id) => {
+  exports.deleteMedicalNotesByIdAppointment= async (req, res) => {
+    const { id } = req.params;
     try {
         const deleted = await MedicalNotes.destroy({
             where: {
                 id_cita: id
             }
         });
-        return deleted;
+        res.status(201).json({
+            status: 'succes'
+           });
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
    //eliminar notas medicas por paciente
-   exports.deleteMedicalNotesByIdPatient= async (id) => {
+   exports.deleteMedicalNotesByIdPatient= async (req, res) => {
+    const { id } = req.params;
     try {
         const deleted = await MedicalNotes.destroy({
             where: {
                 id_paciente: id
             }
         });
-        return deleted;
+        res.status(201).json({
+            status: 'succes'
+           });
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //actualizar notas medicas
- exports.updateMedicalNotes = async (id, newValues) => {
+ exports.updateMedicalNotes = async (req, res) => {
+    const { id } = req.params;
     try {
-        const  medicalNotesUpdapted = await MedicalNotes.update(newValues, {
+        const  medicalNotesUpdapted = await MedicalNotes.update(req.body, {
             where: {
                 id_nota:id
             }
         });
-        return medicalNotesUpdapted;
+        res.status(201).json({
+            status: 'succes'
+        });
     } catch (err) {
-        throw err;
+        res.send(err);
     }
 }
