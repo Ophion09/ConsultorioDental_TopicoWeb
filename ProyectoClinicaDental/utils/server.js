@@ -9,6 +9,9 @@ const medicalRecordRouter = require('../routes/medicalRecords');
 const medicalNotesRouter = require('../routes/medicalNotes');
 const medicalNotesProceduresRouter = require('../routes/medicalNotesProcedures');
 const accountRouter = require('../routes/account');
+const rolesRouter = require('../routes/role');
+const employeeRouter = require('../routes/employee');
+
 dotenv.config({ path: './config.env' });
 
 const app = express();
@@ -16,7 +19,6 @@ const app = express();
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'mysql',
   logging: false, // Puedes quitar esto si deseas ver los logs de SQL en la consola
-  password: 'proyectos21',
 });
 
 sequelize
@@ -48,6 +50,10 @@ app.use('/medicalNotes', medicalNotesRouter);
 app.use('/medicalNotesProcedures', medicalNotesProceduresRouter);
 
 app.use('/account', accountRouter);
+
+app.use('/roles', rolesRouter);
+
+app.use('/employees', employeeRouter);
 
 const port = process.env.PORT || 3000;
 

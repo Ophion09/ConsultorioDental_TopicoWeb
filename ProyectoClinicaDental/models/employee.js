@@ -2,8 +2,8 @@
 const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 // Instancia de mis otros modelos
-const roleModel = require('./rol');
-const especialtyModel = require('./especialidad');
+const roleModel = require('./role');
+const especialtyModel = require('./specialty');
 
 // Modelo para tabla personal (empleado)
 
