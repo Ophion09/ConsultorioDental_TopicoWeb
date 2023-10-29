@@ -1,121 +1,138 @@
 const Sequelize = require('sequelize').Sequelize;
-const Payments = require('../models/payments')
+const Payments = require('../models/payments');
+const { Op } = require('sequelize');
 
 //agregar pago
-exports.addPayment = async ( id_payment , id_patient, payment_amount, payment_date) =>{
+exports.addPayment = async ( req, res) =>{
     try {
-       const result = await Payments.create({
-           id_pago: id_payment,
-           id_paciente: id_patient,
-           monto_pago: payment_amount,
-           fecha_pago: payment_date 
-        })
+       const result = await Payments.create(req.body);
+       res.status(201).json({
+        status: 'succes'
+       })
     }catch(err){
-       throw err; 
+       res.send(err);
     }
 }
 
 //obetener todos los pagos
-exports.getPayment = async () => {
+exports.getPayment = async (req, res) => {
     try {
         const payments = await Payments.findAll(); 
-        return payments;
+        res.send(payments);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obtener pago por id
- exports.getPaymentById = async (id) => {
+ exports.getPaymentById = async (req, res) => {
+    const { id } = req.params;
     try {
         const Payment = await Payments.findByPk(id); 
-        return Payment;
+        res.send(Payment);
     } catch (err) {
-        throw err; 
+        res.send(err); 
     }
 }
 
 //obetener todos los pagos de un paciente
-exports.getPaymentsByIdPaciente = async (id) => {
+exports.getPaymentsByIdPaciente = async (req, res) => {
+    const { id } = req.params;
     try {
-        const Payments = await Payments.findOne({
+        const payments = await Payments.findAll({
             where: {
               id_paciente: id
             }
         });
-        return Payments;
+        res.send(payments);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obtener los pagos por fecha
- exports.getPaymentsByDate = async (date) => {
+ exports.getPaymentsByDate = async (req, res) => {
+    const { date } = req.params;
     try {
-        const Payments = await Payments.findOne({
+        const payments = await Payments.findAll({
             where: {
-              fecha_pago: date
+                fecha_pago: {
+                    [Op.eq]: new Date(date)
+                }
             }
         });
-        return Payments;
+        res.send(payments);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obtener los pagos por fecha y usuario
- exports.getPaymentsByDateAndIdUser = async (id, date) => {
+ exports.getPaymentsByDateAndIdUser = async (req, res) => {
+    const { date } = req.params;
+    const { id } = req.params;
     try {
-        const Payments = await Payments.findOne({
+        const payments = await Payments.findAll({
             where: {
               id_paciente: id,
-              fecha_pago: date
+              fecha_pago: {
+                [Op.eq]: new Date(date)
+             }
             }
         });
-        return Payments;
+        res.send(payments);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
 //eliminar pago
-exports.deletePayment = async (id) => {
+exports.deletePayment = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await Payments.destroy({
           where: {
              id_pago:id
           }
-       })
-       return deleted;
+       });
+       res.status(201).json({
+        status: 'succes'
+       });
     }catch(err){
-       throw err;
+       res.send(err);
     }
 }
 
 //eliminar pago por paciente
-exports.deletePaymentByIdPatient = async (id) => {
+exports.deletePaymentByIdPatient = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await Payments.destroy({
           where: {
              id_paciente:id
           }
-       })
-       return deleted;
+       });
+       res.status(201).json({
+        status: 'succes'
+       });
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
 //acatulizar pago
-exports.updatePayment = async (id, newValues) => {
+exports.updatePayment = async (req, res) => {
+    const { id } = req.params;
     try {
-        const  paymentUpdapted = await Payments.update(newValues, {
+        const  paymentUpdapted = await Payments.update(req.body, {
             where: {
                 id_pago:id
             }
         });
-        return paymentUpdapted;
+        res.status(201).json({
+            status: 'succes'
+        });
     } catch (err) {
-        throw err;
+        res.send(err);
     }
 }

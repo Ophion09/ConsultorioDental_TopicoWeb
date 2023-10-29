@@ -1,25 +1,25 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 const procedures = require('./procedures');
-//const appointment = require('./appointment');
+const appointment = require('./appointment');
 const patient = require('./patients');
-//const employee = require('./empleado');
+const employee = require('./employee');
 
 //medical notes 
 
 const medicalNotes = sequelize.define('notas_medicas', {
     id_nota: {
-        type: Sequelize.INTEGER,
-        allowNull: false, 
+        type: DataTypes.INTEGER,
+        allowNull: true, 
         primaryKey: true,
         autoIncrement: true
     },
     nota: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     id_procedimiento: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'procedimientos', 
@@ -27,7 +27,7 @@ const medicalNotes = sequelize.define('notas_medicas', {
         }
     },
     id_cita: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
         references: {
@@ -36,7 +36,7 @@ const medicalNotes = sequelize.define('notas_medicas', {
         }
     },
     id_paciente: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'pacientes', 
@@ -44,7 +44,7 @@ const medicalNotes = sequelize.define('notas_medicas', {
         }
     },
     id_empleado: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'empleados', 
@@ -55,8 +55,8 @@ const medicalNotes = sequelize.define('notas_medicas', {
     timestamps: false });
 
 medicalNotes.belongsTo(procedures, { foreignKey: 'id_procedimiento', as: 'procedure'});
-//medicalNotes.belongsTo(appointment, { foreignKey: 'id_cita', as: 'appointment'});
+medicalNotes.belongsTo(appointment, { foreignKey: 'id_cita', as: 'appointment'});
 medicalNotes.belongsTo(patient, { foreignKey: 'id_paciente', as: 'patient'});
-//medicalNotes.belongsTo(employee, { foreignKey: 'id_empleado', as: 'employee'});      
+medicalNotes.belongsTo(employee, { foreignKey: 'id_empleado', as: 'employee'});      
 
 module.exports = medicalNotes; 

@@ -2,115 +2,134 @@ const Sequelize = require('sequelize').Sequelize;
 const Patients = require('../models/patients')
 
 //agregar paciente
-exports.addPatients = async (patientData) =>{
+exports.addPatients = async (req, res) =>{
     try {
-        const answer = await Patients.create(patientData);
+        const answer = await Patients.create(req.body);
+        res.status(201).json({
+            status: 'succes'
+        })
     }catch(err){
-       throw err; 
+        res.status(400).json({
+            status: 'fail',
+            message: err
+        });
     }
 }
 
 //obtener pacientes
-exports.getPatients = async () => {
+exports.getPatients = async (req, res) => {
     try {
         const patients = await Patients.findAll(); 
-        console.log(JSON.stringify(patients, null, 2))
-        return patients;
+        res.send(patients);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obtener paciente por id
-exports.getPatientById = async (id) => {
+exports.getPatientById = async (req, res) => {
+    const { id } = req.params;
     try {
         const patient = await Patients.findByPk(id); 
-        console.log(JSON.stringify(patient, null, 2))
-        return patient;
+        res.send(patient);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
 }
 
 //obtener procedimiento por nombre
-exports.getPatientByName = async (name) => {
+exports.getPatientByName = async (req, res) => {
+    const { name } = req.params;
     try {
         const patient = await Patients.findOne({
             where: {
               nombre: name
             }
         });
-        return patient;
+        res.send(patient);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
  //obetener paciente por id de usuario
- exports.getPatientByIdUser = async (id) => {
+ exports.getPatientByIdUser = async (req, res) => {
+    const { id } = req.params;
     try {
         const patient = await Patients.findOne({
             where: {
                 id_user: id
             }
         });
-        return patient;
+        res.send(patient);
     } catch (err) {
-        throw err; 
+        res.send(err);
     }
  }
 
   //eliminar paciente
-exports.deletePatient = async (id) => {
+exports.deletePatient = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await Patients.destroy({
           where: {
              id_paciente:id
           }
        })
-       return deleted;
+       res.status(201).json({
+        status: 'succes'
+       })
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
   //eliminar paciente por nombre
-  exports.deletePatientByName = async (name) => {
+  exports.deletePatientByName = async (req, res) => {
+    const { name } = req.params;
     try{
       const deleted =  await Patients.destroy({
           where: {
              nombre:name
           }
        })
-       return deleted;
+       res.status(201).json({
+        status: 'succes'
+       })
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 //eliminar paciente por id usuario
-exports.deletePatientByIdUser = async (id) => {
+exports.deletePatientByIdUser = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await Patients.destroy({
           where: {
             id_user:id
           }
        })
-       return deleted;
+       res.status(201).json({
+        status: 'succes'
+       })
     }catch(err){
-       throw err;
+        res.send(err);
     }
 }
 
 //actualizar paciente
-exports.updatePatient = async (id, newValues) => {
+exports.updatePatient = async (req, res) => {
+    const { id } = req.params;
     try {
-        const  patientUpdapted = await Patients.update(newValues, {
+        const  patientUpdapted = await Patients.update(req.body, {
             where: {
-                id_user:id
+                id_paciente:id
             }
         });
-        return patientUpdapted;
+        res.status(201).json({
+            status: 'succes'
+        })
     } catch (err) {
-        throw err;
+        res.send(err);
     }
 }

@@ -1,4 +1,4 @@
-// EmpleadoController
+ // EmpleadoController
 const Sequelize = require("sequelize").Sequelize;
 const employee = require("../models/employee");
 const employeeModel = require("../models/employee");

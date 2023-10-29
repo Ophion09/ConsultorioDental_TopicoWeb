@@ -1,6 +1,6 @@
 // EmpleadoModel
-const {DataTypes} = require('sequelize');
-const sequelize = require('../utils/server');
+const { Sequelize, DataTypes } = require('sequelize');
+const sequelize = require('../utils/db');
 // Instancia de mis otros modelos
 const roleModel = require('./rol');
 const especialtyModel = require('./especialidad');

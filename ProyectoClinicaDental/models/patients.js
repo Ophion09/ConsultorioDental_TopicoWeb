@@ -1,4 +1,4 @@
-const Sequelize = require('sequelize');
+const { Sequelize, DataTypes } = require('sequelize');
 const sequelize = require('../utils/db');
 const user = require('./user');
 
@@ -6,33 +6,33 @@ const user = require('./user');
 
 const patients = sequelize.define('pacientes', {
     id_paciente: {
-        type: Sequelize.INTEGER,
-        allowNull: false, 
+        type: DataTypes.INTEGER,
+        allowNull: true, 
         primaryKey: true,
         autoIncrement: true
     },
     nombre: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     apellido: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     edad: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false
     },
     celular: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: true
     },
     direccion: {
-        type: Sequelize.STRING,
+        type: DataTypes.STRING,
         allowNull: false
     },
     id_user: {
-        type: Sequelize.INTEGER,
+        type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
         references: {
@@ -41,7 +41,7 @@ const patients = sequelize.define('pacientes', {
         }
     },
     sexo: {
-        type: Sequelize.ENUM('Masculino', 'Femenino', 'Otro'),
+        type: DataTypes.ENUM('Masculino', 'Femenino', 'Otro'),
         allowNull: false
     }
 },{ tableName: 'pacientes',

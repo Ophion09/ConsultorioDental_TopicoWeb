@@ -1,88 +1,78 @@
 const Sequelize = require('sequelize').Sequelize;
 const user = require('../models/user')
 
-//agregar usuario
-exports.addUser = async (userData) =>{
-    try {
-       const answer = await user.create(userData);
-    }catch(err){
-       throw err; 
-    }
-}
-
 //obtener todos los usuarios
-exports.getUsers = async () => {
+exports.getUsers = async (req, res) => {
     try {
         const users = await user.findAll(); 
-        return users;
+        res.send(users)
     } catch (error) {
-        throw error; 
+        res.send(error) 
     }
  }
 
- //obtener usario por id
-exports.getUserById = async (id) => {
+//agregar usuario
+exports.addUser = async (req, res) =>{
     try {
-        const users = await user.findByPk(id); 
-        console.log(JSON.stringify(users, null, 2))
-        return users;
+       const answer = await user.create(req.body);
+       res.status(201).json({
+        status: 'succes'
+       })
+    } catch (err) {
+       res.status(400).json({
+          status: 'fail',
+          message: err
+       });
+   }
+}
+
+ //obtener usario por id
+exports.getUserById = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const userCreated = await user.findByPk(id); 
+        res.send(userCreated);
     } catch (error) {
-        throw error; 
+        res.send(error);
     }
 }
 
-//obtener usario por correo electronico
-exports.getUserByEmail = async (email) => {
-    try {
-        const users = await user.findOne({
-            where: {
-                correo: email
-            }
-        });
-        return user;
-    } catch (error) {
-        throw error; 
-    }
- }
-
 //eliminar usuario
-exports.deleteUser = async (id) => {
+exports.deleteUser = async (req, res) => {
+    const { id } = req.params;
     try{
       const deleted =  await user.destroy({
           where: {
             id_user:id
           }
        })
-       return deleted;
-    }catch(error){
-       throw error;
-    }
-}
-
-// eliminar usario por email
-exports.deleteUserByEmail = async (email) => {
-    try{
-      const deleted =  await user.destroy({
-          where: {
-             email:email
-          }
+       res.status(201).json({
+        status: 'succes'
        })
-       return deleted;
     }catch(error){
-       throw error;
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        });
     }
 }
 
 //actualizar usuario
-exports.updateUser = async (id, newValues) => {
+exports.updateUser = async (req, res) => {
+    const { id } = req.params;
     try {
-        const userUpdapted = await user.update(newValues, {
+        const userUpdapted = await user.update(req.body, {
             where: {
                 id_user:id
             }
         });
-        return userUpdapted;
+        res.status(201).json({
+            status: 'succes'
+        })
     } catch (error) {
-        throw error;
+        res.status(400).json({
+            status: 'fail',
+            message: err
+        });
     }
 }
