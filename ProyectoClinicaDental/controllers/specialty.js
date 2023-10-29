@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize').Sequelize;
 //Assigment of the User Model to the controller 
-const specialtyModel = require('../models/especialidad');
+const specialtyModel = require('../models/specialty.js');
 
 // Método para agregar un rol de forma asíncrona
 exports.addSpecialty = async (name) => {
@@ -13,8 +13,17 @@ exports.addSpecialty = async (name) => {
     }
   }
 
+  exports.getSpecialty = async () => {
+    try {
+       const result = await specialtyModel.findAll();
+       console.log(JSON.stringify(result, null, 2))
+    } catch (error) {
+       console.log(error);
+    }
+  }
+
   // Método para obtener un rol por su ID
-  exports.getSpecialty = async (id) => {
+  exports.getSpecialtyById = async (id) => {
     const userSpecialty = await specialtyModel.findOne({ where: { id_userSpecialty: id } });
     if (userSpecialty === null) {
       console.log('Not Found!');

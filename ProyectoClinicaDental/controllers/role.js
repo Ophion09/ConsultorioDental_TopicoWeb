@@ -1,20 +1,34 @@
 const Sequelize = require('sequelize').Sequelize;
-const userRole = require('../models/rol');
 //Assigment of the User Model to the controller 
-const roleModel = require('../models/rol');
+const roleModel = require('../models/role');
 
 
 // Método para agregar un rol de forma asíncrona
-exports.addRol = async (name) => {
+exports.addRole = async (req, res) => {
     try {
-      const answer = await roleModel.create({name});
+      const answer = await roleModel.create(req.body);
+      res.status(201).json({
+        status: 'succes'
+      });
     } catch (err) {
-      console.log(err);
+      res.status(400).json({
+        status: 'fail',
+        message: err
+     });
+    }
+  }
+
+  exports.getRoles = async (req, res) => {
+    try {
+       const roles = await roleModel.findAll();
+       res.send(roles);
+    } catch (error) {
+       res.send(error);
     }
   }
 
   // Método para obtener un rol por su ID
-  exports.getRol = async (id) => {
+  exports.getRoleById = async (id) => {
     const userRole = await roleModel.findOne({ where: { id_userRole: id } });
     if (userRole === null) {
       console.log('Not Found!');
