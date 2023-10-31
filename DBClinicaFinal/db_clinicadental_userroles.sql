@@ -16,29 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `cuentas`
+-- Table structure for table `userroles`
 --
 
-DROP TABLE IF EXISTS `cuentas`;
+DROP TABLE IF EXISTS `userroles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `cuentas` (
-  `id_cuenta` int NOT NULL AUTO_INCREMENT,
-  `id_paciente` int NOT NULL,
-  `adeudo` decimal(10,2) NOT NULL,
-  PRIMARY KEY (`id_cuenta`),
-  KEY `fk_id_paciente_cuentas` (`id_paciente`),
-  CONSTRAINT `fk_id_paciente_cuentas` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `userroles` (
+  `id_userRole` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_userRole`),
+  UNIQUE KEY `rol_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `cuentas`
+-- Dumping data for table `userroles`
 --
 
-LOCK TABLES `cuentas` WRITE;
-/*!40000 ALTER TABLE `cuentas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `cuentas` ENABLE KEYS */;
+LOCK TABLES `userroles` WRITE;
+/*!40000 ALTER TABLE `userroles` DISABLE KEYS */;
+INSERT INTO `userroles` VALUES (10,'Asistente'),(6,'Doctor22'),(5,'Secretario/a');
+/*!40000 ALTER TABLE `userroles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -50,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-05 23:48:02
+-- Dump completed on 2023-10-30 21:56:12

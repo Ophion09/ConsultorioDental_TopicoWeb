@@ -16,39 +16,34 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `notas_medicas`
+-- Table structure for table `appointments`
 --
 
-DROP TABLE IF EXISTS `notas_medicas`;
+DROP TABLE IF EXISTS `appointments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `notas_medicas` (
-  `id_nota` int NOT NULL AUTO_INCREMENT,
-  `nota` varchar(200) NOT NULL,
-  `id_procedimiento` int NOT NULL,
-  `id_cita` int NOT NULL,
-  `id_paciente` int NOT NULL,
+CREATE TABLE `appointments` (
+  `id_appointment` int NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `id_user` int NOT NULL,
   `id_employee` int NOT NULL,
-  PRIMARY KEY (`id_nota`),
-  UNIQUE KEY `id_cita_UNIQUE` (`id_cita`),
-  KEY `id_paciente_idx` (`id_paciente`),
-  KEY `id_cita_idx` (`id_cita`),
-  KEY `fk_id_procedimientos_idx` (`id_procedimiento`),
+  PRIMARY KEY (`id_appointment`),
   KEY `fk_id_employee_idx` (`id_employee`),
-  CONSTRAINT `fk_id_cita` FOREIGN KEY (`id_cita`) REFERENCES `appointments` (`id_appointment`),
-  CONSTRAINT `fk_id_employee` FOREIGN KEY (`id_employee`) REFERENCES `employees` (`id_employee`),
-  CONSTRAINT `fk_id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`),
-  CONSTRAINT `fk_id_procedimientos` FOREIGN KEY (`id_procedimiento`) REFERENCES `procedimientos` (`id_procedimiento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  KEY `fk_id_user_idx` (`id_user`),
+  CONSTRAINT `fk_id_medicoEmployee` FOREIGN KEY (`id_employee`) REFERENCES `employees` (`id_employee`),
+  CONSTRAINT `fk_id_userPaciente` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `notas_medicas`
+-- Dumping data for table `appointments`
 --
 
-LOCK TABLES `notas_medicas` WRITE;
-/*!40000 ALTER TABLE `notas_medicas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notas_medicas` ENABLE KEYS */;
+LOCK TABLES `appointments` WRITE;
+/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
+INSERT INTO `appointments` VALUES (1,'2023-10-05','14:30:00',7,17);
+/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -60,4 +55,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-05 23:48:03
+-- Dump completed on 2023-10-30 21:56:11
