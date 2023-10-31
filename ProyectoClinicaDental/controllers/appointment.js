@@ -16,7 +16,7 @@ exports.addAppointment = async (req, res) => {
 };
 
 //Get appointment
-exports.getAppointment = async (id) => {
+exports.getAppointmentById = async (id) => {
   const appointment = await appointmentModel.findOne({ where: { id_appointment: id } });
   if (appointment === null) {
     console.log("Not Found!");
@@ -59,7 +59,7 @@ exports.updateAppointment = async (id, updatedData) => {
 
 
 // Delete appointment
-exports.deleteAppointments = async (id) => {
+exports.deleteAppointment = async (id) => {
   try {
     const appointmentDelete = await appointmentModel.destroy({
       where: { id_appointment: id },

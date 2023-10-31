@@ -2,7 +2,7 @@
 const Sequelize = require("sequelize").Sequelize;
 const employee = require("../models/employee");
 const employeeModel = require("../models/employee");
-const roleController = require("./rol");
+const roleController = require("./role");
 
 // Add employee
 exports.addEmployee = async (employeeData) => {
@@ -14,7 +14,7 @@ exports.addEmployee = async (employeeData) => {
 };
 
 //Get employee
-exports.getEmployee = async (id) => {
+exports.getEmployeeById = async (id) => {
   const employee = await employeeModel.findOne({ where: { id_employee: id } });
   if (employee === null) {
     console.log("Not Found!");
@@ -24,10 +24,10 @@ exports.getEmployee = async (id) => {
 };
 
 // Trea todos los empleados
-exports.getEmployees = async () => {
+exports.getEmployees = async (req, res) => {
   try {
-     const result = await employeeModel.findAll();
-     console.log(JSON.stringify(result, null, 2))
+     const employees = await employeeModel.findAll();
+     res.send(employees);
   } catch (error) {
      console.log(error);
   }
