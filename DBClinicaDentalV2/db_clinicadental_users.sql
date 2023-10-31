@@ -28,7 +28,11 @@ CREATE TABLE `users` (
   `password` varchar(45) NOT NULL,
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `correo_UNIQUE` (`email`)
+<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_users.sql
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+========
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+>>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_users.sql
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -37,7 +41,11 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
+<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_users.sql
+INSERT INTO `users` VALUES (7,'correo@correo','con');
+========
 INSERT INTO `users` VALUES (7,'correo@correo','admin'),(9,'hola@hola','1234');
+>>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_users.sql
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -50,4 +58,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_users.sql
+-- Dump completed on 2023-10-30 21:56:12
+========
 -- Dump completed on 2023-10-30 22:18:24
+>>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_users.sql
