@@ -13,6 +13,7 @@ const accountRouter = require('../routes/account');
 const rolesRouter = require('../routes/role');
 const authRouter = require('../routes/auth');
 const employeeRouter = require('../routes/employee');
+const appError = require('./appError');
 
 dotenv.config({ path: './config.env' });
 
@@ -58,6 +59,10 @@ app.use('/roles', rolesRouter);
 app.use('/employees', employeeRouter);
 
 app.use('/auth', authRouter);
+
+app.all('*', (req, resp, next) =>{
+  next(new appError(`No se pudo acceder a ${req.originalUrl} en el servidor, 404`));
+});
 
 const port = process.env.PORT || 3000;
 
