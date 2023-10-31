@@ -2,9 +2,11 @@
 const express = require('express');
 const roleController = require('../controllers/role.js');
 const roleModel = require('../models/role.js');
+const authController = require('../controllers/auth.js');
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(roleController.getRoles)

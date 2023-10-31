@@ -72,7 +72,7 @@ exports.updateUser = async (req, res) => {
     } catch (error) {
         res.status(400).json({
             status: 'fail',
-            message: err
+            message: error
         });
     }
 }

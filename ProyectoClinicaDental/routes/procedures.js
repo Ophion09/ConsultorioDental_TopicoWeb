@@ -2,9 +2,11 @@
 const express = require('express');
 const procedureController = require('../controllers/procedures.js');
 const proceduresModel = require('../models/procedures.js');
+const authController = require('../controllers/auth.js');
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(procedureController.getAllProcedures)

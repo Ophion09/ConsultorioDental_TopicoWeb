@@ -2,9 +2,12 @@
 const express = require('express');
 const specialtyController = require('../controllers/specialty.js');
 const specialtyModel = require('../models/specialty.js');
+const authController = require('../controllers/auth.js');
+
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(specialtyController.getSpecialty)

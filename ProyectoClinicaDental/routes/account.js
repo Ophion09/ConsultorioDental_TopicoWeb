@@ -1,9 +1,11 @@
 // account.js routes
 const express = require('express');
 const account = require('../controllers/account.js');
+const authController = require('../controllers/auth.js');
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(account.getAccounts)
