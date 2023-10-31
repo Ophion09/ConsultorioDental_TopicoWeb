@@ -1,9 +1,11 @@
 // paymentes.js routes
 const express = require('express');
 const paymentsController = require('../controllers/payments.js');
+const authController = require('../controllers/auth.js');
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(paymentsController.getPayment)

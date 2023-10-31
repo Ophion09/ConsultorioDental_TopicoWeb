@@ -1,3 +1,4 @@
+// server.js
 const express = require('express');
 const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
@@ -10,6 +11,7 @@ const medicalNotesRouter = require('../routes/medicalNotes');
 const medicalNotesProceduresRouter = require('../routes/medicalNotesProcedures');
 const accountRouter = require('../routes/account');
 const rolesRouter = require('../routes/role');
+const authRouter = require('../routes/auth');
 const employeeRouter = require('../routes/employee');
 
 dotenv.config({ path: './config.env' });
@@ -54,6 +56,8 @@ app.use('/account', accountRouter);
 app.use('/roles', rolesRouter);
 
 app.use('/employees', employeeRouter);
+
+app.use('/auth', authRouter);
 
 const port = process.env.PORT || 3000;
 

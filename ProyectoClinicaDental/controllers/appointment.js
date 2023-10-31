@@ -16,56 +16,65 @@ exports.addAppointment = async (req, res) => {
 };
 
 //Get appointment
-exports.getAppointmentById = async (id) => {
-  const appointment = await appointmentModel.findOne({ where: { id_appointment: id } });
-  if (appointment === null) {
-    console.log("Not Found!");
-  } else {
-    const idUsuario = appointment.id_user;
-    console.log(idUsuario);
-    userController.getUserById(idUsuario);
-  }
+exports.getAppointmentById = async (req, res) => {
+  const { id } = req.params;
+    try {
+        const appointmentCreated = await appointmentModel.findByPk(id); 
+        res.send(appointmentCreated);
+    } catch (error) {
+        res.send(error);
+    }
 };
 
 // Trea todos los appointment
-exports.getAppointments = async () => {
+exports.getAppointments = async (req, res) => {
   try {
-     const result = await appointmentModel.findAll();
-     console.log(JSON.stringify(result, null, 2))
-  } catch (error) {
-     console.log(error);
-  }
+    const appointmentCreated = await appointmentModel.findAll(); 
+    res.send(appointmentCreated)
+} catch (error) {
+    res.send(error) 
 }
+};
 
 
 // Recibe de parametros el id a modificar, y un objeto con la informacion a actualizar
 // Update appointment
-exports.updateAppointment = async (id, updatedData) => {
+exports.updateAppointment = async (req, res) => {
+  const { id } = req.params;
     try {
-        // Utiliza el método 'update' para actualizar los datos del empleado
-        const [rowsUpdated] = await appointmentModel.update(updatedData, {
-            where: { id_appointment: id },
+        const appointmentCreated = await appointmentModel.update(req.body, {
+            where: {
+                id_appointment:id
+            }
         });
-
-        if (rowsUpdated === 0) {
-            console.log('No se encontró la cita para actualizar.');
-        } else {
-            console.log(`Cita con ID ${id} actualizado exitosamente.`);
-        }
+        res.status(201).json({
+            status: 'succes'
+        })
     } catch (error) {
-        console.log('Error al actualizar la cita:', error);
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        });
     }
 }
 
 
 // Delete appointment
-exports.deleteAppointment = async (id) => {
-  try {
-    const appointmentDelete = await appointmentModel.destroy({
-      where: { id_appointment: id },
-    });
-    console.log(appointmentDelete);
-  } catch (error) {
-    console.log(error);
-  }
+exports.deleteAppointment = async (req, res) => {
+  const { id } = req.params;
+    try{
+      const deleted =  await appointmentModel.destroy({
+          where: {
+            id_appointment:id
+          }
+       })
+       res.status(201).json({
+        status: 'succes'
+       })
+    }catch(error){
+        res.status(400).json({
+            status: 'fail',
+            message: error
+        });
+    }
 };

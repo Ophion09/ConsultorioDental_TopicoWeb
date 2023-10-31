@@ -1,9 +1,11 @@
 // medicalNotes.js routes
 const express = require('express');
 const medicalNotesController = require('../controllers/medicalNotes.js');
+const authController = require('../controllers/auth.js');
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(medicalNotesController.getMedicalNotes)
