@@ -52,4 +52,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_historiales_clinicos.sql
 -- Dump completed on 2023-10-30 21:56:11
+========
+-- Dump completed on 2023-10-30 22:18:23
+>>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_historiales_clinicos.sql

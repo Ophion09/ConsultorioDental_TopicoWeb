@@ -16,31 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `notas_medicas_procedimientos`
+-- Table structure for table `pagos`
 --
 
-DROP TABLE IF EXISTS `notas_medicas_procedimientos`;
+DROP TABLE IF EXISTS `pagos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `notas_medicas_procedimientos` (
-  `id_nota_procedimiento` int NOT NULL AUTO_INCREMENT,
-  `id_notas` int NOT NULL,
-  `id_procedimiento` int NOT NULL,
-  PRIMARY KEY (`id_nota_procedimiento`),
-  KEY `id_notas` (`id_notas`),
-  KEY `id_procedimiento` (`id_procedimiento`),
-  CONSTRAINT `notas_medicas_procedimientos_ibfk_1` FOREIGN KEY (`id_notas`) REFERENCES `notas_medicas` (`id_nota`),
-  CONSTRAINT `notas_medicas_procedimientos_ibfk_2` FOREIGN KEY (`id_procedimiento`) REFERENCES `procedimientos` (`id_procedimiento`)
+CREATE TABLE `pagos` (
+  `id_pago` int NOT NULL AUTO_INCREMENT,
+  `id_paciente` int NOT NULL,
+  `monto_pago` decimal(10,2) NOT NULL,
+  `fecha_pago` date NOT NULL,
+  PRIMARY KEY (`id_pago`),
+  KEY `fk_id_paciente_pagos` (`id_paciente`),
+  CONSTRAINT `fk_id_paciente_pagos` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `notas_medicas_procedimientos`
+-- Dumping data for table `pagos`
 --
 
-LOCK TABLES `notas_medicas_procedimientos` WRITE;
-/*!40000 ALTER TABLE `notas_medicas_procedimientos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notas_medicas_procedimientos` ENABLE KEYS */;
+LOCK TABLES `pagos` WRITE;
+/*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -52,4 +51,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_pagos.sql
 -- Dump completed on 2023-10-30 21:56:12
+========
+-- Dump completed on 2023-10-30 22:18:25
+>>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_pagos.sql

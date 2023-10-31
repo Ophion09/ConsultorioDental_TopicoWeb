@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `employees`;
 CREATE TABLE `employees` (
   `id_employee` int NOT NULL AUTO_INCREMENT,
   `name` varchar(45) NOT NULL,
-  `licenseNumber` int NOT NULL,
+  `licenseNumber` varchar(10) NOT NULL,
   `age` int NOT NULL,
   `id_userRole` int NOT NULL,
   `id_userSpecialty` int DEFAULT NULL,
@@ -34,7 +34,7 @@ CREATE TABLE `employees` (
   KEY `fk_id_especialidad_idx` (`id_userSpecialty`),
   CONSTRAINT `fk_id_userRole` FOREIGN KEY (`id_userRole`) REFERENCES `userroles` (`id_userRole`),
   CONSTRAINT `fk_id_userSpecialty` FOREIGN KEY (`id_userSpecialty`) REFERENCES `userspecialtys` (`id_userSpecialty`)
-) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +43,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (16,'Fernando',23432,32,5,5),(17,'Miguel2',321,5,5,5);
+INSERT INTO `employees` VALUES (16,'Fernando','23432',32,5,5),(17,'Miguel2','321',5,5,5),(19,'Juan','0000',27,10,7);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +56,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_employees.sql
 -- Dump completed on 2023-10-30 21:56:12
+========
+-- Dump completed on 2023-10-30 22:18:24
+>>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_employees.sql
