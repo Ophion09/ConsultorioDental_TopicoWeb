@@ -16,34 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `appointments`
+-- Table structure for table `employees`
 --
 
-DROP TABLE IF EXISTS `appointments`;
+DROP TABLE IF EXISTS `employees`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `appointments` (
-  `id_appointment` int NOT NULL AUTO_INCREMENT,
-  `date` date NOT NULL,
-  `time` time NOT NULL,
-  `id_user` int NOT NULL,
-  `id_employee` int NOT NULL,
-  PRIMARY KEY (`id_appointment`),
-  KEY `fk_id_employee_idx` (`id_employee`),
-  KEY `fk_id_user_idx` (`id_user`),
-  CONSTRAINT `fk_id_medicoEmployee` FOREIGN KEY (`id_employee`) REFERENCES `employees` (`id_employee`),
-  CONSTRAINT `fk_id_userPaciente` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `employees` (
+  `id_employee` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  `licenseNumber` varchar(10) NOT NULL,
+  `age` int NOT NULL,
+  `id_userRole` int NOT NULL,
+  `id_userSpecialty` int DEFAULT NULL,
+  PRIMARY KEY (`id_employee`),
+  KEY `fk_id_rol_idx` (`id_userRole`),
+  KEY `fk_id_especialidad_idx` (`id_userSpecialty`),
+  CONSTRAINT `fk_id_userRole` FOREIGN KEY (`id_userRole`) REFERENCES `userroles` (`id_userRole`),
+  CONSTRAINT `fk_id_userSpecialty` FOREIGN KEY (`id_userSpecialty`) REFERENCES `userspecialtys` (`id_userSpecialty`)
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `appointments`
+-- Dumping data for table `employees`
 --
 
-LOCK TABLES `appointments` WRITE;
-/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
-INSERT INTO `appointments` VALUES (1,'2023-10-05','14:30:00',7,17);
-/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
+LOCK TABLES `employees` WRITE;
+/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
+INSERT INTO `employees` VALUES (16,'Fernando','23432',32,5,5),(17,'Miguel2','321',5,5,5),(19,'Juan','0000',27,10,7);
+/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -55,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-10-05 23:48:02
+-- Dump completed on 2023-10-30 22:18:24
