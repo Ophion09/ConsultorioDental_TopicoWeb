@@ -14,6 +14,8 @@ const rolesRouter = require('../routes/role');
 const authRouter = require('../routes/auth');
 const employeeRouter = require('../routes/employee');
 const appError = require('./appError');
+const cors = require('cors');
+
 
 dotenv.config({ path: './config.env' });
 
@@ -37,6 +39,14 @@ sequelize
 // Ejemplo: app.use('/api', require('./routes/api'));
 
 app.use(express.json());
+const corsOptions = {
+  origin: '*', // Este es el origen de tu cliente
+  methods: 'GET, POST', // Especifica los métodos que tu servidor aceptará
+  allowedHeaders: 'Content-Type, Authorization', // Los encabezados permitidos
+};
+
+app.use(cors(corsOptions));
+
 
 app.use('/procedures', procedureRouter);
 
