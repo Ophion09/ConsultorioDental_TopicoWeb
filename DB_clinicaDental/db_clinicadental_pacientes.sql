@@ -16,28 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `userspecialtys`
+-- Table structure for table `pacientes`
 --
 
-DROP TABLE IF EXISTS `userspecialtys`;
+DROP TABLE IF EXISTS `pacientes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `userspecialtys` (
-  `id_userSpecialty` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_userSpecialty`),
-  UNIQUE KEY `especialidad_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `pacientes` (
+  `id_paciente` int NOT NULL AUTO_INCREMENT,
+  `nombre` varchar(45) NOT NULL,
+  `apellido` varchar(45) NOT NULL,
+  `edad` int NOT NULL,
+  `celular` int DEFAULT NULL,
+  `direccion` varchar(45) NOT NULL,
+  `id_usuario` int NOT NULL,
+  `sexo` enum('Masculino','Femenino','Otro') NOT NULL,
+  PRIMARY KEY (`id_paciente`),
+  UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`),
+  KEY `id_usuario_idx` (`id_usuario`),
+  CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `userspecialtys`
+-- Dumping data for table `pacientes`
 --
 
-LOCK TABLES `userspecialtys` WRITE;
-/*!40000 ALTER TABLE `userspecialtys` DISABLE KEYS */;
-INSERT INTO `userspecialtys` VALUES (5,'Cirujano'),(7,'Odontologo');
-/*!40000 ALTER TABLE `userspecialtys` ENABLE KEYS */;
+LOCK TABLES `pacientes` WRITE;
+/*!40000 ALTER TABLE `pacientes` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pacientes` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,8 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_userspecialtys.sql
--- Dump completed on 2023-10-30 21:56:11
-========
--- Dump completed on 2023-10-30 22:18:23
->>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_userspecialtys.sql
+-- Dump completed on 2023-11-10 21:30:39

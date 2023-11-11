@@ -16,30 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `procedimientos`
+-- Table structure for table `userroles`
 --
 
-DROP TABLE IF EXISTS `procedimientos`;
+DROP TABLE IF EXISTS `userroles`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `procedimientos` (
-  `id_procedimiento` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `precio` float NOT NULL,
-  `descuento` int DEFAULT NULL,
-  PRIMARY KEY (`id_procedimiento`),
-  UNIQUE KEY `procedimiento_nombre_UNIQUE` (`nombre`)
+CREATE TABLE `userroles` (
+  `id_userRole` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_userRole`),
+  UNIQUE KEY `rol_UNIQUE` (`name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `procedimientos`
+-- Dumping data for table `userroles`
 --
 
-LOCK TABLES `procedimientos` WRITE;
-/*!40000 ALTER TABLE `procedimientos` DISABLE KEYS */;
-INSERT INTO `procedimientos` VALUES (4,'Limpieza',250,0);
-/*!40000 ALTER TABLE `procedimientos` ENABLE KEYS */;
+LOCK TABLES `userroles` WRITE;
+/*!40000 ALTER TABLE `userroles` DISABLE KEYS */;
+INSERT INTO `userroles` VALUES (1,'Administradora'),(2,'Dentista General'),(3,'Odontologo');
+/*!40000 ALTER TABLE `userroles` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,8 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<<< HEAD:DBClinicaFinal/db_clinicadental_procedimientos.sql
--- Dump completed on 2023-10-30 21:56:12
-========
--- Dump completed on 2023-10-30 22:18:24
->>>>>>>> 7c5fe1551df12b74284b353654c4c4121a0d786d:DBClinicaDentalV2/db_clinicadental_procedimientos.sql
+-- Dump completed on 2023-11-10 21:30:38

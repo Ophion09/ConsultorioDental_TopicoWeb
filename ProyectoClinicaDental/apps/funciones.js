@@ -1,4 +1,4 @@
-export function showAlert(mensaje, tipo) {
+export function showAlert(mensaje, tipo, selector) {
   const alertaError = document.querySelector(".bg-red-100");
   const alertaSucces = document.querySelector(".bg-green-100");
 
@@ -46,13 +46,13 @@ export function showAlert(mensaje, tipo) {
     alertaSpan.classList.add("block", "sm:inline");
     alertaSpan.textContent = mensaje;
 
-    const formulario = document.querySelector("#formulario");
+    //const formulario = document.querySelector("#formulario");
 
     alerta.appendChild(alertaStrong);
     alerta.appendChild(alertaSpan);
     alertaDiv.appendChild(alerta);
 
-    formulario.appendChild(alertaDiv);
+    selector.appendChild(alertaDiv);
 
     setTimeout(() => {
       alerta.remove();

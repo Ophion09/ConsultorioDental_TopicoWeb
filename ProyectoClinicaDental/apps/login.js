@@ -20,15 +20,19 @@ formulario.addEventListener('submit', async (event) => {
   // Validar si el usuario esta vacio al enviar
   if(isEmpty(user)) { // Si da true, es pq hay campos vacios
     console.log('Campos vacios');
-  showSpinner(spinner);
-  showAlert('Todos los campos son obligatorios', 'error');
+  showAlert('Todos los campos son obligatorios', 'error', formulario);
     return
   }
   console.log(user)
   showSpinner(spinner);
 
   // Ahora toca hablarle a la api ya que a este punto la validacion fue exitosa y ya tenemos un usuario
-   await login(user);
-  showAlert('Verificació Exitosa', 'Exito');
+   const token = await login(user);
+  //showAlert('Verificació Exitosa', 'Exito');
+
+  if(token) {
+    localStorage.setItem('token', token);
+    console.log(token);
+  }
 
 });
