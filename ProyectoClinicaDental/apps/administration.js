@@ -1,9 +1,10 @@
 
-import { isEmpty, showAlert, showSpinner } from "./funciones.js";
+import { isEmpty, showAlert, showSpinner, anyToken } from "./funciones.js";
+import { getUserByToken } from "./API.js";
+
 
 (function(){
 
-//import { userLoging } from "./API";
 
 const openModal = document.querySelector('#openModal');
 const closeModal = document.querySelector('#closeModal');
@@ -12,7 +13,12 @@ const formulario = document.querySelector('#formulario');
 const spinner = document.querySelector('#spinner');
 
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
+
+  const dataUser = await anyToken();
+  console.log(dataUser);
+  getUserByToken(dataUser);
+
 
   openModal.addEventListener('click', () => {
     modal.classList.remove('hidden');
@@ -30,14 +36,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }, 300);
   });
   
-
-// Espera hasta que se complete el login antes de intentar acceder al token
-if (userLoging) {
-  const token = userLoging.token;
-  // Usa el token para hacer solicitudes en otras rutas
-} else {
-  // El usuario no ha iniciado sesión o no se ha obtenido el token aún
-}
 
 });
 

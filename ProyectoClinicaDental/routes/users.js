@@ -5,12 +5,12 @@ const userModel = require('../models/user.js');
 const authController = require('../controllers/auth.js');
 
 const router = express.Router();
+router.route('/').post(userController.addUser);
 
 router.use(authController.authorizeUser);
 router
 .route('/')
 .get(userController.getUsers)
-.post(userController.addUser);
 
 router
 .route('/:id')

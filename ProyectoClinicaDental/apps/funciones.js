@@ -86,3 +86,14 @@ export function showSpinner(selector) {
 
   selector.appendChild(spinner);
 }
+
+export function anyToken() {
+  const tokenUser = localStorage.getItem('user');
+  console.log(tokenUser);
+  if (tokenUser) { // Valida si hay algun token del lado del cliente
+    const dataUser = JSON.parse(tokenUser); // Obtenemos el objeto con la info del user
+    return dataUser;
+  } else {
+    window.location.href = '../views/login.html';
+  }
+}
