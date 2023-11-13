@@ -61,17 +61,17 @@ export function showAlert(mensaje, tipo, selector) {
 }
 
 export function isEmpty(obj) {
-  return !Object.values(obj).every((input) => input !== ""); // Esto me dara true debido al ! del inicio, es un object method
+  return !Object.values(obj).every((input) => input !== ""); // Esto me dara true debido al ! del inicio, es un object method true
 }
 
-export function limpiarHMTL(selector) {
+export function cleanHTML(selector) {
   while (selector.firstChild) {
     // Mientras haya algo en ese selector
     selector.removeChild(selector.firstChild);
   }
 }
 export function showSpinner(selector) {
-  limpiarHMTL(selector); // Esto es para que puedas pasar de parametro donde quieres que limpie antes de poner el spinner
+  cleanHTML(selector); // Esto es para que puedas pasar de parametro donde quieres que limpie antes de poner el spinner
   const spinner = document.createElement("DIV");
   spinner.classList.add("spinner");
   spinner.innerHTML = `

@@ -19,6 +19,7 @@ export const login = async user => {
         // Si la respuesta es exitosa, entonces redirige
         if (response.ok) {
             user.token = data.token; // Aqui al user le metemos token
+            // enviar el token al mismo usuario correspondiente en la bd
             console.log(user);
         userLoging = user;
         window.location.href = '../views/administration.html';
