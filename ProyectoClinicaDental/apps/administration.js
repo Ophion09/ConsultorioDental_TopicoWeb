@@ -1,5 +1,5 @@
 import { isEmpty, showAlert, showSpinner, anyToken } from "./funciones.js";
-import { getUserByToken, getDataByRole } from "./API.js";
+import { getUserByToken, getDataByRole, getDataBySpecialty, postEmployee, deleteEmployee } from "./API.js";
 import { Employee } from "./class.js";
 
 (function () {
@@ -10,22 +10,23 @@ import { Employee } from "./class.js";
   const list = document.querySelector("#employee-list");
   const formulario = document.querySelector("#formulario-employee");
   const selectRole = document.querySelector('#role');
+  const selectSpecialty = document.querySelector('#specialty');
 
   document.addEventListener("DOMContentLoaded", async () => {
+    document.addEventListener('click', confirmarEliminar);
+
     // Diferentes consultas a la API como globales
     const dataUser = await anyToken();
     console.log(dataUser);
     const employees = await getUserByToken(dataUser);
-    console.log(employees);
     const roles = await getDataByRole(dataUser);
-    console.log(roles);
+    const specialtys = await getDataBySpecialty(dataUser);
 
     function printEmployees() {
       employees.forEach((employee) => {
         // Iteramos sobre el arreglo obtenido como respuesta
-        console.log(employee);
   
-        const { name, licenseNumber, age, roleName, id_userSpecialty } = employee;
+        const { id_employee, name, licenseNumber, age, roleName, id_userSpecialty } = employee;
         // Scripting Time
         const row = document.createElement("TR");
         row.innerHTML += `
@@ -45,8 +46,8 @@ import { Employee } from "./class.js";
                       <p class="text-gray-600">${roleName}</p>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                      <a href="editar-cliente.html?id=${id_userSpecialty}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
-                      <a href="#" data-cliente="${id_userSpecialty}" class="text-red-600 hover:text-red-900 eliminar">Eliminar</a>
+                      <a href="editar-employee.html?id=${id_employee}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
+                      <a href="#" data-employee="${id_employee}" class="text-red-600 hover:text-red-900 eliminar">Eliminar</a>
                   </td>
               `;
   
@@ -54,12 +55,10 @@ import { Employee } from "./class.js";
       });
     }
 
-    function printRoleNameAndSpecialty() {
+    function printRoleName() {
       roles.forEach(role => {
         // Aplicar destructuring
         const {id_userRole, name} = role;
-        console.log(name);
-        console.log(id_userRole);
 
         const option = document.createElement('OPTION');
         option.value = id_userRole;
@@ -69,6 +68,32 @@ import { Employee } from "./class.js";
 
       })
     }
+
+    function printSpecialtyName() {
+      specialtys.forEach(specialty => {
+        const {id_userSpecialty, name} = specialty;
+
+        const option = document.createElement('OPTION');
+        option.value = id_userSpecialty;
+        option.textContent = name;
+
+        selectSpecialty.appendChild(option);
+      })
+    }
+
+    async function confirmarEliminar(e) {
+      if(e.target.classList.contains('eliminar')) {
+          const employeeDeleteId = parseInt(e.target.dataset.employee);
+          console.log(employeeDeleteId);
+
+          const confirmar = confirm('Desea eliminar el registro?');
+          if(confirmar) {
+           const confir = await deleteEmployee(dataUser, employeeDeleteId);
+          } else {
+            console.log('no se elimino');
+          }
+      }
+  }
     
     openModal.addEventListener("click", () => {
       modal.classList.remove("hidden");
@@ -109,12 +134,20 @@ import { Employee } from "./class.js";
         showAlert("¡Todos los campos son obligatorios!", "error", formulario);
         return; // hasta aqui se termina la ejecucion
       }
-      showAlert("Empleado Registrado Con Exito", "succes", formulario);
-      //showSpinner(spinner);
-      console.log(employee);
+      showSpinner(formulario);
+      // Hablando a la api
+      const responseEmployee = await postEmployee(dataUser, employee);
+      if(responseEmployee) {
+        showAlert("Empleado Registrado Con Exito", "succes", formulario);
+        console.log(employee);
+        return;
+      } else {
+        showAlert("Error al enviar los datos", "error", formulario);
+        return;
+      }
     });
-
     printEmployees();
-    printRoleNameAndSpecialty();
+    printRoleName();
+    printSpecialtyName();
   });
 })();

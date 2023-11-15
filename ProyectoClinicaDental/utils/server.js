@@ -11,6 +11,7 @@ const medicalNotesRouter = require('../routes/medicalNotes');
 const medicalNotesProceduresRouter = require('../routes/medicalNotesProcedures');
 const accountRouter = require('../routes/account');
 const rolesRouter = require('../routes/role');
+const specialtyRouter = require('../routes/specialty');
 const authRouter = require('../routes/auth');
 const employeeRouter = require('../routes/employee');
 const appError = require('./appError');
@@ -41,8 +42,10 @@ sequelize
 app.use(express.json());
 const corsOptions = {
   origin: '*', // Este es el origen de tu cliente
-  methods: 'GET, POST', // Especifica los métodos que tu servidor aceptará
+  methods: 'GET, POST, DELETE, PATCH', // Especifica los métodos que tu servidor aceptará
   allowedHeaders: 'Content-Type, Authorization', // Los encabezados permitidos
+  exposedHeaders: 'Authorization', // Encabezados expuestos que pueden ser leídos por el cliente
+  credentials: true, // Indica si se deben incluir credenciales en las solicitudes (por ejemplo, cookies o encabezados de autorización)
 };
 
 app.use(cors(corsOptions));
@@ -65,6 +68,8 @@ app.use('/medicalNotesProcedures', medicalNotesProceduresRouter);
 app.use('/account', accountRouter);
 
 app.use('/roles', rolesRouter);
+
+app.use('/specialtys', specialtyRouter);
 
 app.use('/employees', employeeRouter);
 
