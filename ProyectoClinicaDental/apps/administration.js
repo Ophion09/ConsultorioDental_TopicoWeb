@@ -11,6 +11,7 @@ import { Employee } from "./class.js";
   const formulario = document.querySelector("#formulario-employee");
   const selectRole = document.querySelector('#role');
   const selectSpecialty = document.querySelector('#specialty');
+  const main = document.querySelector('#main');
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener('click', confirmarEliminar);
@@ -82,18 +83,41 @@ import { Employee } from "./class.js";
     }
 
     async function confirmarEliminar(e) {
-      if(e.target.classList.contains('eliminar')) {
-          const employeeDeleteId = parseInt(e.target.dataset.employee);
-          console.log(employeeDeleteId);
-
-          const confirmar = confirm('Desea eliminar el registro?');
-          if(confirmar) {
-           const confir = await deleteEmployee(dataUser, employeeDeleteId);
-          } else {
-            console.log('no se elimino');
+      if (e.target.classList.contains('eliminar')) {
+        const employeeDeleteId = parseInt(e.target.dataset.employee);
+        console.log(employeeDeleteId);
+    
+        const confirmar = confirm('¿Desea eliminar el registro?');
+        if (confirmar) {
+          try {
+            const exito = await deleteEmployee(dataUser, employeeDeleteId);
+    
+            if (exito) {
+              console.log('Empleado eliminado correctamente');
+              showAlert('Registro eliminado con exito', 'Exito', main);
+              setTimeout(() => {
+              location.reload();
+              }, 3000);
+            } else {
+              console.error('Error al eliminar al empleado');
+              showAlert('Error al eliminar al empleado', 'error', main);
+              setTimeout(() => {
+                location.reload();
+                }, 3000);
+            }
+          } catch (error) {
+            console.error('Error en la solicitud:', error);
+            showAlert('Error en el servidor', 'error', main);
+            setTimeout(() => {
+              location.reload();
+              }, 3000);
           }
+        } else {
+          console.log('No se eliminó');
+        }
       }
-  }
+    }
+    
     
     openModal.addEventListener("click", () => {
       modal.classList.remove("hidden");

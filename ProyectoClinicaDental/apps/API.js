@@ -214,12 +214,11 @@ export const deleteEmployee = async (user, Idemployee) => {
       method: 'DELETE',
       mode: 'cors',
       headers: {
-          'Content-Type': 'application/json',
           'Authorization': `${token}`
       },
       body: JSON.stringify(Idemployee)
     });
-    const data = await response.JSON();
+    const data = await response.json();
     if(response.ok) {
       return true;
     }

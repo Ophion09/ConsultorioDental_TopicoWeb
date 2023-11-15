@@ -137,8 +137,6 @@ exports.updateEmployee = async (req, res) => {
 exports.deleteEmployee = async (req, res) => {
   const { id } = req.params;
     try{
-      console.log('Delete employee called'); // Agrega esta línea
-
       const deleted =  await employeeModel.destroy({
           where: {
             id_employee:id
