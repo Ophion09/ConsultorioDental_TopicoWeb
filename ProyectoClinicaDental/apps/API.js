@@ -1,4 +1,4 @@
-const url = 'http://localhost:3000/';
+const url = 'http://localhost:3000';
 let userLoging = {};
 import { cleanHTML, showAlert } from "./funciones.js";
 // cuando se logea un usuario administrador
@@ -27,12 +27,14 @@ export const login = async user => {
         return user;
         } else {
           console.error('Error al enviar los datos:', response.status);
+          showAlert('Credenciales Invalidas', 'error', formulario);
           const errorData = await response.json();
           console.error('Mensaje de error:', errorData.message);
+          return;
         }
       } catch (error) {
         console.error('Error en la solicitud:', error);
-        //showAlert('Servidor Caido', 'ERROR', formulario)
+        showAlert('Servidor Caido', 'error', formulario)
       }
 
 }
@@ -43,7 +45,7 @@ export const getUserByToken = async user => {
   console.log(token);
   const main = document.querySelector('#main');
   try {
-    const response = await fetch(`${url}employees`, {
+    const response = await fetch(`${url}/employees`, {
       method: 'GET',
       mode: 'cors',
       headers: {
@@ -52,19 +54,56 @@ export const getUserByToken = async user => {
     });
     
     const data = await response.json();
-    console.log(data); // Para ver la respuesta del servidor en la consola
-
     if(response.status === 401) {
       console.log('Token invalido');
       showAlert('Sesion Expirada', 'error', main);
-      // setTimeout(() => {
-      //   window.location.href = '../views/login.html';
-      // }, 3000);
+       setTimeout(() => {
+         window.location.href = '../views/login.html';
+       }, 3000);
       return;
+    } else {
+      return data;
+      // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
     }
   } catch (error) {
     console.error('Error en la solicitud:', error);
     //showAlert('Servidor Caido', 'ERROR', formulario)
+    return;
   }
 
+}
+
+/**
+ * Metodo para obtener todos los 
+ * @param {*} async 
+ */
+// Le vamos a pasar el usuario con token para poder validar la ruta
+export const getDataByRole = async user => {
+  //
+  const {email, token} = user;
+  console.log(token);
+  try {
+    const response = await fetch(`${url}/roles`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Authorization': `${token}`
+      }
+    });
+
+    const data = await response.json(); // Respuesta en el formato que nos interesa
+    if(response.status === 401) {
+      console.log('Token invalido');
+      showAlert('Sesion Expirada', 'error', main);
+       setTimeout(() => {
+         window.location.href = '../views/login.html';
+       }, 3000);
+      return;
+    } else {
+      return data;
+      // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
+    }
+  } catch (error) {
+    console.log(error);
+  }
 }

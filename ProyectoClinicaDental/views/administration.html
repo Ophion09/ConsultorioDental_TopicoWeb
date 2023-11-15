@@ -43,12 +43,12 @@
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"
                     >
-                      Matricula
+                      Nombre
                     </th>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"
                     >
-                      Nombre
+                      Matricula
                     </th>
                     <th
                       class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"
@@ -65,6 +65,11 @@
                     >
                       Especialidad
                     </th>
+                    <th
+                      class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"
+                    >
+                      Acciones
+                    </th>
                   </tr>
                 </thead>
                 <tbody id="employee-list" class="bg-white"></tbody>
@@ -72,10 +77,15 @@
             </div>
           </div>
         </div>
+        <div class="flex justify-center items-center py-2">
+          <button id="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Nuevo Empleado
+          </button>
+        </div>
         <div id="myModal" class="hidden fixed inset-0 bg-gray-300 bg-opacity-75 flex justify-center items-center">
           <div class="bg-white p-4 opacity-0 transform scale-95 transition-all duration-300 w-1/2 mx-auto">
             <button id="closeModal" class="float-right text-gray-700">&times;</button>
-            <form id="formulario" class="bg-white p-3" method="POST">
+            <form id="formulario-employee" class="bg-white p-3" method="POST">
               <div class="mb-4">
                   <label class="block text-gray-700 text-sm font-bold mb-2" for="nombre">Nombre</label>
                   <input 
@@ -116,9 +126,6 @@
                   name="role"
                 >
                   <option value="" disabled selected>Selecciona un Rol</option>
-                  <option value="gerente">Gerente</option>
-                  <option value="asistente">Asistente</option>
-                  <option value="secretaria">Secretaria</option>
                   <!-- Agrega más opciones según necesites -->
                 </select>
               </div>
@@ -147,11 +154,7 @@
           </div>
         </div>
         
-        <div class="flex justify-center items-center h-screen">
-          <button id="openModal" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
-            Nuevo Empleado
-          </button>
-        </div>
+        
         
       </main>
     </div>

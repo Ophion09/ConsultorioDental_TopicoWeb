@@ -39,8 +39,10 @@ formulario.addEventListener("submit", async (event) => {
       };
       localStorage.setItem("user", JSON.stringify(userSession)); // Para no pasar informacion delicada del lado del cliente
       console.log(userToken);
+      return;
     } else {
       cleanHTML(spinner);
       showAlert('Credenciales Invalidas', 'error', formulario);
+      return;
     }
 });
