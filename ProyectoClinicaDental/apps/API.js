@@ -69,7 +69,7 @@ export const postNewUser = async user => {
 }
 export {userLoging};
 
-export const getUserByToken = async user => {
+export const getEmployees = async user => {
   const {email, token} = user;
   console.log(token);
   const main = document.querySelector('#main');
@@ -100,6 +100,27 @@ export const getUserByToken = async user => {
     return;
   }
 
+}
+
+export const getEmployeeById = async (user, id) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/employees/${id}`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Authorization': `${token}`
+      }
+    });
+    
+    const data = await response.json();
+
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+    
 }
 
 /**

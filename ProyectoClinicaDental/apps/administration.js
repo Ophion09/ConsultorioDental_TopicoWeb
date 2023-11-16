@@ -1,11 +1,12 @@
 import { isEmpty, showAlert, showSpinner, anyToken } from "./funciones.js";
 import {
-  getUserByToken,
   getDataByRole,
   getDataBySpecialty,
   postEmployee,
   deleteEmployee,
   getNameByUser,
+  getEmployees,
+  getEmployeeById,
 } from "./API.js";
 import { Employee } from "./class.js";
 
@@ -24,11 +25,12 @@ import { Employee } from "./class.js";
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmarEliminar);
+    document.addEventListener("click", editEmployee);
 
     // Diferentes consultas a la API como globales
     const dataUser = await anyToken();
     console.log(dataUser);
-    const employees = await getUserByToken(dataUser);
+    const employees = await getEmployees(dataUser);
     const roles = await getDataByRole(dataUser);
     const specialtys = await getDataBySpecialty(dataUser);
     const userNames = await getNameByUser(dataUser);
@@ -71,7 +73,7 @@ import { Employee } from "./class.js";
                       <p class="text-gray-600">${emailUser}</p>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                      <a href="editar-employee.html?id=${id_employee}" class="text-teal-600 hover:text-teal-900 mr-5">Editar</a>
+                      <a href="#" data-employee="${id_employee}" class="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
                       <a href="#" data-employee="${id_employee}" class="text-red-600 hover:text-red-900 eliminar">Eliminar</a>
                   </td>
               `;
@@ -91,8 +93,8 @@ import { Employee } from "./class.js";
 
     function changeIdBySpecialty(id) {
       for (const specialty of specialtys) {
-      // Aplico destructuring para mejor comprensio
-      const {id_userSpecialty, name} = specialty;
+        // Aplico destructuring para mejor comprensio
+        const { id_userSpecialty, name } = specialty;
         if (id_userSpecialty === id) {
           return name;
         }
@@ -138,6 +140,17 @@ import { Employee } from "./class.js";
       });
     }
 
+    async function editEmployee(e) {
+      // Lo primero que hay que hacer es obtener el id que estamos seleccionandoS
+      if (e.target.classList.contains("editar")) {
+        const employeeEditId = parseInt(e.target.dataset.employee);
+        console.log(employeeEditId);
+
+        // Con el id, lo mandamos como argumento a una consulta a la API
+        const employee = await getEmployeeById(dataUser, employeeEditId);
+        console.log(employee);
+      }
+    }
     async function confirmarEliminar(e) {
       if (e.target.classList.contains("eliminar")) {
         const employeeDeleteId = parseInt(e.target.dataset.employee);
