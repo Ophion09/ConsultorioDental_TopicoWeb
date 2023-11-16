@@ -172,6 +172,35 @@ export const getDataBySpecialty = async user => {
   }
 }
 
+export const getNameByUser = async user => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/users`, {
+      method: 'GET',
+      mode: 'cors',
+      headers: {
+        'Authorization': `${token}`
+      }
+    });
+
+    const data = await response.json(); // Respuesta de la consulta a la API
+
+    if(response.status === 401) {
+      console.log('Token invalido');
+      showAlert('Sesion Expirada', 'error', main);
+       setTimeout(() => {
+         window.location.href = '../views/login.html';
+       }, 3000);
+      return;
+    } else {
+      return data;
+      // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
+    }
+  } catch (error) {
+    
+  }
+}
+
 export const postEmployee = async (user, employee) => {
   const {email, token} = user;
   try {
