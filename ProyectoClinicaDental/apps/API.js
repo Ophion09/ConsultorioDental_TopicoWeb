@@ -123,6 +123,26 @@ export const getEmployeeById = async (user, id) => {
     
 }
 
+export const updateEmployeeById = async (user, id, updateData) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/employees/${id}`, {
+      method: 'PATCH',
+      mode: 'cors',
+      headers: {
+        'Authorization': `${token}`,
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(updateData)
+    });
+    
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 /**
  * Metodo para obtener todos los roles
  * @param {*} user 
