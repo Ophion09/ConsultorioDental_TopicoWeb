@@ -5,7 +5,7 @@ const sequelize = require('../utils/db');
 const userRole = sequelize.define('userRole', {
     id_userRole: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
         autoIncrement: true,
       },

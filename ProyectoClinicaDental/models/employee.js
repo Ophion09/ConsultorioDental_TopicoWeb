@@ -10,7 +10,7 @@ const especialtyModel = require('./specialty');
 const employee = sequelize.define('employee', {
     id_employee: {
         type: DataTypes.INTEGER,
-        allowNull: false,
+        allowNull: true,
         primaryKey: true,
         autoIncrement: true,
       },
