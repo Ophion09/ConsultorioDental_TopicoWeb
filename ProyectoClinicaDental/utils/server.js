@@ -11,9 +11,12 @@ const medicalNotesRouter = require('../routes/medicalNotes');
 const medicalNotesProceduresRouter = require('../routes/medicalNotesProcedures');
 const accountRouter = require('../routes/account');
 const rolesRouter = require('../routes/role');
+const specialtyRouter = require('../routes/specialty');
 const authRouter = require('../routes/auth');
 const employeeRouter = require('../routes/employee');
 const appError = require('./appError');
+const cors = require('cors');
+
 
 dotenv.config({ path: './config.env' });
 
@@ -37,6 +40,16 @@ sequelize
 // Ejemplo: app.use('/api', require('./routes/api'));
 
 app.use(express.json());
+const corsOptions = {
+  origin: '*', // Este es el origen de tu cliente
+  methods: 'GET, POST, DELETE, PATCH', // Especifica los métodos que tu servidor aceptará
+  allowedHeaders: 'Content-Type, Authorization', // Los encabezados permitidos
+  exposedHeaders: 'Authorization', // Encabezados expuestos que pueden ser leídos por el cliente
+  credentials: true, // Indica si se deben incluir credenciales en las solicitudes (por ejemplo, cookies o encabezados de autorización)
+};
+
+app.use(cors(corsOptions));
+
 
 app.use('/procedures', procedureRouter);
 
@@ -55,6 +68,8 @@ app.use('/medicalNotesProcedures', medicalNotesProceduresRouter);
 app.use('/account', accountRouter);
 
 app.use('/roles', rolesRouter);
+
+app.use('/specialtys', specialtyRouter);
 
 app.use('/employees', employeeRouter);
 

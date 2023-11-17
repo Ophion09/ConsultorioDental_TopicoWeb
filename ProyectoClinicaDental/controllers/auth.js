@@ -2,6 +2,8 @@
 const jwt = require('jsonwebtoken');
 const { secret } = require('../utils/config');
 const User = require('../models/user'); // Asegúrate de importar el modelo de usuario
+const UserController = require('../controllers/user'); // Asegúrate de importar el modelo de usuario
+const APIConstroller = require('../controllers/API');
 
 const generateToken = (user) => {
   return jwt.sign({ id_user: user.id_user, email: user.email, password: user.password }, secret, { expiresIn: '1h' });
@@ -17,6 +19,8 @@ const authenticateUser = async (req, res) => {
     if (user) {
       // Usuario autenticado, generar el token
       const token = generateToken(user);
+      console.log(user);
+      const newToken = await User.update({ token }, { where: { id_user: user.id_user } });
       res.json({ token });
     } else {
       // Usuario no encontrado o credenciales inválidas
@@ -34,7 +38,7 @@ const authorizeUser = (req, res, next) => {
     if (!token) {
       return res.status(401).json({ message: 'Token no proporcionado' });
     }
-  
+    
     try {
       const decoded = jwt.verify(token, secret);
       req.user = decoded;
