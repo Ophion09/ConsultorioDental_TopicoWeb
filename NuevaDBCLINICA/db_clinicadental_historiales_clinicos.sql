@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_clinicadental
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,28 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `userspecialtys`
+-- Table structure for table `historiales_clinicos`
 --
 
-DROP TABLE IF EXISTS `userspecialtys`;
+DROP TABLE IF EXISTS `historiales_clinicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `userspecialtys` (
-  `id_userSpecialty` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_userSpecialty`),
-  UNIQUE KEY `especialidad_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `historiales_clinicos` (
+  `id_historial` int NOT NULL AUTO_INCREMENT,
+  `alergias` varchar(45) NOT NULL,
+  `procedimientos` varchar(45) NOT NULL,
+  `otros` varchar(45) NOT NULL,
+  `id_paciente` int NOT NULL,
+  PRIMARY KEY (`id_historial`),
+  KEY `id_paciente_idx` (`id_paciente`),
+  CONSTRAINT `id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `userspecialtys`
+-- Dumping data for table `historiales_clinicos`
 --
 
-LOCK TABLES `userspecialtys` WRITE;
-/*!40000 ALTER TABLE `userspecialtys` DISABLE KEYS */;
-INSERT INTO `userspecialtys` VALUES (2,'Maxilofacial'),(1,'Odontologo');
-/*!40000 ALTER TABLE `userspecialtys` ENABLE KEYS */;
+LOCK TABLES `historiales_clinicos` WRITE;
+/*!40000 ALTER TABLE `historiales_clinicos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historiales_clinicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10 21:30:38
+-- Dump completed on 2023-11-17  3:06:14

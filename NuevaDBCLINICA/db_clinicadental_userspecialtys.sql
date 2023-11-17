@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_clinicadental
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,40 +16,28 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `notas_medicas`
+-- Table structure for table `userspecialtys`
 --
 
-DROP TABLE IF EXISTS `notas_medicas`;
+DROP TABLE IF EXISTS `userspecialtys`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `notas_medicas` (
-  `id_nota` int NOT NULL AUTO_INCREMENT,
-  `nota` varchar(200) NOT NULL,
-  `id_procedimiento` int NOT NULL,
-  `id_cita` int NOT NULL,
-  `id_paciente` int NOT NULL,
-  `id_empleado` int DEFAULT NULL,
-  PRIMARY KEY (`id_nota`),
-  UNIQUE KEY `id_paciente_UNIQUE` (`id_paciente`),
-  UNIQUE KEY `id_cita_UNIQUE` (`id_cita`),
-  KEY `id_paciente_idx` (`id_paciente`),
-  KEY `id_cita_idx` (`id_cita`),
-  KEY `fk_id_procedimientos_idx` (`id_procedimiento`),
-  KEY `fk_id_empleado_idx` (`id_empleado`),
-  CONSTRAINT `fk_id_cita` FOREIGN KEY (`id_cita`) REFERENCES `citas` (`id_cita`),
-  CONSTRAINT `fk_id_empleado` FOREIGN KEY (`id_empleado`) REFERENCES `employees` (`id_employee`),
-  CONSTRAINT `fk_id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`),
-  CONSTRAINT `fk_id_procedimientos` FOREIGN KEY (`id_procedimiento`) REFERENCES `procedimientos` (`id_procedimiento`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `userspecialtys` (
+  `id_userSpecialty` int NOT NULL AUTO_INCREMENT,
+  `name` varchar(45) NOT NULL,
+  PRIMARY KEY (`id_userSpecialty`),
+  UNIQUE KEY `especialidad_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `notas_medicas`
+-- Dumping data for table `userspecialtys`
 --
 
-LOCK TABLES `notas_medicas` WRITE;
-/*!40000 ALTER TABLE `notas_medicas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `notas_medicas` ENABLE KEYS */;
+LOCK TABLES `userspecialtys` WRITE;
+/*!40000 ALTER TABLE `userspecialtys` DISABLE KEYS */;
+INSERT INTO `userspecialtys` VALUES (2,'Maxilofacial'),(1,'Odontologo'),(4,'Ortodonsista'),(5,'Sin Especialidad');
+/*!40000 ALTER TABLE `userspecialtys` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -61,4 +49,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10 21:30:39
+-- Dump completed on 2023-11-17  3:06:13

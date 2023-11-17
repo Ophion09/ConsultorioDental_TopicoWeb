@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_clinicadental
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -16,35 +16,27 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pacientes`
+-- Table structure for table `rooms`
 --
 
-DROP TABLE IF EXISTS `pacientes`;
+DROP TABLE IF EXISTS `rooms`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pacientes` (
-  `id_paciente` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `apellido` varchar(45) NOT NULL,
-  `edad` int NOT NULL,
-  `celular` int DEFAULT NULL,
-  `direccion` varchar(45) NOT NULL,
-  `id_usuario` int NOT NULL,
-  `sexo` enum('Masculino','Femenino','Otro') NOT NULL,
-  PRIMARY KEY (`id_paciente`),
-  UNIQUE KEY `id_usuario_UNIQUE` (`id_usuario`),
-  KEY `id_usuario_idx` (`id_usuario`),
-  CONSTRAINT `fk_id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_user`)
+CREATE TABLE `rooms` (
+  `id_room` int NOT NULL AUTO_INCREMENT,
+  `number` int NOT NULL,
+  `avaible` tinyint NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id_room`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pacientes`
+-- Dumping data for table `rooms`
 --
 
-LOCK TABLES `pacientes` WRITE;
-/*!40000 ALTER TABLE `pacientes` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pacientes` ENABLE KEYS */;
+LOCK TABLES `rooms` WRITE;
+/*!40000 ALTER TABLE `rooms` DISABLE KEYS */;
+/*!40000 ALTER TABLE `rooms` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -56,4 +48,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10 21:30:39
+-- Dump completed on 2023-11-17  3:06:13

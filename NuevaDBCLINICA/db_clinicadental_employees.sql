@@ -2,7 +2,7 @@
 --
 -- Host: localhost    Database: db_clinicadental
 -- ------------------------------------------------------
--- Server version	8.0.34
+-- Server version	8.0.35
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -28,13 +28,20 @@ CREATE TABLE `employees` (
   `licenseNumber` int NOT NULL,
   `age` int NOT NULL,
   `id_userRole` int NOT NULL,
-  `id_userSpecialty` int NOT NULL,
+  `id_userSpecialty` int DEFAULT NULL,
+  `id_user` int DEFAULT NULL,
+  `photo` varchar(45) DEFAULT NULL,
+  `id_room` int DEFAULT NULL,
   PRIMARY KEY (`id_employee`),
   KEY `fk_id_rol_idx` (`id_userRole`),
   KEY `fk_id_especialidad_idx` (`id_userSpecialty`),
+  KEY `fk_id_user_idx` (`id_user`),
+  KEY `fk_id_room_idx` (`id_room`),
+  CONSTRAINT `fk_id_room` FOREIGN KEY (`id_room`) REFERENCES `rooms` (`id_room`),
+  CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
   CONSTRAINT `fk_id_userRole` FOREIGN KEY (`id_userRole`) REFERENCES `userroles` (`id_userRole`),
   CONSTRAINT `fk_id_userSpecialty` FOREIGN KEY (`id_userSpecialty`) REFERENCES `userspecialtys` (`id_userSpecialty`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -43,7 +50,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (1,'PEPE2',789,30,2,1),(4,'Manuel',123,24,2,1),(9,'Lopez',123,24,3,2),(10,'prueba',123,24,2,2),(11,'prueba',123,24,2,2),(12,'pruebaFinal1',123,24,2,2),(14,'HolaMundo',123,24,2,1),(15,'Oscar',544,29,1,2);
+INSERT INTO `employees` VALUES (32,'José Fernando Hernandez',432,22,2,4,13,NULL,NULL);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -56,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-10 21:30:37
+-- Dump completed on 2023-11-17  3:06:12
