@@ -19,6 +19,18 @@ const user = sequelize.define('users', {
         type: DataTypes.STRING,
         allowNull: false
     },
+    token: {
+        type: DataTypes.STRING,
+        allowNull: true
+    },
+    userName: {
+        type: DataTypes.STRING,
+        allowNull: false
+    },
+    type: {
+        type: DataTypes.ENUM('Normal', 'Doctor', 'Administrador'),
+        allowNull: false
+    }
 }, {tableName: 'users', 
     timestamps: false });
 

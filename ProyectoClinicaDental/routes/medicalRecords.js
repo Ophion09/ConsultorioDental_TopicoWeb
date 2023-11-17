@@ -1,9 +1,11 @@
 // medicalRecords.js routes
 const express = require('express');
 const medialRecordController = require('../controllers/medicalRecords.js');
+const authController = require('../controllers/auth.js');
 
 const router = express.Router();
 
+router.use(authController.authorizeUser);
 router
 .route('/')
 .get(medialRecordController.getMedicalRecord)

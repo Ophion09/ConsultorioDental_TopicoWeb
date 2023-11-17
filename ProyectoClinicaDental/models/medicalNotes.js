@@ -43,12 +43,12 @@ const medicalNotes = sequelize.define('notas_medicas', {
             key: 'id_paciente' 
         }
     },
-    id_empleado: {
+    id_employee: {
         type: DataTypes.INTEGER,
         allowNull: false,
         references: {
             model: 'empleados', 
-            key: 'id_empleado' 
+            key: 'id_employee' 
         }
     }
 }, {tableName: 'notas_medicas',
@@ -57,6 +57,6 @@ const medicalNotes = sequelize.define('notas_medicas', {
 medicalNotes.belongsTo(procedures, { foreignKey: 'id_procedimiento', as: 'procedure'});
 medicalNotes.belongsTo(appointment, { foreignKey: 'id_cita', as: 'appointment'});
 medicalNotes.belongsTo(patient, { foreignKey: 'id_paciente', as: 'patient'});
-medicalNotes.belongsTo(employee, { foreignKey: 'id_empleado', as: 'employee'});      
+medicalNotes.belongsTo(employee, { foreignKey: 'id_employee', as: 'employee'});      
 
 module.exports = medicalNotes; 
