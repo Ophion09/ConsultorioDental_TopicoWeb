@@ -11,10 +11,11 @@ import { User } from "./class.js";
       // Elementos del HTML
       const email = document.querySelector("#email").value;
       const password = document.querySelector("#password").value;
+      const userName = document.querySelector('#userName').value;
       const spinner = document.querySelector("#spinner");
     
       // Creacion de objeto de usuario
-      const user = new User(email, password);
+      const user = new User(email, password, undefined, userName, "Normal");
     
     
       // Validar si el usuario esta vacio al enviar

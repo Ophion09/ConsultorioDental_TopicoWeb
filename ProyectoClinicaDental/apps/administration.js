@@ -154,20 +154,20 @@ import { Employee } from "./class.js";
               showAlert("Registro eliminado con exito", "Exito", main);
               setTimeout(() => {
                 location.reload();
-              }, 3000);
+              }, 2000);
             } else {
               console.error("Error al eliminar al empleado");
               showAlert("Error al eliminar al empleado", "error", main);
               setTimeout(() => {
                 location.reload();
-              }, 3000);
+              }, 2000);
             }
           } catch (error) {
             console.error("Error en la solicitud:", error);
             showAlert("Error en el servidor", "error", main);
             setTimeout(() => {
               location.reload();
-            }, 3000);
+            }, 2000);
           }
         } else {
           console.log("No se eliminó");
