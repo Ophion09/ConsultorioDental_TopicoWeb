@@ -1,6 +1,6 @@
 import { showAlert, isEmpty, showSpinner, cleanHTML } from "./funciones.js";
 import { login } from "./API.js";
-import { User } from "./class.js";
+import { User, UserSession } from "./class.js";
 const formulario = document.querySelector("#formulario");
 const url = "http://localhost:3000/auth";
 
@@ -28,17 +28,35 @@ formulario.addEventListener("submit", async (event) => {
 
   // Ahora toca hablarle a la api ya que a este punto la validacion fue exitosa y ya tenemos un usuario
     const userToken = await login(user); // retorna un usuario desde la API
-    //showAlert('Verificació Exitosa', 'Exito');
 
+    // Si hay una respuesta satisfactoria, obtendremos 2 datos, el token y el usuario logeado
     if (userToken) {
-      const {email, token} = userToken; // Aplicando destructuring para poder extraer los valores que queremos de la response
-      // Informacion de la sesion del usuario
-      const userSession = {
-        email,
-        token
-      };
+
+      // Entonces haremos un nuevo usuario y le daremos el valor de token para este pasarlo al localstorage
+      const {email, type, userName} = userToken.user; // Destructuring
+      // Creo una variable para asignarle el token
+      const token = userToken.token;
+      // Le paso los datos al nuevo objeto de tipo userSession
+      const userSession = new UserSession(email, token, userName, type);
+
+      console.log(userSession);
+
+      // Guardo este objeto en el localStorage
       localStorage.setItem("user", JSON.stringify(userSession)); // Para no pasar informacion delicada del lado del cliente
-      console.log(userToken);
+
+      // Dependiendo del tipo de usuario logeado, lo mandaremos a su respectivo HTML
+      switch (userSession.type) {
+        case 'Normal':
+          window.location.href = '../views/userIndex.html';
+          break;
+
+          case 'Admin':
+            window.location.href = '../views/administration.html';
+          break;
+      
+        default:
+          break;
+      }
       return;
     } else {
       cleanHTML(spinner);

@@ -97,3 +97,20 @@ export function anyToken() {
     window.location.href = '../views/login.html';
   }
 }
+
+export function printUserName(dataUser, selectElement) {
+  const {userName} = dataUser;
+
+  const nameInput = document.createElement('H2');
+  nameInput.textContent = 'Bienvienida ';
+  nameInput.classList.add('text-white', 'tracking-wide', 'text-2xl', 'mt-2');
+
+  const nameSpan = document.createElement('SPAN');
+  nameSpan.textContent = userName;
+  nameSpan.classList.add('font-bold');
+
+  nameInput.appendChild(nameSpan);
+  selectElement.appendChild(nameInput);
+
+
+}

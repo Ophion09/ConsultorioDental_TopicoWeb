@@ -1,4 +1,4 @@
-import { isEmpty, showAlert, showSpinner, anyToken } from "./funciones.js";
+import { isEmpty, showAlert, showSpinner, anyToken, printUserName } from "./funciones.js";
 import {
   getDataByRole,
   getDataBySpecialty,
@@ -22,6 +22,8 @@ import { Employee } from "./class.js";
   const selectSpecialty = document.querySelector("#specialty");
   const selectEmail = document.querySelector("#email");
   const main = document.querySelector("#main");
+  const greeting = document.querySelector('#welcome');
+
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmarEliminar);
@@ -232,5 +234,6 @@ import { Employee } from "./class.js";
     printRoleName();
     printSpecialtyName();
     printUserEmail();
+    printUserName(dataUser, greeting);
   });
 })();
