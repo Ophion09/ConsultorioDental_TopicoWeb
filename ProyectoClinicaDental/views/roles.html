@@ -28,16 +28,20 @@
           <a
             href="./roles.html"
             class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400 bg-blue-700"
-            >Roles y Especialidades</a
+            >Roles</a
           >
-        </nav>
+          <a
+            href="./specialtys.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Especialidades</a
+          >
       </aside>
       <!--sidebar-->
-      <main class="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200 flex flex-row">
-        <div class="w-1/2 px-2">
+      <main class="md:w-3/5 xl:w-4/5 px-5 py-10 bg-gray-200 flex justify-center">
+        <div class="w-1/2 px-2 mb-10">
           <h2 id="main" class="text-3xl font-light text-center">Roles</h2>
 
-          <div class="flex flex-col mt-10">
+          <div class="flex flex-col mt-5">
             <div class="py-2 overflow-x-auto">
               <div
                 class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
@@ -65,46 +69,6 @@
           <div class="flex justify-center items-center py-2">
             <button
               id="openModalRole"
-              class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Nuevo Rol
-            </button>
-          </div>
-        </div>
-
-        <div class="w-1/2 px-2">
-          <h2 id="main" class="text-3xl font-light text-center">
-            Especialidades
-          </h2>
-
-          <div class="flex flex-col mt-10">
-            <div class="py-2 overflow-x-auto">
-              <div
-                class="align-middle inline-block min-w-full shadow overflow-hidden sm:rounded-lg border-b border-gray-200"
-              >
-                <table class="min-w-full">
-                  <thead class="bg-gray-100">
-                    <tr>
-                      <th
-                        class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"
-                      >
-                        Nombre
-                      </th>
-                      <th
-                        class="px-6 py-3 border-b border-gray-200 text-left text-xs leading-4 font-medium text-gray-600 uppercase tracking-wider"
-                      >
-                        Acciones
-                      </th>
-                    </tr>
-                  </thead>
-                  <tbody id="specialty-list" class="bg-white"></tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          <div class="flex justify-center items-center py-2">
-            <button
-              id="openModalSpecialty"
               class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             >
               Nuevo Rol
@@ -141,40 +105,6 @@
                 type="submit"
                 class="bg-blue-600 hover:bg-blue-800 w-full mt-5 p-2 text-white uppercase font-bold"
                 value="Registrar Empleado"
-              />
-            </form>
-          </div>
-        </div>
-        <!-- Modal para Specialty -->
-        <div
-          id="myModalSpecialty"
-          class="hidden fixed inset-0 bg-gray-300 bg-opacity-75 flex justify-center items-center"
-        >
-          <div
-            class="bg-white p-4 opacity-0 transform scale-95 transition-all duration-300 w-1/2 mx-auto"
-          >
-            <button id="closeModalSpecialty" class="float-right text-gray-700">
-              &times;
-            </button>
-            <form id="formularioSpecialty" class="bg-white p-3" method="POST">
-              <div class="mb-4">
-                <label
-                  class="block text-gray-700 text-sm font-bold mb-2"
-                  for="nombre"
-                  >Nombre</label
-                >
-                <input
-                  class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                  id="nameSpecialty"
-                  name="name"
-                  type="text"
-                  placeholder="Nombre de la Especialidad"
-                />
-              </div>
-              <input
-                type="submit"
-                class="bg-blue-600 hover:bg-blue-800 w-full mt-5 p-2 text-white uppercase font-bold"
-                value="Registrar Especialidad"
               />
             </form>
           </div>
