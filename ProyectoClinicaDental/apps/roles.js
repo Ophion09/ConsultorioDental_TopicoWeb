@@ -5,20 +5,32 @@ import {
   printUserName,
   isEmpty,
 } from "./funciones.js";
-import { getRoles, postNewRole, deleteRole, getRoleById } from "./API.js";
+import {
+  getRoles,
+  postNewRole,
+  deleteRole,
+  getRoleById,
+  updateRole,
+} from "./API.js";
 import { Role } from "./class.js";
 
 (function () {
   // Variables Globales
   const list = document.querySelector("#role-list");
   const modalRole = document.querySelector("#myModalRole");
+  const modalRoleEdit = document.querySelector("#myModalRoleEdit");
   const openModalRole = document.querySelector("#openModalRole");
   const closeModalRole = document.querySelector("#closeModalRole");
+  const openModalRoleEdit = document.querySelector("#openModalRoleEdit");
+  const closeModalRoleEdit = document.querySelector("#closeModalRoleEdit");
   const greeting = document.querySelector("#welcome");
   const formulario = document.querySelector("#formularioRole");
+  const formularioEdit = document.querySelector("#formularioRoleEdit");
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmDeleteRole);
+    document.addEventListener("click", editRole);
+
     // Llamadas a la API
     const dataUser = await anyToken();
     console.log(dataUser);
@@ -40,13 +52,63 @@ import { Role } from "./class.js";
                       <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${name} </p>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                      <a href="employee-edit.html?id=${id_userRole}" data-role="${id_userRole}" class="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
+                      <a href="#" data-role="${id_userRole}" class="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
                       <a href="#" data-role="${id_userRole}" class="text-red-600 hover:text-red-900 mr-5 eliminar">Eliminar</a>
                   </td>
               `;
 
         list.appendChild(row);
       });
+    }
+
+    async function editRole(e) {
+      if (e.target.classList.contains("editar")) {
+        const roleEditedId = parseInt(e.target.dataset.role);
+        console.log(roleEditedId);
+        const roleById = await getRoleById(dataUser, roleEditedId);
+        console.log(roleById);
+
+        // Mostramos el modal
+        modalRoleEdit.classList.remove("hidden");
+        setTimeout(() => {
+          modalRoleEdit.children[0].classList.add("opacity-100", "scale-100");
+        }, 50);
+
+        // Seleccionamos los inputs
+        const { id_userRole, name } = roleById;
+        document.querySelector("#nameRoleEdit").value = name;
+
+        // Ahora le toca al formulario
+        formularioEdit.addEventListener("submit", async (e) => {
+          e.preventDefault();
+          console.log("Desde form edit");
+          const nameEdited = document.querySelector("#nameRoleEdit").value;
+          const roleEdited = new Role(nameEdited);
+
+          if (isEmpty(roleEdited)) {
+            showAlert("No se permiten campos vacios", "error", formularioEdit);
+            return;
+          } else {
+            showSpinner(formulario)
+            // Consulta a la API
+            const updateRoleEdited = await updateRole(
+              dataUser,
+              id_userRole,
+              roleEdited
+            );
+            console.log(updateRoleEdited);
+            if(updateRoleEdited.status === 'succes') {
+              showAlert('Registro Actualizado Correctamente', 'Exito', formularioEdit);
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
+            }
+            return;
+          }
+        });
+        return;
+      }
+      return;
     }
 
     async function confirmDeleteRole(e) {
@@ -56,7 +118,9 @@ import { Role } from "./class.js";
         const roleById = await getRoleById(dataUser, roleDeletedId);
         console.log(roleById);
 
-        const confirmar = confirm(`¿Desea eliminar el registro ${roleById.name}?`);
+        const confirmar = confirm(
+          `¿Desea eliminar el registro ${roleById.name}?`
+        );
         if (confirmar) {
           try {
             const exito = await deleteRole(dataUser, roleDeletedId);
@@ -101,6 +165,13 @@ import { Role } from "./class.js";
       }, 50);
     });
 
+    closeModalRoleEdit.addEventListener("click", () => {
+      modalRoleEdit.classList.add("hidden");
+      setTimeout(() => {
+        modalRoleEdit.children[0].classList.remove("opacity-100", "scale-100");
+      }, 50);
+    });
+
     formulario.addEventListener("submit", async (e) => {
       e.preventDefault();
       const name = document.querySelector("#nameRole").value;
@@ -117,6 +188,9 @@ import { Role } from "./class.js";
         const createRole = await postNewRole(dataUser, newRole);
         if (createRole) {
           showAlert("Exito, Nuevo Rol Creado", "exito", formulario);
+          setTimeout(() => {
+            location.reload();
+          }, 2000);
           return;
         }
         return;

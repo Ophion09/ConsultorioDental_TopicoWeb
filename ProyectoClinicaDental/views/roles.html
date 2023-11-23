@@ -109,6 +109,41 @@
             </form>
           </div>
         </div>
+
+        <!-- Modal para roles -->
+        <div
+          id="myModalRoleEdit"
+          class="hidden fixed inset-0 bg-gray-300 bg-opacity-75 flex justify-center items-center"
+        >
+          <div
+            class="bg-white p-4 opacity-0 transform scale-95 transition-all duration-300 w-1/2 mx-auto"
+          >
+            <button id="closeModalRoleEdit" class="float-right text-gray-700">
+              &times;
+            </button>
+            <form id="formularioRoleEdit" class="bg-white p-3" method="PATCH">
+              <div class="mb-4">
+                <label
+                  class="block text-gray-700 text-sm font-bold mb-2"
+                  for="nombre"
+                  >Nombre</label
+                >
+                <input
+                  class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                  id="nameRoleEdit"
+                  name="name"
+                  type="text"
+                  placeholder="Nombre del Rol"
+                />
+              </div>
+              <input
+                type="submit"
+                class="bg-blue-600 hover:bg-blue-800 w-full mt-5 p-2 text-white uppercase font-bold"
+                value="Registrar Empleado"
+              />
+            </form>
+          </div>
+        </div>
       </main>
     </div>
     <script src="/ProyectoClinicaDental/apps/roles.js" type="module"></script>

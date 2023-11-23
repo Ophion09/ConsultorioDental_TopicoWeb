@@ -406,6 +406,26 @@ export const deleteRole = async (user, idRole) => {
   }
 }
 
+export const updateRole = async (user, idRole, updateData) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/roles/${idRole}`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export const getSpecialtys = async (user) => {
   const { email, token } = user;
   try {
