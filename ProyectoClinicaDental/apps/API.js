@@ -324,6 +324,36 @@ export const getRoles = async (user) => {
   }
 };
 
+export const getRoleById = async (user, idRole) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/roles/${idRole}`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await response.json();
+    if (response.status === 401) {
+      console.log("Token invalido");
+      showAlert("Sesion Expirada", "error", main);
+      setTimeout(() => {
+        window.location.href = "../views/login.html";
+      }, 3000);
+      return;
+    } else {
+      return data;
+      // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
+    }
+  } catch (error) {
+    console.error("Error en la solicitud:", error);
+    //showAlert('Servidor Caido', 'ERROR', formulario)
+    return;
+  }
+}
+
 export const postNewRole = async (user, role) => {
   const {email, token} = user;
   try {
@@ -354,6 +384,27 @@ export const postNewRole = async (user, role) => {
     return response.status;
   }
 };
+
+export const deleteRole = async (user, idRole) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/roles/${idRole}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify(idRole),
+    });
+    const data = await response.json();
+    if (response.ok) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.log(error);
+  }
+}
 
 export const getSpecialtys = async (user) => {
   const { email, token } = user;

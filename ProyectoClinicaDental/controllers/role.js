@@ -31,6 +31,7 @@ exports.getRoleById = async (req, res) => {
   const { id } = req.params;
   try {
     const roleCreated = await roleModel.findByPk(id);
+    res.send(roleCreated);
   } catch (error) {
     res.send(error);
   }

@@ -5,7 +5,7 @@ import {
   printUserName,
   isEmpty,
 } from "./funciones.js";
-import { getRoles, postNewRole } from "./API.js";
+import { getRoles, postNewRole, deleteRole, getRoleById } from "./API.js";
 import { Role } from "./class.js";
 
 (function () {
@@ -18,6 +18,7 @@ import { Role } from "./class.js";
   const formulario = document.querySelector("#formularioRole");
 
   document.addEventListener("DOMContentLoaded", async () => {
+    document.addEventListener("click", confirmDeleteRole);
     // Llamadas a la API
     const dataUser = await anyToken();
     console.log(dataUser);
@@ -39,13 +40,51 @@ import { Role } from "./class.js";
                       <p class="text-sm leading-5 font-medium text-gray-700 text-lg  font-bold"> ${name} </p>
                   </td>
                   <td class="px-6 py-4 whitespace-no-wrap border-b border-gray-200 text-sm leading-5">
-                      <a href="employee-edit.html?id=${id_userRole}" data-employee="${id_userRole}" class="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
-                      <a href="#" data-employee="${id_userRole}" class="text-red-600 hover:text-red-900 mr-5 eliminar">Eliminar</a>
+                      <a href="employee-edit.html?id=${id_userRole}" data-role="${id_userRole}" class="text-teal-600 hover:text-teal-900 mr-5 editar">Editar</a>
+                      <a href="#" data-role="${id_userRole}" class="text-red-600 hover:text-red-900 mr-5 eliminar">Eliminar</a>
                   </td>
               `;
 
         list.appendChild(row);
       });
+    }
+
+    async function confirmDeleteRole(e) {
+      if (e.target.classList.contains("eliminar")) {
+        const roleDeletedId = parseInt(e.target.dataset.role);
+        console.log(roleDeletedId);
+        const roleById = await getRoleById(dataUser, roleDeletedId);
+        console.log(roleById);
+
+        const confirmar = confirm(`¿Desea eliminar el registro ${roleById.name}?`);
+        if (confirmar) {
+          try {
+            const exito = await deleteRole(dataUser, roleDeletedId);
+
+            if (exito) {
+              console.log("Rol eliminado correctamente");
+              showAlert("Registro eliminado con exito", "Exito", main);
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
+            } else {
+              console.error("Error al eliminar al empleado");
+              showAlert("Error al eliminar al empleado", "error", main);
+              setTimeout(() => {
+                location.reload();
+              }, 2000);
+            }
+          } catch (error) {
+            console.error("Error en la solicitud:", error);
+            showAlert("Error en el servidor", "error", main);
+            setTimeout(() => {
+              location.reload();
+            }, 2000);
+          }
+        } else {
+          console.log("No se eliminó");
+        }
+      }
     }
 
     openModalRole.addEventListener("click", () => {
