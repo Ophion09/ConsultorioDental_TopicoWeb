@@ -19,4 +19,24 @@ class Employee {
     }
 }
 
-export {User, Employee};
+class Patient {
+    constructor(name, lastname, age, cellphone, adress, id_user, gender) {
+        this.nombre = name;
+        this.apellido = lastname;
+        this.edad = age;
+        this.celular = cellphone;
+        this.direccion = adress;
+        this.id_usuario = id_user;
+        this.sexo = gender;
+    }
+}
+
+class Procedure {
+    constructor(name, price, discount) {
+        this.nombre = name;
+        this.precio = price;
+        this.descuento = discount;
+    }
+}
+
+export {User, Employee, Patient, Procedure};

@@ -233,4 +233,4 @@ import { Employee } from "./class.js";
     printSpecialtyName();
     printUserEmail();
   });
-})();
+  })();
