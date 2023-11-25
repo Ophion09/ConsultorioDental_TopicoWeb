@@ -44,7 +44,7 @@ class Patient {
         this.edad = age;
         this.celular = cellphone;
         this.direccion = adress;
-        this.id_usuario = id_user;
+        this.id_user = id_user;
         this.sexo = gender;
     }
 }

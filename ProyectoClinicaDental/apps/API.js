@@ -657,7 +657,7 @@ export const postPatient = async (user, patient) => {
     }
   } catch (error) {
     console.log(error);
-    return response.status;//linea 4
+    return;//linea 4
   }
 }
 

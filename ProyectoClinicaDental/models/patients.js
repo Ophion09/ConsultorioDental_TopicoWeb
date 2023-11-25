@@ -31,7 +31,7 @@ const patients = sequelize.define('pacientes', {
         type: DataTypes.STRING,
         allowNull: false
     },
-    id_usuario: {
+    id_user: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
@@ -48,6 +48,6 @@ const patients = sequelize.define('pacientes', {
     timestamps: false
   });
 
-patients.belongsTo(user, { foreignKey: 'id_usuario', as: 'users'});
+patients.belongsTo(user, { foreignKey: 'id_user', as: 'users'});
 
 module.exports = patients; 

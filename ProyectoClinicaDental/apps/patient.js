@@ -35,11 +35,11 @@ import {Patient } from "./class.js";
             edad,
             celular,
             direccion,
-            id_usuario,
+            id_user,
             sexo
           } = patient;
           // Hablo a metodo para cambiar el id por el email del user
-          const emailUser = changeIdByEmail(id_usuario);
+          const emailUser = changeIdByEmail(id_user);
           // Scripting Time
           const row = document.createElement("TR");
           row.innerHTML += `
@@ -156,7 +156,7 @@ import {Patient } from "./class.js";
         const edad = document.querySelector("#age").value;
         const celular = document.querySelector("#phone").value;
         const direccion = document.querySelector("#address").value;
-        const id_usuario = document.querySelector("#email").value;
+        const id_user = document.querySelector("#email").value;
         const sexo = document.querySelector("#gender").value;
   
         const patient = new Patient(
@@ -165,7 +165,7 @@ import {Patient } from "./class.js";
             edad,
             celular,
             direccion,
-            id_usuario,
+            id_user,
             sexo
         );
   
@@ -176,6 +176,7 @@ import {Patient } from "./class.js";
           return; // hasta aqui se termina la ejecucion
         }
         showSpinner(patientFormulario);
+        console.log(patient);
         // Hablando a la api
         const responsePatient = await postPatient(dataUser, patient);
         if (responsePatient) {
