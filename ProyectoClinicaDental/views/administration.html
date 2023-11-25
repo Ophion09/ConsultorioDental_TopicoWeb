@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Ventana de Administrador</title>
-    <link rel="stylesheet" href="/ProyectoClinicaDental/css/tailwind.min.css" />
+    <link rel="stylesheet" href="../css/tailwind.min.css" />
   </head>
   <body class="min-h-100 bg-gray-200">
     <div class="md:flex min-h-screen md:align-top">
@@ -20,12 +20,15 @@
           Administra a los clientes y usuarios de tu clinica con TOOTH-SOFT
         </p>
         <nav class="mt-8">
+          <a href="./user.html"
+          class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400">Usuarios</a>
           <a
             href="./administration.html"
             class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400 bg-blue-700"
             >Empleados</a
           >
           <a
+
             href="./roles.html"
             class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
             >Roles</a
@@ -34,6 +37,16 @@
             href="./specialtys.html"
             class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
             >Especialidades</a
+           >
+          <a
+            href="./patient.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Pacientes</a
+          >
+          <a
+            href="./procedure.html"
+            class="px-3 py-1 text-white block hover:bg-blue-700 hover:text-yellow-400"
+            >Procedimientos</a
           >
         </nav>
       </aside>
@@ -128,7 +141,7 @@
                 <label
                   class="block text-gray-700 text-sm font-bold mb-2"
                   for="email"
-                  >Numero de licensia</label
+                  >Numero de licencia</label
                 >
                 <input
                   class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
