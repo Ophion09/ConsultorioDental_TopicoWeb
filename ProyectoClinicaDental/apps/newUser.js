@@ -1,5 +1,5 @@
 import { showAlert, isEmpty, showSpinner, cleanHTML } from "./funciones.js";
-import { login, postNewUser } from "./API.js";
+import { login, postNewUser } from "../API/login.js";
 import { User } from "./class.js";
 
 (function(){

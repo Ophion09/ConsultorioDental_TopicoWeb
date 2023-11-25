@@ -1,5 +1,5 @@
 import { showAlert, isEmpty, showSpinner, cleanHTML } from "./funciones.js";
-import { login } from "./API.js";
+import { login } from "../API/login.js";
 import { User, UserSession } from "./class.js";
 const formulario = document.querySelector("#formulario");
 const url = "http://localhost:3000/auth";

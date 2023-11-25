@@ -5,7 +5,7 @@ import {
   anyToken,
   printUserName,
 } from "./funciones.js";
-import { getUsers, postUser, deleteUser, TypeEnum } from "./API.js";
+import { getUsers, postUser, deleteUser, TypeEnum } from "../API/user.js";
 import { User } from "./class.js";
 
 (function () {

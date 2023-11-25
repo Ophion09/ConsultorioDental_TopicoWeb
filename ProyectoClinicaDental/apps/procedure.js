@@ -5,7 +5,7 @@ import {
   anyToken,
   printUserName,
 } from "./funciones.js";
-import { getProcedures, deleteProcedure, postProcedure } from "./API.js";
+import { getProcedures, deleteProcedure, postProcedure } from "../API/procedure.js";
 import { Procedure } from "./class.js";
 
 (function () {
