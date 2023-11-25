@@ -16,42 +16,30 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `employees`
+-- Table structure for table `pagos`
 --
 
-DROP TABLE IF EXISTS `employees`;
+DROP TABLE IF EXISTS `pagos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `employees` (
-  `id_employee` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  `licenseNumber` int NOT NULL,
-  `age` int NOT NULL,
-  `id_userRole` int NOT NULL,
-  `id_userSpecialty` int DEFAULT NULL,
-  `id_user` int DEFAULT NULL,
-  `photo` varchar(45) DEFAULT NULL,
-  `id_room` int DEFAULT NULL,
-  PRIMARY KEY (`id_employee`),
-  KEY `fk_id_rol_idx` (`id_userRole`),
-  KEY `fk_id_especialidad_idx` (`id_userSpecialty`),
-  KEY `fk_id_user_idx` (`id_user`),
-  KEY `fk_id_room_idx` (`id_room`),
-  CONSTRAINT `fk_id_room` FOREIGN KEY (`id_room`) REFERENCES `rooms` (`id_room`),
-  CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
-  CONSTRAINT `fk_id_userRole` FOREIGN KEY (`id_userRole`) REFERENCES `userroles` (`id_userRole`),
-  CONSTRAINT `fk_id_userSpecialty` FOREIGN KEY (`id_userSpecialty`) REFERENCES `userspecialtys` (`id_userSpecialty`)
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `pagos` (
+  `id_pago` int NOT NULL AUTO_INCREMENT,
+  `id_paciente` int NOT NULL,
+  `monto_pago` decimal(10,2) NOT NULL,
+  `fecha_pago` date NOT NULL,
+  PRIMARY KEY (`id_pago`),
+  KEY `fk_id_paciente_pagos` (`id_paciente`),
+  CONSTRAINT `fk_id_paciente_pagos` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `employees`
+-- Dumping data for table `pagos`
 --
 
-LOCK TABLES `employees` WRITE;
-/*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (32,'José Fernando Hernandez',432,22,2,4,13,NULL,NULL);
-/*!40000 ALTER TABLE `employees` ENABLE KEYS */;
+LOCK TABLES `pagos` WRITE;
+/*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -63,4 +51,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-17  3:06:12
+-- Dump completed on 2023-11-25  4:31:19

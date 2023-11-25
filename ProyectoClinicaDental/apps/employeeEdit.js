@@ -1,5 +1,5 @@
 import { Employee } from "./class.js";
-import { getEmployeeById, getDataByRole, getDataBySpecialty, getNameByUser, updateEmployeeById } from "./API.js";
+import { getEmployeeById, getDataByRole, getDataBySpecialty, getNameByUser, updateEmployeeById } from "../API/employee.js";
 import { anyToken, cleanHTML, isEmpty, showAlert, showSpinner } from "./funciones.js";
 
 // campos del formulario

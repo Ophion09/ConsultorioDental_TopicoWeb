@@ -11,7 +11,7 @@ import {
   deleteRole,
   getRoleById,
   updateRole,
-} from "./API.js";
+} from "../API/roles.js";
 import { Role } from "./class.js";
 
 (function () {

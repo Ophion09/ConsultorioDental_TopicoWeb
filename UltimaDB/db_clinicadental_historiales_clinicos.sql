@@ -16,28 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `userroles`
+-- Table structure for table `historiales_clinicos`
 --
 
-DROP TABLE IF EXISTS `userroles`;
+DROP TABLE IF EXISTS `historiales_clinicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `userroles` (
-  `id_userRole` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_userRole`),
-  UNIQUE KEY `rol_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `historiales_clinicos` (
+  `id_historial` int NOT NULL AUTO_INCREMENT,
+  `alergias` varchar(45) NOT NULL,
+  `procedimientos` varchar(45) NOT NULL,
+  `otros` varchar(45) NOT NULL,
+  `id_paciente` int NOT NULL,
+  PRIMARY KEY (`id_historial`),
+  KEY `id_paciente_idx` (`id_paciente`),
+  CONSTRAINT `id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `userroles`
+-- Dumping data for table `historiales_clinicos`
 --
 
-LOCK TABLES `userroles` WRITE;
-/*!40000 ALTER TABLE `userroles` DISABLE KEYS */;
-INSERT INTO `userroles` VALUES (1,'Administradora'),(2,'Dentista General'),(3,'Odontologo');
-/*!40000 ALTER TABLE `userroles` ENABLE KEYS */;
+LOCK TABLES `historiales_clinicos` WRITE;
+/*!40000 ALTER TABLE `historiales_clinicos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historiales_clinicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-17  3:06:12
+-- Dump completed on 2023-11-25  4:31:20

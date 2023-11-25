@@ -6,7 +6,7 @@ import {
   isEmpty,
   validateStatus
 } from "./funciones.js";
-import { getSpecialtys, postNewSpecialty, deleteSpecialty, getSpecialty, updateSepcialty } from "./API.js";
+import { getSpecialtys, postNewSpecialty, deleteSpecialty, getSpecialty, updateSepcialty } from "../API/specialty.js";
 import { Specialty } from "./class.js";
 
 (function () {

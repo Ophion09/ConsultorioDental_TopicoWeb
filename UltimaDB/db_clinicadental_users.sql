@@ -28,11 +28,11 @@ CREATE TABLE `users` (
   `password` varchar(45) NOT NULL,
   `token` varchar(500) DEFAULT NULL,
   `userName` varchar(20) NOT NULL,
-  `type` enum('Normal','Doctor','Administrador') NOT NULL DEFAULT 'Normal',
+  `type` enum('Normal','Doctor','Admin') NOT NULL DEFAULT 'Normal',
   PRIMARY KEY (`id_user`),
   UNIQUE KEY `correo_UNIQUE` (`email`),
   UNIQUE KEY `userName_UNIQUE` (`userName`)
-) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -41,7 +41,7 @@ CREATE TABLE `users` (
 
 LOCK TABLES `users` WRITE;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (13,'josefer.hernandez@hotmail.com','admin','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxMywiZW1haWwiOiJqb3NlZmVyLmhlcm5hbmRlekBob3RtYWlsLmNvbSIsInBhc3N3b3JkIjoiYWRtaW4iLCJpYXQiOjE3MDAyMTE2OTUsImV4cCI6MTcwMDIxNTI5NX0.XuflOKLDUKJln1Wpq8z5hGnaWULabqt8084YSiQfbwc','Fernando','Normal');
+INSERT INTO `users` VALUES (13,'josefer.hernandez@hotmail.com','admin','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxMywiZW1haWwiOiJqb3NlZmVyLmhlcm5hbmRlekBob3RtYWlsLmNvbSIsInBhc3N3b3JkIjoiYWRtaW4iLCJpYXQiOjE3MDA5MDgwODAsImV4cCI6MTcwMDkxMTY4MH0.IhMz8tzkemydnn4GKZJ5LrzUeqK24-PZXqhgZBib0Jg','Fernando','Normal'),(14,'admin@admin','admin','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxNCwiZW1haWwiOiJhZG1pbkBhZG1pbiIsInBhc3N3b3JkIjoiYWRtaW4iLCJpYXQiOjE3MDA5MTE3ODgsImV4cCI6MTcwMDkxNTM4OH0.OqSEVUa2dCJ1zRvRHI6FMnVfTggqYXhg5PYTZZw16Ok','Paula','Admin'),(15,'Juanito@juan','admin',NULL,'Juana','Admin');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -54,4 +54,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-17  3:06:13
+-- Dump completed on 2023-11-25  4:31:18

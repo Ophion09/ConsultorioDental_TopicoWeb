@@ -7,7 +7,7 @@ import {
   getNameByUser,
   getEmployees,
   getEmployeeById,
-} from "./API.js";
+} from "../API/employee.js";
 import { Employee } from "./class.js";
 
 (function () {
