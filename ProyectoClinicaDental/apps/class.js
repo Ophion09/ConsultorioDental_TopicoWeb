@@ -31,4 +31,10 @@ class Role {
     }
 }
 
-export {User, UserSession, Employee, Role};
+class Specialty {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+export {User, UserSession, Employee, Role, Specialty};

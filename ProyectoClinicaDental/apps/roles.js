@@ -159,17 +159,17 @@ import { Role } from "./class.js";
     });
 
     closeModalRole.addEventListener("click", () => {
-      modalRole.classList.add("hidden");
+      modalRole.children[0].classList.remove("opacity-100", "scale-100");
       setTimeout(() => {
-        modalRole.children[0].classList.remove("opacity-100", "scale-100");
-      }, 50);
+      modalRole.classList.add("hidden");
+      }, 300);
     });
 
     closeModalRoleEdit.addEventListener("click", () => {
-      modalRoleEdit.classList.add("hidden");
+      modalRoleEdit.children[0].classList.remove("opacity-100", "scale-100");
       setTimeout(() => {
-        modalRoleEdit.children[0].classList.remove("opacity-100", "scale-100");
-      }, 50);
+      modalRoleEdit.classList.add("hidden");
+      }, 300);
     });
 
     formulario.addEventListener("submit", async (e) => {
