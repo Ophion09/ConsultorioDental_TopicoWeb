@@ -1,5 +1,5 @@
 import { Procedure } from "./class.js";
-import { getProcedureById, updateProcedureById } from "./API.js";
+import { getProcedureById, updateProcedureById } from "../API/procedure.js";
 import { anyToken, cleanHTML, isEmpty, showAlert, showSpinner } from "./funciones.js";
 
 const nameInput = document.querySelector("#name");

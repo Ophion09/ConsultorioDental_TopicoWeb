@@ -11,7 +11,7 @@ import {
   getNameByUser,
   postPatient,
   deletePatient,
-} from "./API.js";
+} from "../API/patient.js";
 import { Patient } from "./class.js";
 
 (function () {

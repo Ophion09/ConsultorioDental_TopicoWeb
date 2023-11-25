@@ -1,5 +1,5 @@
 import { Patient } from "./class.js";
-import { getPatientById, getNameByUser, updatePatientById, GenderEnum } from "./API.js";
+import { getPatientById, getNameByUser, updatePatientById, GenderEnum } from "../API/patient.js";
 import { anyToken, cleanHTML, isEmpty, showAlert, showSpinner } from "./funciones.js";
 
 // campos del formulario
