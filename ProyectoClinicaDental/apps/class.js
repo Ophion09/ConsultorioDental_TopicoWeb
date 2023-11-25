@@ -8,6 +8,12 @@ class User {
     }
 }
 
+class UserSession extends User {
+    constructor(email, token, userName, type) {
+        super(email, null, token, userName, type);
+    }
+}
+
 class Employee {
     constructor(name, licenseNumber, age, id_userRole, id_userSpecialty, id_user) {
         this.name = name;
@@ -16,6 +22,18 @@ class Employee {
         this.id_userRole = id_userRole;
         this.id_userSpecialty = id_userSpecialty;
         this.id_user = id_user;
+    }
+}
+
+class Role {
+    constructor(name) {
+        this.name = name;
+    }
+}
+
+class Specialty {
+    constructor(name) {
+        this.name = name;
     }
 }
 
@@ -38,5 +56,4 @@ class Procedure {
         this.descuento = discount;
     }
 }
-
-export {User, Employee, Patient, Procedure};
+export {User, UserSession, Employee, Role, Specialty, Patient, Procedure};

@@ -21,7 +21,7 @@ const authenticateUser = async (req, res) => {
       const token = generateToken(user);
       console.log(user);
       const newToken = await User.update({ token }, { where: { id_user: user.id_user } });
-      res.json({ token });
+      res.json({ token, user });
     } else {
       // Usuario no encontrado o credenciales inválidas
       res.status(401).json({ message: 'Credenciales inválidas' });

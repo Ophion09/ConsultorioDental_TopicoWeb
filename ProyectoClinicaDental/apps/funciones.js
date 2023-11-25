@@ -88,12 +88,94 @@ export function showSpinner(selector) {
 }
 
 export function anyToken() {
-  const tokenUser = localStorage.getItem('user');
+  const tokenUser = localStorage.getItem("user");
   console.log(tokenUser);
-  if (tokenUser) { // Valida si hay algun token del lado del cliente
+  if (tokenUser) {
+    // Valida si hay algun token del lado del cliente
     const dataUser = JSON.parse(tokenUser); // Obtenemos el objeto con la info del user
     return dataUser;
   } else {
-    window.location.href = '../views/login.html';
+    window.location.href = "../views/login.html";
   }
+}
+
+export function printUserName(dataUser, selectElement) {
+  const { userName } = dataUser;
+
+  const nameInput = document.createElement("H2");
+  nameInput.textContent = "Bienvienida ";
+  nameInput.classList.add("text-white", "tracking-wide", "text-2xl", "mt-2");
+
+  const nameSpan = document.createElement("SPAN");
+  nameSpan.textContent = userName;
+  nameSpan.classList.add("font-bold");
+
+  nameInput.appendChild(nameSpan);
+  selectElement.appendChild(nameInput);
+}
+
+/**
+ * Metodo para validar de forma rapida la respuestas de API
+ * @param {*} response La respuesta que va a validar
+ * @param {*} type El tipo de accion, como crear, eliminar o actualizar
+ * @param {*} name Nombre del objeto al que se le esta aplicando
+ * @param {*} selector Selector HTML al que se hara appendChild
+ * @returns 
+ */
+export function validateStatus(response, type, name, selector) {
+  const { status } = response;
+
+  switch (type) {
+    case 'create':
+      if (status === "succes") {
+        showAlert(`Exito al crear un ${name}`, "Exito", selector);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+        return;
+      } else {
+        showAlert(`Error al crear un ${name}`, "error", selector);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+        return;
+      }
+      break;
+
+      case 'delete':
+      if (status === "succes") {
+        showAlert(`Exito al eliminar un ${name}`, "Exito", selector);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+        return;
+      } else {
+        showAlert(`Error al eliminar un ${name}`, "error", selector);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+        return;
+      }
+      break;
+
+      case 'update':
+      if (status === "succes") {
+        showAlert(`Exito al actualizar un ${name}`, "Exito", selector);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+        return;
+      } else {
+        showAlert(`Error al actualizar un ${name}`, "error", selector);
+        setTimeout(() => {
+          location.reload();
+        }, 3000);
+        return;
+      }
+      break;
+
+    default:
+      break;
+  }
+  
 }
