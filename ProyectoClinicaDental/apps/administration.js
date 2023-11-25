@@ -1,4 +1,4 @@
-import { isEmpty, showAlert, showSpinner, anyToken, printUserName } from "./funciones.js";
+import { isEmpty, showAlert, showSpinner, anyToken, printUserName } from "../apps/funciones.js";
 import {
   getDataByRole,
   getDataBySpecialty,
@@ -8,7 +8,7 @@ import {
   getEmployees,
   getEmployeeById,
 } from "../API/employee.js";
-import { Employee } from "./class.js";
+import { Employee } from "../apps/class.js";
 
 (function () {
   // Variables Globales
