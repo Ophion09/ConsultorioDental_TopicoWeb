@@ -4,6 +4,7 @@ import {
   showSpinner,
   anyToken,
   printUserName,
+  deleteUserSession,
 } from "./funciones.js";
 import {
   getPatients,
@@ -23,6 +24,7 @@ import { Patient } from "./class.js";
   const patientSelectEmail = document.querySelector("#email");
   const main = document.querySelector("#main");
   const greeting = document.querySelector("#welcome");
+  const btnLogOut = document.querySelector('#logOut');
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmarEliminarPaciente);
@@ -202,6 +204,7 @@ import { Patient } from "./class.js";
     });
     printPatient();
     printUserEmail();
+    btnLogOut.addEventListener('click', deleteUserSession);
     printUserName(dataUser, greeting);
   });
 })();

@@ -38,6 +38,10 @@ const appointment = sequelize.define('appointments', {
             key: 'id_user' 
         }
     },
+    motivo: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
 },{ tableName: 'appointments',
     timestamps: false
   });

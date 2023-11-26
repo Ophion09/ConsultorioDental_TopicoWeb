@@ -4,6 +4,7 @@ import {
   showSpinner,
   printUserName,
   isEmpty,
+  deleteUserSession,
 } from "./funciones.js";
 import {
   getRoles,
@@ -26,6 +27,8 @@ import { Role } from "./class.js";
   const greeting = document.querySelector("#welcome");
   const formulario = document.querySelector("#formularioRole");
   const formularioEdit = document.querySelector("#formularioRoleEdit");
+  const btnLogOut = document.querySelector("#logOut");
+
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmDeleteRole);
@@ -196,7 +199,8 @@ import { Role } from "./class.js";
         return;
       }
     });
-
+    
+    btnLogOut.addEventListener("click", deleteUserSession);
     printRoles(roles);
     printUserName(dataUser, greeting);
   });
