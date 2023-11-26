@@ -4,6 +4,7 @@ import {
   showSpinner,
   anyToken,
   printUserName,
+  deleteUserSession,
 } from "./funciones.js";
 import { getUsers, postUser, deleteUser, TypeEnum } from "../API/user.js";
 import { User } from "./class.js";
@@ -16,6 +17,7 @@ import { User } from "./class.js";
   const formulario = document.querySelector("#formulario-user");
   const main = document.querySelector("#main");
   const greeting = document.querySelector("#welcome");
+  const btnLogOut = document.querySelector('#logOut');
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmarEliminarUser);
@@ -151,6 +153,7 @@ import { User } from "./class.js";
       }
     });
     printUser();
+    btnLogOut.addEventListener('click', deleteUserSession);
     printUserName(dataUser, greeting);
   });
 })();

@@ -4,7 +4,8 @@ import {
   showSpinner,
   printUserName,
   isEmpty,
-  validateStatus
+  validateStatus,
+  deleteUserSession,
 } from "./funciones.js";
 import { getSpecialtys, postNewSpecialty, deleteSpecialty, getSpecialty, updateSepcialty } from "../API/specialty.js";
 import { Specialty } from "./class.js";
@@ -21,6 +22,7 @@ import { Specialty } from "./class.js";
   const formularioEdit = document.querySelector('#formularioEdit');
   const modalEdit = document.querySelector('#myModalEdit');
   const closeModalEdit = document.querySelector('#closeModalEdit');
+  const btnLogOut = document.querySelector('#logOut');
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener('click', confirmDelete);
@@ -158,6 +160,7 @@ import { Specialty } from "./class.js";
     });
 
     printSpecialty(specialtys);
+    btnLogOut.addEventListener('click', deleteUserSession);
     printUserName(dataUser, greeting);
   });
 })();

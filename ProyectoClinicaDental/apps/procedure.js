@@ -4,6 +4,7 @@ import {
   showSpinner,
   anyToken,
   printUserName,
+  deleteUserSession,
 } from "./funciones.js";
 import { getProcedures, deleteProcedure, postProcedure } from "../API/procedure.js";
 import { Procedure } from "./class.js";
@@ -16,6 +17,7 @@ import { Procedure } from "./class.js";
   const formulario = document.querySelector("#formulario-procedure");
   const main = document.querySelector("#main");
   const greeting = document.querySelector("#welcome");
+  const btnLogOut = document.querySelector('#logOut');
 
   document.addEventListener("DOMContentLoaded", async () => {
     document.addEventListener("click", confirmarEliminarProcedimiento);
@@ -130,6 +132,7 @@ import { Procedure } from "./class.js";
       }
     });
     printProcedure();
+    btnLogOut.addEventListener('click', deleteUserSession);
     printUserName(dataUser, greeting);
   });
 })();

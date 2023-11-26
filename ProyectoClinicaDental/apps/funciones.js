@@ -99,6 +99,26 @@ export function anyToken() {
   }
 }
 
+export function deleteUserSession() {
+  // Obtenemos la info de sesion desde localstorage
+  const userSession = localStorage.getItem('user');
+  const dataUser = JSON.parse(userSession);
+  console.log(dataUser.userName);
+  const {userName} = dataUser;
+
+  const logOut = confirm(`¿Desea Cerrar Sesión ${userName}?`); // El aceptar da true
+  if(logOut) {
+    console.log('Cerrando sesion');
+    localStorage.removeItem('user'); // Eliminamos toda info del lado del cliente
+    window.location.href = '../views/login.html';
+    return;
+  } else {
+    console.log('No cerrando sesion');
+    return;
+  }
+  return;
+}
+
 export function printUserName(dataUser, selectElement) {
   const { userName } = dataUser;
 
