@@ -4,6 +4,7 @@ const { Sequelize } = require('sequelize');
 const dotenv = require('dotenv');
 const procedureRouter = require('../routes/procedures');
 const userRouter = require('../routes/users');
+const appointmentRouter = require('../routes/appointment');
 const patientRouter = require('../routes/patients');
 const paymentsRouter = require('../routes/payments');
 const medicalRecordRouter = require('../routes/medicalRecords');
@@ -55,6 +56,8 @@ app.use(cors(corsOptions));
 app.use('/procedures', procedureRouter);
 
 app.use('/users', userRouter);
+
+app.use('/appointments', appointmentRouter);
 
 app.use('/patients', patientRouter);
 
