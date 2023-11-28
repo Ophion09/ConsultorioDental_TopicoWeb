@@ -12,7 +12,7 @@ import { getUsers } from "../API/user.js";
 
 import { getEmployees } from "../API/employee.js";
 
-import { postNewAppointment } from "../API/appointment.js";
+import { postNewAppointment, getAppointments } from "../API/appointment.js";
 
 import { Appointment } from "./class.js";
 
@@ -27,6 +27,12 @@ import { Appointment } from "./class.js";
     const dataUser = await anyToken();
     console.log(dataUser);
 
+    async function printAppointments() {
+        // Consultar a la API
+        const appointments = await getAppointments(dataUser);
+        console.log(appointments);
+    }
+
     async function printEmailForm() {
       const usersNormal = await searchUsers();
 
@@ -38,7 +44,7 @@ import { Appointment } from "./class.js";
 
         userSelect.appendChild(option);
       });
-    }
+    };
 
     async function printDoctorForm() {
         const doctors = await searchDoctors();
@@ -51,7 +57,7 @@ import { Appointment } from "./class.js";
 
             doctorSelect.appendChild(option);
         })
-    }
+    };
 
     async function searchUsers() {
       // Llamada a las API
@@ -68,7 +74,7 @@ import { Appointment } from "./class.js";
         }
       });
       return usersNormal;
-    }
+    };
 
     async function searchDoctors() {
       // Llamada a la API
@@ -89,7 +95,7 @@ import { Appointment } from "./class.js";
       });
       console.log(doctors);
       return doctors;
-    }
+    };
 
     formulario.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -111,10 +117,11 @@ import { Appointment } from "./class.js";
         // Enviar a la API el objeto para crearlo
         const newAppointment = await postNewAppointment(dataUser, appointment);
         console.log(newAppointment);
-        //validateStatus(newAppointment, 'create', 'Cita', formulario);
+        validateStatus(newAppointment, 'create', 'Cita', formulario);
         return;
-    })
+    });
 
+    printAppointments();
     printEmailForm();
     printDoctorForm();
     btnLogOut.addEventListener("click", deleteUserSession);

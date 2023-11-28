@@ -21,4 +21,22 @@ export const postNewAppointment = async (user, appointment) => {
     } catch (error) {
         return;
     }
+};
+
+export const getAppointments = async (user) => {
+    const { email, token } = user;
+    try {
+        const response = await fetch(`${url}/appointments`, {
+            method: "GET",
+            mode: "cors",
+            headers: {
+              Authorization: `${token}`,
+            },
+          });
+      
+          const data = await response.json();
+          return data;
+    } catch (error) {
+        return;
+    }
 }
