@@ -56,4 +56,14 @@ class Procedure {
         this.descuento = discount;
     }
 }
-export {User, UserSession, Employee, Role, Specialty, Patient, Procedure};
+
+class Appointment {
+    constructor(id_user, id_employee, date, time, motivo) {
+        this.id_user = id_user;
+        this.id_employee = id_employee;
+        this.date = date;
+        this.time = time;
+        this.motivo = motivo;
+    }
+}
+export {User, UserSession, Employee, Role, Specialty, Patient, Procedure, Appointment};
