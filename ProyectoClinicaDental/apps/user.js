@@ -200,6 +200,13 @@ import { User } from "./class.js";
       }, 300);
     });
 
+    closeModalEdit.addEventListener("click", () => {
+      modalEdit.children[0].classList.remove("opacity-100", "scale-100");
+      setTimeout(() => {
+      modalEdit.classList.add("hidden");
+      }, 300);      
+    })
+
     formulario.addEventListener("submit", async (e) => {
       e.preventDefault(); // Prevenir el evento de default que es POST
       // Seleccionar todos los campos del form

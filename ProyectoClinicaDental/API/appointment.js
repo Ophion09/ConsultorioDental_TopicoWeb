@@ -39,4 +39,23 @@ export const getAppointments = async (user) => {
     } catch (error) {
         return;
     }
+};
+
+export const deleteAppointment = async (user, idAppointment) => {
+  const { email, token } = user;
+  try {
+    const response = await fetch(`${url}/appointments/${idAppointment}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify(idAppointment),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
 }
