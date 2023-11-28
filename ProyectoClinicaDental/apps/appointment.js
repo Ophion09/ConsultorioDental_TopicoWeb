@@ -24,6 +24,8 @@ import { Appointment } from "./class.js";
   const formulario = document.querySelector("#formulario");
   const contenedorCitas = document.querySelector("#citas");
   const main = document.querySelector('#main');
+  const modal = document.querySelector('#myModalAppointmentEdit');
+  const closeModal = document.querySelector('#closeModalAppointmentEdit');
 
   document.addEventListener("DOMContentLoaded", async () => {
     const dataUser = await anyToken();
@@ -115,7 +117,7 @@ import { Appointment } from "./class.js";
         btnEditar.textContent = "Editar";
 
         // Editar cita
-        btnEditar.onclick =  () => editarCita(cita);
+        btnEditar.onclick =  () => editAppointment(id_appointment);
 
         // Agregar los párrafos y botones al divCita
         divCita.appendChild(emailParrafo);
@@ -142,6 +144,14 @@ import { Appointment } from "./class.js";
       }
       console.log('No se elimino');
       return;
+    }
+
+    async function editAppointment(id) {
+      modal.classList.remove("hidden");
+      setTimeout(() => {
+        modal.children[0].classList.add("opacity-100", "scale-100");
+      }, 50);
+      console.log(id);
     }
 
     async function printEmailForm() {
@@ -242,6 +252,14 @@ import { Appointment } from "./class.js";
       validateStatus(newAppointment, "create", "Cita", formulario);
       return;
     });
+
+    closeModal.addEventListener("click", () => {
+      modal.children[0].classList.remove("opacity-100", "scale-100");
+      setTimeout(() => {
+      modal.classList.add("hidden");
+      }, 300);
+    });
+
 
     printAppointments();
     printEmailForm();
