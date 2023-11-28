@@ -99,19 +99,52 @@ export const TypeEnum = {
   Administrador: 3,
 }
 
-export function typeOptionsSelected(selectElement, selectedType) {
-  //Limpia las opciones exisistentes
-  selectElement.innerHTML = '';
+export const getUser = async (user, idUser) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/users/${idUser}`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
 
-  // Añade opciones basadas en genderEnum
-  for (const key in TypeEnum) {
-    const option = document.createElement('option');
-    option.value = TypeEnum[key];
-    option.textContent = key;
-    // Seleccionar la opción correspondiente
-    if (selectedType === key) {
-      option.selected = true;
+    const data = await response.json();
+    if (response.status === 401) {
+      console.log("Token invalido");
+      showAlert("Sesion Expirada", "error", main);
+      setTimeout(() => {
+        window.location.href = "../views/login.html";
+      }, 3000);
+      return;
+    } else {
+      return data;
+      // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
     }
-    selectElement.appendChild(option);
+  } catch (error) {
+    console.log(error);
+    return error;
   }
-}
+};
+
+export const updateUser= async (user, idUser, updateData) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/users/${idUser}`, {
+      method: "PATCH",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updateData),
+    });
+
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+};

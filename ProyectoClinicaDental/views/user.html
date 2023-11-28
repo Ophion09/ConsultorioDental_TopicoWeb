@@ -192,6 +192,72 @@
             </form>
           </div>
         </div>
+        
+      <!-- Modal para SpecialtyEdit -->
+      <div
+      id="myModalEdit"
+      class="hidden fixed inset-0 bg-gray-300 bg-opacity-75 flex justify-center items-center"
+    >
+      <div
+        class="bg-white p-4 opacity-0 transform scale-95 transition-all duration-300 w-1/2 mx-auto"
+      >
+        <button id="closeModalEdit" class="float-right text-gray-700">
+          &times;
+        </button>
+        <form id="formularioEdit" class="bg-white p-3" method="PATCH">
+          <div class="mb-4">
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="correo"
+                >Correo</label
+              >
+              <input
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="emailEdited"
+                name="emailEdited"
+                type="email"
+                placeholder="Correo"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="userName"
+                >Nombre de usuario</label
+              >
+              <input
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="userNameEdited"
+                name="userNameEdited"
+                type="text"
+                placeholder="Nombre de usuario"
+              />
+            </div>
+            <div class="mb-4">
+              <label
+                class="block text-gray-700 text-sm font-bold mb-2"
+                for="Tipo"
+                >Tipo</label
+              >
+              <select
+                class="appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                id="typeEdited"
+                name="typeEdited"
+              >
+                <option value="" disabled selected>
+                  Selecciona un tipo de usuario
+                </option>
+              </select>
+          </div>
+          <input
+            type="submit"
+            class="bg-blue-600 hover:bg-blue-800 w-full mt-5 p-2 text-white uppercase font-bold"
+            value="Actualizar Usuario"
+          />
+        </form>
+      </div>
+    </div>
       </main>
     </div>
     <script type="module" src="../apps/user.js"></script>
