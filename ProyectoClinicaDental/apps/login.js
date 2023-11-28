@@ -47,7 +47,7 @@ formulario.addEventListener("submit", async (event) => {
       // Dependiendo del tipo de usuario logeado, lo mandaremos a su respectivo HTML
       switch (userSession.type) {
         case 'Normal':
-          window.location.href = '../views/userIndex.html';
+          window.location.href = '../views/userAppointment.html';
           break;
 
           case 'Admin':
