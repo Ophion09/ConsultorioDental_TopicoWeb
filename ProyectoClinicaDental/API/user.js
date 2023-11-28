@@ -148,3 +148,33 @@ export const updateUser= async (user, idUser, updateData) => {
     return;
   }
 };
+
+export const getUserByEmail = async (user) => {
+  const {email, token} = user;
+  try {
+    const response = await fetch(`${url}/users/email/${email}`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await response.json();
+    if (response.status === 401) {
+      console.log("Token invalido");
+      showAlert("Sesion Expirada", "error", main);
+      setTimeout(() => {
+        window.location.href = "../views/login.html";
+      }, 3000);
+      return;
+    } else {
+      console.log(data)
+      return data;
+      // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
+    }
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+};

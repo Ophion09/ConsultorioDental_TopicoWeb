@@ -18,5 +18,9 @@ router
 .delete(userController.deleteUser)
 .patch(userController.updateUser);
 
+router
+.route('/email/:email')
+.get(userController.getUserByEmail)
+
 
 module.exports = router;
