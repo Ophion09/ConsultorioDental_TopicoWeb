@@ -26,7 +26,7 @@ const app = express();
 const sequelize = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'mysql',
   logging: false, // Puedes quitar esto si deseas ver los logs de SQL en la consola
-  password: 'proyectos21'
+  password: 'admin'
 });
 
 sequelize
