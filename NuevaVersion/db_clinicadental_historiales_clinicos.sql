@@ -16,33 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `citas`
+-- Table structure for table `historiales_clinicos`
 --
 
-DROP TABLE IF EXISTS `citas`;
+DROP TABLE IF EXISTS `historiales_clinicos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `citas` (
-  `id_cita` int NOT NULL AUTO_INCREMENT,
-  `fecha` date NOT NULL,
-  `hora` time NOT NULL,
-  `id_usuario` int NOT NULL,
-  `id_empleado` int NOT NULL,
-  PRIMARY KEY (`id_cita`),
-  KEY `fk_id_usuario_idx` (`id_usuario`),
-  KEY `fk_id_medico_idx` (`id_empleado`),
-  CONSTRAINT `id_medico` FOREIGN KEY (`id_empleado`) REFERENCES `employees` (`id_employee`),
-  CONSTRAINT `id_usuario` FOREIGN KEY (`id_usuario`) REFERENCES `users` (`id_user`)
+CREATE TABLE `historiales_clinicos` (
+  `id_historial` int NOT NULL AUTO_INCREMENT,
+  `alergias` varchar(45) NOT NULL,
+  `procedimientos` varchar(45) NOT NULL,
+  `otros` varchar(45) NOT NULL,
+  `id_paciente` int NOT NULL,
+  PRIMARY KEY (`id_historial`),
+  KEY `id_paciente_idx` (`id_paciente`),
+  CONSTRAINT `id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `citas`
+-- Dumping data for table `historiales_clinicos`
 --
 
-LOCK TABLES `citas` WRITE;
-/*!40000 ALTER TABLE `citas` DISABLE KEYS */;
-/*!40000 ALTER TABLE `citas` ENABLE KEYS */;
+LOCK TABLES `historiales_clinicos` WRITE;
+/*!40000 ALTER TABLE `historiales_clinicos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `historiales_clinicos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25  4:31:18
+-- Dump completed on 2023-11-28  3:04:46

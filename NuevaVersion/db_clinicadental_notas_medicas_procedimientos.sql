@@ -16,30 +16,31 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `procedimientos`
+-- Table structure for table `notas_medicas_procedimientos`
 --
 
-DROP TABLE IF EXISTS `procedimientos`;
+DROP TABLE IF EXISTS `notas_medicas_procedimientos`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `procedimientos` (
-  `id_procedimiento` int NOT NULL AUTO_INCREMENT,
-  `nombre` varchar(45) NOT NULL,
-  `precio` float NOT NULL,
-  `descuento` int DEFAULT NULL,
-  PRIMARY KEY (`id_procedimiento`),
-  UNIQUE KEY `procedimiento_nombre_UNIQUE` (`nombre`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `notas_medicas_procedimientos` (
+  `id_nota_procedimiento` int NOT NULL AUTO_INCREMENT,
+  `id_notas` int NOT NULL,
+  `id_procedimiento` int NOT NULL,
+  PRIMARY KEY (`id_nota_procedimiento`),
+  KEY `id_notas` (`id_notas`),
+  KEY `id_procedimiento` (`id_procedimiento`),
+  CONSTRAINT `notas_medicas_procedimientos_ibfk_1` FOREIGN KEY (`id_notas`) REFERENCES `notas_medicas` (`id_nota`),
+  CONSTRAINT `notas_medicas_procedimientos_ibfk_2` FOREIGN KEY (`id_procedimiento`) REFERENCES `procedimientos` (`id_procedimiento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `procedimientos`
+-- Dumping data for table `notas_medicas_procedimientos`
 --
 
-LOCK TABLES `procedimientos` WRITE;
-/*!40000 ALTER TABLE `procedimientos` DISABLE KEYS */;
-INSERT INTO `procedimientos` VALUES (2,'cvb',543,0);
-/*!40000 ALTER TABLE `procedimientos` ENABLE KEYS */;
+LOCK TABLES `notas_medicas_procedimientos` WRITE;
+/*!40000 ALTER TABLE `notas_medicas_procedimientos` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notas_medicas_procedimientos` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +52,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25  4:31:18
+-- Dump completed on 2023-11-28  3:04:45

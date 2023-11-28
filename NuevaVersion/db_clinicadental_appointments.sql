@@ -16,30 +16,35 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `pagos`
+-- Table structure for table `appointments`
 --
 
-DROP TABLE IF EXISTS `pagos`;
+DROP TABLE IF EXISTS `appointments`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `pagos` (
-  `id_pago` int NOT NULL AUTO_INCREMENT,
-  `id_paciente` int NOT NULL,
-  `monto_pago` decimal(10,2) NOT NULL,
-  `fecha_pago` date NOT NULL,
-  PRIMARY KEY (`id_pago`),
-  KEY `fk_id_paciente_pagos` (`id_paciente`),
-  CONSTRAINT `fk_id_paciente_pagos` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `appointments` (
+  `id_appointment` int NOT NULL AUTO_INCREMENT,
+  `date` date NOT NULL,
+  `time` time NOT NULL,
+  `id_user` int NOT NULL,
+  `id_employee` int NOT NULL,
+  `motivo` varchar(200) NOT NULL,
+  PRIMARY KEY (`id_appointment`),
+  KEY `fk_id_usuario_idx` (`id_user`),
+  KEY `fk_id_medico_idx` (`id_employee`),
+  CONSTRAINT `id_medico` FOREIGN KEY (`id_employee`) REFERENCES `employees` (`id_employee`),
+  CONSTRAINT `id_usuario` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `pagos`
+-- Dumping data for table `appointments`
 --
 
-LOCK TABLES `pagos` WRITE;
-/*!40000 ALTER TABLE `pagos` DISABLE KEYS */;
-/*!40000 ALTER TABLE `pagos` ENABLE KEYS */;
+LOCK TABLES `appointments` WRITE;
+/*!40000 ALTER TABLE `appointments` DISABLE KEYS */;
+INSERT INTO `appointments` VALUES (2,'2023-11-10','10:29:00',18,41,'fasdsdfa'),(3,'2023-11-18','10:45:00',13,41,'Likdakdkd'),(4,'2023-11-11','13:06:00',26,41,'Brackets\n');
+/*!40000 ALTER TABLE `appointments` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -51,4 +56,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25  4:31:19
+-- Dump completed on 2023-11-28  3:04:46

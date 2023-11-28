@@ -41,7 +41,7 @@ CREATE TABLE `employees` (
   CONSTRAINT `fk_id_user` FOREIGN KEY (`id_user`) REFERENCES `users` (`id_user`),
   CONSTRAINT `fk_id_userRole` FOREIGN KEY (`id_userRole`) REFERENCES `userroles` (`id_userRole`),
   CONSTRAINT `fk_id_userSpecialty` FOREIGN KEY (`id_userSpecialty`) REFERENCES `userspecialtys` (`id_userSpecialty`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `employees` (
 
 LOCK TABLES `employees` WRITE;
 /*!40000 ALTER TABLE `employees` DISABLE KEYS */;
-INSERT INTO `employees` VALUES (32,'José Fernando Hernandez',432,22,2,4,13,NULL,NULL),(34,'Paula',423,21,1,5,14,NULL,NULL),(36,'Jacinto Lopez',321,432,2,2,14,NULL,NULL);
+INSERT INTO `employees` VALUES (32,'José Fernando Hernandez',432,22,2,4,13,NULL,NULL),(34,'Paula',423,21,1,5,14,NULL,NULL),(36,'Jacinto Lopez',324,432,2,2,18,NULL,NULL),(41,'Carlos Vl',231,37,2,2,26,NULL,NULL),(42,'Emily Rogers',235,25,2,1,34,NULL,NULL);
 /*!40000 ALTER TABLE `employees` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -63,4 +63,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25  4:31:19
+-- Dump completed on 2023-11-28  3:04:45

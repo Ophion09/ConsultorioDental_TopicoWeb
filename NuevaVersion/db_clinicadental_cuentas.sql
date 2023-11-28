@@ -16,28 +16,29 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `userspecialtys`
+-- Table structure for table `cuentas`
 --
 
-DROP TABLE IF EXISTS `userspecialtys`;
+DROP TABLE IF EXISTS `cuentas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `userspecialtys` (
-  `id_userSpecialty` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) NOT NULL,
-  PRIMARY KEY (`id_userSpecialty`),
-  UNIQUE KEY `especialidad_UNIQUE` (`name`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `cuentas` (
+  `id_cuenta` int NOT NULL AUTO_INCREMENT,
+  `id_paciente` int NOT NULL,
+  `adeudo` decimal(10,2) NOT NULL,
+  PRIMARY KEY (`id_cuenta`),
+  KEY `fk_id_paciente_cuentas` (`id_paciente`),
+  CONSTRAINT `fk_id_paciente_cuentas` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `userspecialtys`
+-- Dumping data for table `cuentas`
 --
 
-LOCK TABLES `userspecialtys` WRITE;
-/*!40000 ALTER TABLE `userspecialtys` DISABLE KEYS */;
-INSERT INTO `userspecialtys` VALUES (2,'Maxilofacial'),(1,'Odontologo'),(4,'Ortodonsista'),(5,'Sin Especialidad');
-/*!40000 ALTER TABLE `userspecialtys` ENABLE KEYS */;
+LOCK TABLES `cuentas` WRITE;
+/*!40000 ALTER TABLE `cuentas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `cuentas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -49,4 +50,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25  4:31:18
+-- Dump completed on 2023-11-28  3:04:46
