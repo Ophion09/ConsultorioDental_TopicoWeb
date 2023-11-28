@@ -28,6 +28,20 @@ exports.addUser = async (req, res) => {
   }
 };
 
+exports.getUserByEmail = async (req, res) => {
+  const { email } = req.params;
+  try {
+      const userConsulted = await user.findOne({
+          where: {
+            email: email
+          }
+      });
+      res.send(userConsulted);
+  } catch (err) {
+      res.send(err);
+  }
+}
+
 // ejempl del middleware de errores
 //obtener usario por id
 exports.getUserById = catchAsync(async (req, res, next) => {
