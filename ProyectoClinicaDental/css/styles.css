@@ -52,3 +52,9 @@
       transform: scale(1.0); 
     } 
   }
+
+  #citas {
+    max-height: 500px; /* Altura máxima deseada para mostrar sin scrolling */
+    overflow-y: auto; /* Habilita el scroll vertical si excede la altura máxima */
+  }
+  

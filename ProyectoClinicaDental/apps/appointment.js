@@ -8,11 +8,11 @@ import {
   validateStatus,
 } from "./funciones.js";
 
-import { getUsers } from "../API/user.js";
+import { getUsers, getUser } from "../API/user.js";
 
-import { getEmployees } from "../API/employee.js";
+import { getEmployees, getEmployeeById } from "../API/employee.js";
 
-import { postNewAppointment } from "../API/appointment.js";
+import { postNewAppointment, getAppointments, deleteAppointment, } from "../API/appointment.js";
 
 import { Appointment } from "./class.js";
 
@@ -20,12 +20,139 @@ import { Appointment } from "./class.js";
   const greetin = document.querySelector("#welcome");
   const btnLogOut = document.querySelector("#logOut");
   const userSelect = document.querySelector("#id_user");
-  const doctorSelect = document.querySelector('#id_employee');
-  const formulario = document.querySelector('#formulario');
+  const doctorSelect = document.querySelector("#id_employee");
+  const formulario = document.querySelector("#formulario");
+  const contenedorCitas = document.querySelector("#citas");
+  const main = document.querySelector('#main');
+  const modal = document.querySelector('#myModalAppointmentEdit');
+  const closeModal = document.querySelector('#closeModalAppointmentEdit');
 
   document.addEventListener("DOMContentLoaded", async () => {
     const dataUser = await anyToken();
     console.log(dataUser);
+
+    async function printAppointments() {
+      // Consultar a la API
+      const appointments = await getAppointments(dataUser);
+      console.log(appointments);
+
+      // Recorremos todas las citas
+      appointments.forEach(async (appointment) => {
+        const { id_appointment, id_user, id_employee, date, time, motivo } =
+          appointment;
+
+        // Consultamos a las API para obtener el nombre y email del doctor y usuario
+        const user = await getUser(dataUser, id_user);
+
+        const doctor = await getEmployeeById(dataUser, id_employee);
+
+        // Destructuring a la respuestas obtenidas por las API
+        const { email, userName } = user;
+        const { name } = doctor;
+
+        const divCita = document.createElement("div");
+        divCita.classList.add(
+          "cita",
+          "p-3",
+          "border",
+          "border-gray-300",
+          "rounded",
+          "shadow-md",
+          "my-4",
+          "bg-white",
+        );
+
+        divCita.dataset.id = id_appointment;
+
+        // Scripting de los elementos de la cita
+        const emailParrafo = document.createElement("h2");
+        emailParrafo.classList.add("card-title", "font-bold", "text-xl");
+        emailParrafo.textContent = userName;
+
+        const doctorParrafo = document.createElement("p");
+        doctorParrafo.classList.add("font-semibold", "mb-2");
+        doctorParrafo.textContent = `Doctor: ${name}`;
+
+        const dateParrafo = document.createElement("p");
+        dateParrafo.classList.add("font-semibold", "mb-2");
+        dateParrafo.textContent = `Fecha de cita: ${date}`;
+
+        const timeParrafo = document.createElement("p");
+        timeParrafo.classList.add("font-semibold", "mb-2");
+        timeParrafo.textContent = `Hora de cita: ${time}`;
+
+        const motivoParrafo = document.createElement("p");
+        motivoParrafo.classList.add("font-semibold", "mb-2");
+        motivoParrafo.textContent = `Motivo: ${motivo}`;
+
+        // Crear botón para eliminar citas
+        const btnEliminar = document.createElement("button");
+        btnEliminar.classList.add(
+          "bg-red-500",
+          "hover:bg-red-600",
+          "text-white",
+          "font-bold",
+          "py-2",
+          "px-4",
+          "rounded",
+          "mx-2"
+        );
+        btnEliminar.textContent = "Eliminar";
+
+        // Eliminar la cita
+        btnEliminar.onclick = () => deleteById(id_appointment);
+
+        // Botón para editar una cita
+        const btnEditar = document.createElement("button");
+        btnEditar.classList.add(
+          "bg-blue-500",
+          "hover:bg-blue-600",
+          "text-white",
+          "font-bold",
+          "py-2",
+          "px-4",
+          "rounded",
+          "mr-2"
+        );
+        btnEditar.textContent = "Editar";
+
+        // Editar cita
+        btnEditar.onclick =  () => editAppointment(id_appointment);
+
+        // Agregar los párrafos y botones al divCita
+        divCita.appendChild(emailParrafo);
+        divCita.appendChild(doctorParrafo);
+        divCita.appendChild(dateParrafo);
+        divCita.appendChild(timeParrafo);
+        divCita.appendChild(motivoParrafo);
+        divCita.appendChild(btnEliminar);
+        divCita.appendChild(btnEditar);
+
+        // Agregar las citas al HTML
+        contenedorCitas.appendChild(divCita);
+      });
+    }
+
+    async function deleteById(id) {
+      console.log(id);
+      const confirmar = confirm('¿Deseas Eliminar el registro?');
+      if(confirmar) {
+        // Llamada a la API
+        const confirmDelete = await deleteAppointment(dataUser, id);
+        validateStatus(confirmDelete, 'delete', 'Cita', main);
+        return;
+      }
+      console.log('No se elimino');
+      return;
+    }
+
+    async function editAppointment(id) {
+      modal.classList.remove("hidden");
+      setTimeout(() => {
+        modal.children[0].classList.add("opacity-100", "scale-100");
+      }, 50);
+      console.log(id);
+    }
 
     async function printEmailForm() {
       const usersNormal = await searchUsers();
@@ -41,16 +168,16 @@ import { Appointment } from "./class.js";
     }
 
     async function printDoctorForm() {
-        const doctors = await searchDoctors();
+      const doctors = await searchDoctors();
 
-        doctors.forEach(doctor => {
-            const {id_employee, name} = doctor;
-            const option = document.createElement('OPTION');
-            option.value = id_employee;
-            option.textContent = name;
+      doctors.forEach((doctor) => {
+        const { id_employee, name } = doctor;
+        const option = document.createElement("OPTION");
+        option.value = id_employee;
+        option.textContent = name;
 
-            doctorSelect.appendChild(option);
-        })
+        doctorSelect.appendChild(option);
+      });
     }
 
     async function searchUsers() {
@@ -73,48 +200,68 @@ import { Appointment } from "./class.js";
     async function searchDoctors() {
       // Llamada a la API
       const employees = await getEmployees(dataUser);
-      console.log(employees);
-      const doctors = [];
-      console.log(doctors);
-      employees.forEach((employee) => {
-        const { id_userRole } = employee;
-        if (id_userRole === 2) {
-          console.log(employee);
-          doctors.push(employee);
-          return;
-        } else {
-          console.log("No es medico");
-          return;
+      const doctors = await Promise.all(employees.map(async (employee) => {
+        const { id_user } = employee;
+        const user = await getUser(dataUser, id_user);
+        const { type } = user;
+        if (type === "Doctor") {
+          return employee;
         }
-      });
-      console.log(doctors);
-      return doctors;
+        return null;
+      }));
+      return doctors.filter(doctor => doctor !== null);
+
+
+
+        // if (id_userRole === 2) {
+        //   console.log(employee);
+        //   doctors.push(employee);
+        //   return;
+        // } else {
+        //   console.log("No es medico");
+        //   return;
+        // }
     }
 
-    formulario.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const id_user = document.querySelector('#id_user').value;
-        const id_employee = document.querySelector('#id_employee').value;
-        const date = document.querySelector('#date').value;
-        const time = document.querySelector('#time').value;
-        const motivo = document.querySelector('#motivo').value;
+    formulario.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const id_user = document.querySelector("#id_user").value;
+      const id_employee = document.querySelector("#id_employee").value;
+      const date = document.querySelector("#date").value;
+      const time = document.querySelector("#time").value;
+      const motivo = document.querySelector("#motivo").value;
 
-        // Construccion del objeto
-        const appointment = new Appointment(id_user, id_employee, date, time, motivo);
-        console.log(appointment);
+      // Construccion del objeto
+      const appointment = new Appointment(
+        id_user,
+        id_employee,
+        date,
+        time,
+        motivo
+      );
+      console.log(appointment);
 
-        // Validar Objeto
-        if(isEmpty(appointment)) {
-            showAlert('Todos los campos son obligatorios', 'error', formulario);
-            return;
-        }
-        // Enviar a la API el objeto para crearlo
-        const newAppointment = await postNewAppointment(dataUser, appointment);
-        console.log(newAppointment);
-        //validateStatus(newAppointment, 'create', 'Cita', formulario);
+      // Validar Objeto
+      if (isEmpty(appointment)) {
+        showAlert("Todos los campos son obligatorios", "error", formulario);
         return;
-    })
+      }
+      // Enviar a la API el objeto para crearlo
+      const newAppointment = await postNewAppointment(dataUser, appointment);
+      console.log(newAppointment);
+      validateStatus(newAppointment, "create", "Cita", formulario);
+      return;
+    });
 
+    closeModal.addEventListener("click", () => {
+      modal.children[0].classList.remove("opacity-100", "scale-100");
+      setTimeout(() => {
+      modal.classList.add("hidden");
+      }, 300);
+    });
+
+
+    printAppointments();
     printEmailForm();
     printDoctorForm();
     btnLogOut.addEventListener("click", deleteUserSession);
