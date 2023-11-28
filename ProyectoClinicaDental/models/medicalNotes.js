@@ -26,13 +26,13 @@ const medicalNotes = sequelize.define('notas_medicas', {
             key: 'id_procedimiento' 
         }
     },
-    id_cita: {
+    id_appointment: {
         type: DataTypes.INTEGER,
         allowNull: false,
         unique: true,
         references: {
-            model: 'citas', 
-            key: 'id_cita' 
+            model: 'appointments', 
+            key: 'id_appointment' 
         }
     },
     id_paciente: {
@@ -55,7 +55,7 @@ const medicalNotes = sequelize.define('notas_medicas', {
     timestamps: false });
 
 medicalNotes.belongsTo(procedures, { foreignKey: 'id_procedimiento', as: 'procedure'});
-medicalNotes.belongsTo(appointment, { foreignKey: 'id_cita', as: 'appointment'});
+medicalNotes.belongsTo(appointment, { foreignKey: 'id_appointment', as: 'appointments'});
 medicalNotes.belongsTo(patient, { foreignKey: 'id_paciente', as: 'patient'});
 medicalNotes.belongsTo(employee, { foreignKey: 'id_employee', as: 'employee'});      
 
