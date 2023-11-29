@@ -12,7 +12,13 @@ import { getUsers, getUser } from "../API/user.js";
 
 import { getEmployees, getEmployeeById } from "../API/employee.js";
 
-import { postNewAppointment, getAppointments, deleteAppointment, } from "../API/appointment.js";
+import {
+  postNewAppointment,
+  getAppointments,
+  deleteAppointment,
+  getAppointment,
+  updateAppointment,
+} from "../API/appointment.js";
 
 import { Appointment } from "./class.js";
 
@@ -23,13 +29,19 @@ import { Appointment } from "./class.js";
   const doctorSelect = document.querySelector("#id_employee");
   const formulario = document.querySelector("#formulario");
   const contenedorCitas = document.querySelector("#citas");
-  const main = document.querySelector('#main');
-  const modal = document.querySelector('#myModalAppointmentEdit');
-  const closeModal = document.querySelector('#closeModalAppointmentEdit');
+  const main = document.querySelector("#main");
+  const modal = document.querySelector("#myModalAppointmentEdit");
+  const closeModal = document.querySelector("#closeModalAppointmentEdit");
+  const userSelectEdit = document.querySelector("#id_userEdit");
+  const doctorSelectEdit = document.querySelector("#id_employeeEdit");
+  const formularioEdit = document.querySelector('#formularioEdit');
 
   document.addEventListener("DOMContentLoaded", async () => {
     const dataUser = await anyToken();
     console.log(dataUser);
+
+    printEmailFormEdit();
+    printDoctorFormEdit();
 
     async function printAppointments() {
       // Consultar a la API
@@ -59,7 +71,7 @@ import { Appointment } from "./class.js";
           "rounded",
           "shadow-md",
           "my-4",
-          "bg-white",
+          "bg-white"
         );
 
         divCita.dataset.id = id_appointment;
@@ -117,7 +129,7 @@ import { Appointment } from "./class.js";
         btnEditar.textContent = "Editar";
 
         // Editar cita
-        btnEditar.onclick =  () => editAppointment(id_appointment);
+        btnEditar.onclick = () => editAppointment(id_appointment);
 
         // Agregar los párrafos y botones al divCita
         divCita.appendChild(emailParrafo);
@@ -135,23 +147,61 @@ import { Appointment } from "./class.js";
 
     async function deleteById(id) {
       console.log(id);
-      const confirmar = confirm('¿Deseas Eliminar el registro?');
-      if(confirmar) {
+      const confirmar = confirm("¿Deseas Eliminar el registro?");
+      if (confirmar) {
         // Llamada a la API
         const confirmDelete = await deleteAppointment(dataUser, id);
-        validateStatus(confirmDelete, 'delete', 'Cita', main);
+        validateStatus(confirmDelete, "delete", "Cita", main);
         return;
       }
-      console.log('No se elimino');
+      console.log("No se elimino");
       return;
     }
 
     async function editAppointment(id) {
+      // Primero abrimos el modal
       modal.classList.remove("hidden");
       setTimeout(() => {
         modal.children[0].classList.add("opacity-100", "scale-100");
       }, 50);
       console.log(id);
+
+      // Llamamos a la API para obtener los datos de la cita especificos
+      const appointment = await getAppointment(dataUser, id);
+      console.log(appointment);
+
+      printFormEdit(appointment);
+
+      formularioEdit.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id_user = document.querySelector("#id_userEdit").value;
+        const id_employee = document.querySelector("#id_employeeEdit").value;
+        const date = document.querySelector("#dateEdit").value;
+        const time = document.querySelector("#timeEdit").value;
+        const motivo = document.querySelector("#motivoEdit").value;
+  
+        // Construccion del objeto
+        const appointment = new Appointment(
+          id_user,
+          id_employee,
+          date,
+          time,
+          motivo
+        );
+        console.log(appointment);
+  
+        // Validar Objeto
+        if (isEmpty(appointment)) {
+          showAlert("Todos los campos son obligatorios", "error", formularioEdit);
+          return;
+        }
+  
+        // Llamamos a la API
+        const updateNewAppointment = await updateAppointment(dataUser, id, appointment);
+        validateStatus(updateNewAppointment, 'update', 'Cita', formularioEdit);
+        return;
+      });
+      return;
     }
 
     async function printEmailForm() {
@@ -167,6 +217,18 @@ import { Appointment } from "./class.js";
       });
     }
 
+    async function printEmailFormEdit() {
+      const usersNormal = await searchUsers();
+      usersNormal.forEach((user) => {
+        const { email, userName, id_user } = user;
+        const option = document.createElement("OPTION");
+        option.value = id_user;
+        option.textContent = email;
+
+        userSelectEdit.appendChild(option);
+      });
+    }
+
     async function printDoctorForm() {
       const doctors = await searchDoctors();
 
@@ -177,6 +239,19 @@ import { Appointment } from "./class.js";
         option.textContent = name;
 
         doctorSelect.appendChild(option);
+      });
+    }
+
+    async function printDoctorFormEdit() {
+      const doctors = await searchDoctors();
+
+      doctors.forEach((doctor) => {
+        const { id_employee, name } = doctor;
+        const option = document.createElement("OPTION");
+        option.value = id_employee;
+        option.textContent = name;
+
+        doctorSelectEdit.appendChild(option);
       });
     }
 
@@ -200,27 +275,46 @@ import { Appointment } from "./class.js";
     async function searchDoctors() {
       // Llamada a la API
       const employees = await getEmployees(dataUser);
-      const doctors = await Promise.all(employees.map(async (employee) => {
-        const { id_user } = employee;
-        const user = await getUser(dataUser, id_user);
-        const { type } = user;
-        if (type === "Doctor") {
-          return employee;
-        }
-        return null;
-      }));
-      return doctors.filter(doctor => doctor !== null);
+      const doctors = await Promise.all(
+        employees.map(async (employee) => {
+          const { id_user } = employee;
+          const user = await getUser(dataUser, id_user);
+          const { type } = user;
+          if (type === "Doctor") {
+            return employee;
+          }
+          return null;
+        })
+      );
+      return doctors.filter((doctor) => doctor !== null);
 
+      // if (id_userRole === 2) {
+      //   console.log(employee);
+      //   doctors.push(employee);
+      //   return;
+      // } else {
+      //   console.log("No es medico");
+      //   return;
+      // }
+    }
 
+    async function printFormEdit(appointment) {
+      const { id_user, id_employee, date, time, motivo } = appointment;
+      console.log(appointment);
 
-        // if (id_userRole === 2) {
-        //   console.log(employee);
-        //   doctors.push(employee);
-        //   return;
-        // } else {
-        //   console.log("No es medico");
-        //   return;
-        // }
+      // Algunnos selectores
+      const dateSelectEdit = document.querySelector('#dateEdit');
+      const timeSelecEdit = document.querySelector('#timeEdit');
+      const motivoSelectEdit = document.querySelector('#motivoEdit');
+      // Mostrar los resultados en el HTML
+      userSelectEdit.value = id_user;
+      doctorSelectEdit.value = id_employee;
+      dateSelectEdit.value = date;
+      timeSelecEdit.value = time;
+      motivoSelectEdit.value = motivo;
+
+      //printEmailFormEdit();
+      //printDoctorFormEdit();
     }
 
     formulario.addEventListener("submit", async (e) => {
@@ -253,13 +347,14 @@ import { Appointment } from "./class.js";
       return;
     });
 
+    
+
     closeModal.addEventListener("click", () => {
       modal.children[0].classList.remove("opacity-100", "scale-100");
       setTimeout(() => {
-      modal.classList.add("hidden");
+        modal.classList.add("hidden");
       }, 300);
     });
-
 
     printAppointments();
     printEmailForm();

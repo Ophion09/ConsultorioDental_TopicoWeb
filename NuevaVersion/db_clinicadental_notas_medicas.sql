@@ -16,33 +16,40 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- Table structure for table `users`
+-- Table structure for table `notas_medicas`
 --
 
-DROP TABLE IF EXISTS `users`;
+DROP TABLE IF EXISTS `notas_medicas`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
-CREATE TABLE `users` (
-  `id_user` int NOT NULL AUTO_INCREMENT,
-  `email` varchar(45) NOT NULL,
-  `password` varchar(45) NOT NULL,
-  `token` varchar(500) DEFAULT NULL,
-  `userName` varchar(20) NOT NULL,
-  `type` enum('Normal','Doctor','Admin') NOT NULL DEFAULT 'Normal',
-  PRIMARY KEY (`id_user`),
-  UNIQUE KEY `correo_UNIQUE` (`email`),
-  UNIQUE KEY `userName_UNIQUE` (`userName`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+CREATE TABLE `notas_medicas` (
+  `id_nota` int NOT NULL AUTO_INCREMENT,
+  `nota` varchar(200) NOT NULL,
+  `id_procedimiento` int NOT NULL,
+  `id_cita` int NOT NULL,
+  `id_paciente` int NOT NULL,
+  `id_empleado` int DEFAULT NULL,
+  PRIMARY KEY (`id_nota`),
+  UNIQUE KEY `id_paciente_UNIQUE` (`id_paciente`),
+  UNIQUE KEY `id_cita_UNIQUE` (`id_cita`),
+  KEY `id_paciente_idx` (`id_paciente`),
+  KEY `id_cita_idx` (`id_cita`),
+  KEY `fk_id_procedimientos_idx` (`id_procedimiento`),
+  KEY `fk_id_empleado_idx` (`id_empleado`),
+  CONSTRAINT `fk_id_cita` FOREIGN KEY (`id_cita`) REFERENCES `appointments` (`id_appointment`),
+  CONSTRAINT `fk_id_empleado` FOREIGN KEY (`id_empleado`) REFERENCES `employees` (`id_employee`),
+  CONSTRAINT `fk_id_paciente` FOREIGN KEY (`id_paciente`) REFERENCES `pacientes` (`id_paciente`),
+  CONSTRAINT `fk_id_procedimientos` FOREIGN KEY (`id_procedimiento`) REFERENCES `procedimientos` (`id_procedimiento`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `users`
+-- Dumping data for table `notas_medicas`
 --
 
-LOCK TABLES `users` WRITE;
-/*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` VALUES (13,'josefer.hernandez@hotmail.com','admin','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxMywiZW1haWwiOiJqb3NlZmVyLmhlcm5hbmRlekBob3RtYWlsLmNvbSIsInBhc3N3b3JkIjoiYWRtaW4iLCJpYXQiOjE3MDA5MDgwODAsImV4cCI6MTcwMDkxMTY4MH0.IhMz8tzkemydnn4GKZJ5LrzUeqK24-PZXqhgZBib0Jg','Fernando','Normal'),(14,'admin@admin','admin','eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZF91c2VyIjoxNCwiZW1haWwiOiJhZG1pbkBhZG1pbiIsInBhc3N3b3JkIjoiYWRtaW4iLCJpYXQiOjE3MDA5MTE3ODgsImV4cCI6MTcwMDkxNTM4OH0.OqSEVUa2dCJ1zRvRHI6FMnVfTggqYXhg5PYTZZw16Ok','Paula','Admin'),(15,'Juanito@juan','admin',NULL,'Juana','Admin');
-/*!40000 ALTER TABLE `users` ENABLE KEYS */;
+LOCK TABLES `notas_medicas` WRITE;
+/*!40000 ALTER TABLE `notas_medicas` DISABLE KEYS */;
+/*!40000 ALTER TABLE `notas_medicas` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -54,4 +61,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2023-11-25  4:31:18
+-- Dump completed on 2023-11-28  3:04:45
