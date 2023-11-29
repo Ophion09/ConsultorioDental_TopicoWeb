@@ -124,7 +124,7 @@ export function printUserName(dataUser, selectElement) {
   const { userName } = dataUser;
 
   const nameInput = document.createElement("H2");
-  nameInput.textContent = "Bienvienida ";
+  nameInput.textContent = "Bienvienido/a ";
   nameInput.classList.add("text-white", "tracking-wide", "text-2xl", "mt-2");
 
   const nameSpan = document.createElement("SPAN");
