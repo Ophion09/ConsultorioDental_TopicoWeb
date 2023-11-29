@@ -134,6 +134,21 @@ export function printUserName(dataUser, selectElement) {
   selectElement.appendChild(nameInput);
 }
 
+export function printUserNameDoctor(dataUser, selectElement) {
+  const { userName } = dataUser;
+
+  const nameInput = document.createElement("H2");
+  nameInput.textContent = "Bienvienido Doctor/a ";
+  nameInput.classList.add("text-white", "tracking-wide", "text-2xl", "mt-2");
+
+  const nameSpan = document.createElement("SPAN");
+  nameSpan.textContent = userName;
+  nameSpan.classList.add("font-bold");
+
+  nameInput.appendChild(nameSpan);
+  selectElement.appendChild(nameInput);
+}
+
 /**
  * Metodo para validar de forma rapida la respuestas de API
  * @param {*} response La respuesta que va a validar
