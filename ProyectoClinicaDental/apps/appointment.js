@@ -17,6 +17,7 @@ import {
   getAppointments,
   deleteAppointment,
   getAppointment,
+  updateAppointment,
 } from "../API/appointment.js";
 
 import { Appointment } from "./class.js";
@@ -33,6 +34,7 @@ import { Appointment } from "./class.js";
   const closeModal = document.querySelector("#closeModalAppointmentEdit");
   const userSelectEdit = document.querySelector("#id_userEdit");
   const doctorSelectEdit = document.querySelector("#id_employeeEdit");
+  const formularioEdit = document.querySelector('#formularioEdit');
 
   document.addEventListener("DOMContentLoaded", async () => {
     const dataUser = await anyToken();
@@ -169,6 +171,37 @@ import { Appointment } from "./class.js";
       console.log(appointment);
 
       printFormEdit(appointment);
+
+      formularioEdit.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const id_user = document.querySelector("#id_userEdit").value;
+        const id_employee = document.querySelector("#id_employeeEdit").value;
+        const date = document.querySelector("#dateEdit").value;
+        const time = document.querySelector("#timeEdit").value;
+        const motivo = document.querySelector("#motivoEdit").value;
+  
+        // Construccion del objeto
+        const appointment = new Appointment(
+          id_user,
+          id_employee,
+          date,
+          time,
+          motivo
+        );
+        console.log(appointment);
+  
+        // Validar Objeto
+        if (isEmpty(appointment)) {
+          showAlert("Todos los campos son obligatorios", "error", formularioEdit);
+          return;
+        }
+  
+        // Llamamos a la API
+        const updateNewAppointment = await updateAppointment(dataUser, id, appointment);
+        validateStatus(updateNewAppointment, 'update', 'Cita', formularioEdit);
+        return;
+      });
+      return;
     }
 
     async function printEmailForm() {
@@ -313,6 +346,8 @@ import { Appointment } from "./class.js";
       validateStatus(newAppointment, "create", "Cita", formulario);
       return;
     });
+
+    
 
     closeModal.addEventListener("click", () => {
       modal.children[0].classList.remove("opacity-100", "scale-100");
