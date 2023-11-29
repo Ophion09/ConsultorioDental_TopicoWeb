@@ -3,67 +3,30 @@ let userLoging = {};
 import { cleanHTML, showAlert } from "../apps/funciones.js";
 
 export const postNewAppointment = async (user, appointment) => {
-    const {email, token} = user;
-    try {
-        const response = await fetch(`${url}/appointments`, {
-            method: "POST",
-            mode: "cors",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `${token}`,
-            },
-            body: JSON.stringify(appointment),
-          });
-      
-          const data = await response.json();
-          console.log(data);
-          return data;
-    } catch (error) {
-        return;
-    }
+  const { email, token } = user;
+  try {
+    const response = await fetch(`${url}/appointments`, {
+      method: "POST",
+      mode: "cors",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify(appointment),
+    });
+
+    const data = await response.json();
+    console.log(data);
+    return data;
+  } catch (error) {
+    return;
+  }
 };
 
 export const getAppointments = async (user) => {
-    const { email, token } = user;
-    try {
-        const response = await fetch(`${url}/appointments`, {
-            method: "GET",
-            mode: "cors",
-            headers: {
-              Authorization: `${token}`,
-            },
-          });
-      
-          const data = await response.json();
-          return data;
-    } catch (error) {
-        return;
-    }
-};
-
-export const deleteAppointment = async (user, idAppointment) => {
   const { email, token } = user;
   try {
-    const response = await fetch(`${url}/appointments/${idAppointment}`, {
-      method: "DELETE",
-      mode: "cors",
-      headers: {
-        Authorization: `${token}`,
-      },
-      body: JSON.stringify(idAppointment),
-    });
-    const data = await response.json();
-    return data;
-  } catch (error) {
-    console.log(error);
-    return;
-  }
-}
-
-export const getAppointment = async (user, idAppointment) => {
-  const {email, token} = user;
-  try {
-    const response = await fetch(`${url}/appointments/${idAppointment}`, {
+    const response = await fetch(`${url}/appointments`, {
       method: "GET",
       mode: "cors",
       headers: {
@@ -84,6 +47,43 @@ export const getAppointment = async (user, idAppointment) => {
       // Si todo sale bien, regresa data, que es la respuesta obtenida del fetch pero convertida a json
     }
   } catch (error) {
+    return;
+  }
+};
+
+export const deleteAppointment = async (user, idAppointment) => {
+  const { email, token } = user;
+  try {
+    const response = await fetch(`${url}/appointments/${idAppointment}`, {
+      method: "DELETE",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+      body: JSON.stringify(idAppointment),
+    });
+    const data = await response.json();
+    return data;
+  } catch (error) {
+    console.log(error);
+    return;
+  }
+};
+
+export const getAppointment = async (user, idAppointment) => {
+  const { email, token } = user;
+  try {
+    const response = await fetch(`${url}/appointments/${idAppointment}`, {
+      method: "GET",
+      mode: "cors",
+      headers: {
+        Authorization: `${token}`,
+      },
+    });
+
+    const data = await response.json();
+      return data;
+  } catch (error) {
     console.error("Error en la solicitud:", error);
     //showAlert('Servidor Caido', 'ERROR', formulario)
     return;
@@ -91,7 +91,7 @@ export const getAppointment = async (user, idAppointment) => {
 };
 
 export const getAppointmentByIdUser = async (user, idUser) => {
-  const {email, token} = user;
+  const { email, token } = user;
   try {
     const response = await fetch(`${url}/appointments/user/${idUser}`, {
       method: "GET",
