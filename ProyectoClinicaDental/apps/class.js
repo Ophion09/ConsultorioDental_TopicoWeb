@@ -68,12 +68,12 @@ class Appointment {
 }
 
 class MedicalNotes {
-    constructor(nota, id_procedimiento, id_cita, id_paciente, id_empleado) {
+    constructor(nota, id_procedimiento, id_appointment, id_paciente, id_employee) {
         this.nota = nota;
         this.id_procedimiento = id_procedimiento;
-        this.id_cita = id_cita;
+        this.id_appointment = id_appointment;
         this.id_paciente = id_paciente;
-        this.id_empleado = id_empleado;
+        this.id_employee = id_employee;
     }
 }
 export {User, UserSession, Employee, Role, Specialty, Patient, Procedure, Appointment, MedicalNotes};

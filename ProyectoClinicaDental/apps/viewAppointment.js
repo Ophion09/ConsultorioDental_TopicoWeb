@@ -59,6 +59,7 @@ import {
     const procedureInput = document.querySelector('#procedure');
     const notaInput = document.querySelector('#nota');
     const formulario = document.querySelector('#formulario');
+    const botonImprimir = document.querySelector('#imprimir');
   
     document.addEventListener("DOMContentLoaded", async () => {
       // Diferentes consultas a la API como globales
@@ -202,19 +203,25 @@ import {
 
         const nota = document.querySelector('#nota').value;
         const id_procedimiento = document.querySelector('#procedure').value;
-        const id_cita = idAppointment;
+        const id_appointment = idAppointment;
         const id_paciente = patient[0].id_paciente;
-        const id_empleado = document.querySelector('#id_employee').value;
+        const id_employee = document.querySelector('#id_employee').value;
 
-        const medicalNote = new MedicalNotes(nota, id_procedimiento, id_cita, id_paciente, id_empleado);
+        const medicalNote = new MedicalNotes(nota, id_procedimiento, id_appointment, id_paciente, id_employee);
         console.log(medicalNote);
+
+        if(isEmpty(medicalNote)) {
+            showAlert('Todos los campos son obligatorios', 'error', formulario);
+        }
         const createNote = await postNewMedicalNotes(dataUser, medicalNote);
         console.log(createNote);
-        //validateStatus(createNote, 'create', 'Nota Medica', formulario);
-        //setTimeout(() => {
-            //window.location.href = '../views/doctor.html';
-        //}, 2000);
-        //return;
+        validateStatus(createNote, 'create', 'Nota', formulario);
+        
+        return;
+    })
+
+    botonImprimir.addEventListener('click', () => {
+        window.print();
     })
 
     // formulario.addEventListener('submit', async (e) => {
