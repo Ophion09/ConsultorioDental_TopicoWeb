@@ -53,6 +53,10 @@ formulario.addEventListener("submit", async (event) => {
           case 'Admin':
             window.location.href = '../views/administration.html';
           break;
+
+          case 'Doctor':
+            window.location.href = '../views/doctor.html';
+          break;
       
         default:
           break;
