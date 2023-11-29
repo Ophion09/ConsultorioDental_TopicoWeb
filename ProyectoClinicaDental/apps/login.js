@@ -43,6 +43,7 @@ formulario.addEventListener("submit", async (event) => {
 
       // Guardo este objeto en el localStorage
       localStorage.setItem("user", JSON.stringify(userSession)); // Para no pasar informacion delicada del lado del cliente
+      localStorage.setItem('id_user', userToken.user.id_user);
 
       // Dependiendo del tipo de usuario logeado, lo mandaremos a su respectivo HTML
       switch (userSession.type) {

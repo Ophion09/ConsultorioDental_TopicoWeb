@@ -110,6 +110,7 @@ export function deleteUserSession() {
   if(logOut) {
     console.log('Cerrando sesion');
     localStorage.removeItem('user'); // Eliminamos toda info del lado del cliente
+    localStorage.removeItem('id_user'); // Eliminamos toda info del lado del cliente
     window.location.href = '../views/login.html';
     return;
   } else {

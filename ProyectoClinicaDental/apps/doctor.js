@@ -40,20 +40,51 @@ import {
     document.addEventListener("DOMContentLoaded", async () => {
       const dataUser = await anyToken();
       console.log(dataUser);
-  
+
+      getEmployeeByUser();
+
+      async function getEmployeeByUser() {
+        const idUser = parseInt(localStorage.getItem('id_user')); // Obtengo el id del doctor
+
+        // Consultar a la API
+        const employees = await getEmployees(dataUser);
+        console.log(employees);
+
+        const employeeVerified = [];
+        // Iterar sobre los empleados hasta encontrar el indicado
+        employees.forEach(employee => {
+            const { id_user } = employee;
+            if(id_user === idUser) {
+                console.log( employee);
+                employeeVerified.push(employee);
+                return;
+            }
+            return; 
+        })
+        return employeeVerified;
+      }
 
   
       async function printAppointments() {
         // Consultar a la API
         const appointments = await getAppointments(dataUser);
         console.log(appointments);
+
+        const employee = await getEmployeeByUser();
+        console.log(employee);
+
+        
   
         // Recorremos todas las citas
         appointments.forEach(async (appointment) => {
           const { id_appointment, id_user, id_employee, date, time, motivo } =
             appointment;
-  
-          // Consultamos a las API para obtener el nombre y email del doctor y usuario
+
+            // Validamos solo las citas del doctor
+            if(id_employee === employee[0].id_employee) {
+                console.log('Son iguales');
+                console.log(appointment);
+                // Consultamos a las API para obtener el nombre y email del doctor y usuario
           const user = await getUser(dataUser, id_user);
   
           const doctor = await getEmployeeById(dataUser, id_employee);
@@ -126,10 +157,10 @@ import {
             "rounded",
             "mr-2"
           );
-          btnEditar.textContent = "Editar";
+          btnEditar.textContent = "Consultar";
   
           // Editar cita
-          btnEditar.onclick = () => editAppointment(id_appointment);
+          btnEditar.onclick = () => consultarCita(id_appointment);
   
           // Agregar los párrafos y botones al divCita
           divCita.appendChild(emailParrafo);
@@ -142,7 +173,13 @@ import {
   
           // Agregar las citas al HTML
           contenedorCitas.appendChild(divCita);
+          return;
+            } else {
+                console.log('No son iguales');
+                return;
+            }
         });
+        return;
       }
   
       async function deleteById(id) {
@@ -157,7 +194,13 @@ import {
         console.log("No se elimino");
         return;
       }
-  
+
+      async function consultarCita(id) {
+        window.location.href = `viewAppointment.html?id=${id}`;
+        return;
+      }
+
+
   
       printAppointments();
       btnLogOut.addEventListener("click", deleteUserSession);
