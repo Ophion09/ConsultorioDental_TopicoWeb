@@ -43,6 +43,7 @@ En esta sección, puedes listar enlaces a documentos relevantes y otros recursos
 - **Diagrama de Entidad:** [Enlace](https://drive.google.com/file/d/1_6HHH1N3XQegaN45530uoMX61dIDSI-z/view?usp=sharingURL).
 - **Otros recursos relevantes:** [Carpeta](https://drive.google.com/drive/folders/1Bw5zHaf6gFIq6gZXAPOCSj3ivhO-Vc4q?usp=sharing).
 - **Video demostrativa de 3er Avance:** [Carpeta](https://drive.google.com/drive/folders/1ZFVNOdHYUNh6baj1qXoOXGLv7P7aocCJ?usp=drive_link).
+- **Video demostrativa de 4to Avance:** [Video](https://drive.google.com/drive/folders/1ZOKxihYcmxTQiWKgWIkwP48DZmHWThYu?usp=sharing).
 
 
 ## Motivación
