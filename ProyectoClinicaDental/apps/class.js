@@ -66,4 +66,14 @@ class Appointment {
         this.motivo = motivo;
     }
 }
-export {User, UserSession, Employee, Role, Specialty, Patient, Procedure, Appointment};
+
+class MedicalNotes {
+    constructor(nota, id_procedimiento, id_cita, id_paciente, id_empleado) {
+        this.nota = nota;
+        this.id_procedimiento = id_procedimiento;
+        this.id_cita = id_cita;
+        this.id_paciente = id_paciente;
+        this.id_empleado = id_empleado;
+    }
+}
+export {User, UserSession, Employee, Role, Specialty, Patient, Procedure, Appointment, MedicalNotes};
